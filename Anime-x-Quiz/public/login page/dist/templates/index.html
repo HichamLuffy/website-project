@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="../static/geto.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='snow.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- Link to the CSS file -->
 </head>
 <body>
@@ -25,10 +26,38 @@
             <div class="go">join as guest</div>
         </div>
     </form>
+    <nav class="nav">
+        <input id="menu" type="checkbox">
+        <label for="menu">Menu</label>
+        <ul class="menu">
+            <li>
+                <a class="clear-snow" href="#0">
+                    <i aria-hidden="true">clear</i>
+                </a>
+            </li>
+            <li>
+                <a class="delete-snow" href="#0">
+                    <i aria-hidden="true">delete</i>
+                </a>
+            </li>
+            <li>
+                <a class="add-snow" href="#0">
+                    <i aria-hidden="true">add</i>
+                </a>
+            </li>
+        </ul>
+        </nav>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <!--<div class="snowrain">
+        <button class="add-snow" id="add-snow">+</button>
+        <button class="delete-snow" id="delete-snow">-</button>
+        <button class="clear-snow" id="clear-snow">O</button>
+    </div> -->
 
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Include custom JavaScript -->
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='../static/scripts/particles.js') }}"></script>
 </body>
 </html>
