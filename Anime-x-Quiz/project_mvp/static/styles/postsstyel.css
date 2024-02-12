@@ -34,6 +34,8 @@ nav {
 
 nav ul {
     list-style-type: none;
+    margin-left: 640px;
+    font-size: 20px;
 }
 
 nav ul li {
@@ -52,8 +54,70 @@ nav ul li:hover {
     text-decoration: underline;
 }
 
+section {
+    padding: 50px 0;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+#quiz-levels {
+    display: none; /* Hide initially */
+}
+
+#quiz-levels.show {
+    display: block; /* Show when category is clicked */
+}
+
+#doneButton {
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    font-weight: 20px;
+    background-color: #4CAF50; /* Green background color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#doneButton.show {
+    display: block;
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    font-weight: 20px;
+    background-color: #4CAF50; /* Green background color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .loginsignup {
     position: relative;
+}
+
+.user-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: 840px;/* Align to the right */
 }
 
 .user-buttons button {
@@ -63,6 +127,7 @@ nav ul li:hover {
     background-color: #f0f0f0;
     color: rgb(0, 0, 0);
     cursor: pointer;
+    border-style: dotted;
 }
 
 section {
@@ -145,6 +210,17 @@ p {
     font-size: 16px;
     line-height: 1.5;
     margin-bottom: 20px;
+}
+
+footer.posts {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
 }
 
 footer {
