@@ -1,33 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime x Quiz - Home</title>
-    <link rel="stylesheet" href="../static/styles/postsstyel.css">
-</head>
-<body>
-    <header>
-        <div class="container">
-            <h1>Anime x Quiz</h1>
-            <nav>
-                <ul>
-                    <li><a href="/main">Home</a></li>
-                    <li><a href="#">Create Quiz</a></li>
-                    <li><a href="/main/posts">Posts</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <div class="loginsignup">
-                        <nav class="user-buttons">
-                            <div class="user-button">
-                                <button class="login">Login</button>
-                                <button class="signup">Sign Up</button>
-                            </div>
-                        </nav>
-                    </div>
-                </ul>
-            </nav>
-        </div>
-    </header>
+{% extends "layout.html" %}
+{% block content %}
     <div class="container">
         <section id="post-form">
             <button>
@@ -52,13 +24,4 @@
             {% endfor %}
         </section>
     </div>
-
-    <footer>
-        <div class="footer">
-            <p>&copy; 2024 Anime x Quiz.</p>
-        </div>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../static/scripts/scripts.js"></script>
-</body>
-</html>
+{% endblock %}
