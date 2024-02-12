@@ -13,4 +13,17 @@ $(document).ready(function() {
         $('#doneButton').addClass('show');
         // Pass selected level to backend or perform other actions
     });
+    $('a[href="/main/posts"]').click(function(e) {
+        e.preventDefault();
+        $.get('/main/posts', function(data) {
+            $('body').html(data);
+        });
+    });
+
+    $('a[href="/main"]').click(function(e) {
+        e.preventDefault();
+        $.get('/main', function(data) {
+            $('body').html(data);
+        });
+    });
 });
