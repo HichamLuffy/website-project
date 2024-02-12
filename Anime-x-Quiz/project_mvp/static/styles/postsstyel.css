@@ -115,7 +115,8 @@ ul li {
 }
 
 .user-buttons {
-    display: flex;
+    display: relative;
+    justify-content: center;
     align-items: center;
     margin-left: 840px;/* Align to the right */
 }

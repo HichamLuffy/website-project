@@ -17,14 +17,21 @@ connection = pymysql.connect(
 @app.route('/')
 @app.route('/main')
 def about():
-    return render_template('main.html', page='main')
+    return render_template('main.html', title='Home')
 
 @app.route('/main/posts')
 def posts_page():
     with connection.cursor() as cursor:
         cursor.execute('SELECT * FROM posts')
         posts = cursor.fetchall()
-    return render_template('posts.html', posts=posts, page='posts')
+    return render_template('posts.html', posts=posts, title='posts')
+
+@app.route('/main/quiz')
+def quiz_page():
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM posts')
+        posts = cursor.fetchall()
+    return render_template('quiz.html', posts=posts, title='Quiz')
 
 if __name__ in '__main__':
     app.run(debug=True)
