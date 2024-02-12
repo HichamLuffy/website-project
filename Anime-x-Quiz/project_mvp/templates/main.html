@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime x Quiz - Home</title>
+    <link rel="stylesheet" href="../static/styles/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Anime x Quiz</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Create Quiz</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <div class="loginsignup">
+                        <nav class="user-buttons">
+                            <div class="user-button">
+                                <button class="login">Login</button>
+                                <button class="signup">Sign Up</button>
+                            </div>
+                        </nav>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="quiz-categories">
+        <div class="container">
+            <h2>Choose a Quiz Category</h2>
+            <ul>
+                <li><a href="#" class="category" data-category="anime-openings">Know anime from picture</a></li>
+                <li><a href="#" class="category" data-category="anime-Voice">Know Characters from Voice</a></li>
+                <li><a href="#" class="category" data-category="anime-emojis">know anime from emojis</a></li>
+                <li><a href="#" class="category" data-category="anime-weapon">know Characters from weapon</a></li>
+                <li><a href="#" class="category" data-category="anime-face">know Characters from face</a></li>
+            </ul>
+        </div>
+    </section>
+    <section id="quiz-levels">
+        <div class="container">
+            <h2 id="quiz-category-heading">Choose a Quiz Level</h2>
+            <ul>
+                <li><a href="#" class="level" data-level="ez">Easy</a></li>
+                <li><a href="#" class="level" data-level="normal">Normal</a></li>
+                <li><a href="#" class="level" data-level="hard">Hard</a></li>
+            </ul>
+        </div>
+    </section>
+    <button id="doneButton">
+        <h3>DONE</h3>
+    </button>
+
+    <footer>
+        <div class="footer">
+            <p>&copy; 2024 Anime x Quiz.</p>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../static/scripts/scripts.js"></script>
+</body>
+</html>
