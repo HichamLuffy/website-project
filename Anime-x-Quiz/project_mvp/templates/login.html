@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime-x-Login</title>
+    <link rel="icon" href="../static/images/logoo.png">
+    <link rel="stylesheet" href="../static/images/geto.png">
+    <link rel="stylesheet" href="../static/styles/snow.css" type="text/css" href="{{ url_for('static', filename='snow.css') }}">
+    <link rel="stylesheet" href="../static/styles/loginstyle.css">
+</head>
+<body>
+    <form id="login-form">
+        <h3>Login Here</h3>
+
+        <label for="Email">Email</label>
+        <input type="text" placeholder="Email" id="username" name="Email">
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password" name="password">
+        <label id="rememberme" class="remember-me">
+            Remember me
+            <input type="checkbox">
+        </label>
+        <button type="submit">Log In</button>
+        <button id="signup" type="submit"> <a href="/register"> Sign Up</button>
+        <div class="social">
+            <div class="go">join as guest</div>
+        </div>
+    </form>
+    <nav class="nav">
+        <input id="menu" type="checkbox">
+        <label for="menu">Snow</label>
+        <ul class="menu">
+            <li>
+                <a class="clear-snow" href="#0">
+                    <i aria-hidden="true">clear</i>
+                </a>
+            </li>
+            <li>
+                <a class="delete-snow" href="#0">
+                    <i aria-hidden="true">delete</i>
+                </a>
+            </li>
+            <li>
+                <a class="add-snow" href="#0">
+                    <i aria-hidden="true">add</i>
+                </a>
+            </li>
+        </ul>
+        </nav>
+    <div class="snow"></div>
+    <div class="snow"></div>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include custom JavaScript -->
+    <script src="../static/scripts/particles.js"></script>
+</body>
+</html>

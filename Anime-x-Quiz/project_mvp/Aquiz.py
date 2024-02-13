@@ -2,10 +2,13 @@
 """quiz app"""
 
 
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for, flash, redirect
+from forms import RegisterForm, LoginForm
 import pymysql.cursors
 
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = '5e930833f20b0d4a5fa7505d70f5aa80'
 
 connection = pymysql.connect(
     host='localhost',
@@ -32,6 +35,23 @@ def quiz_page():
         cursor.execute('SELECT * FROM posts')
         posts = cursor.fetchall()
     return render_template('quiz.html', posts=posts, title='Quiz')
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register_page():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('about'))
+    print("Form submission failed")
+    return render_template('register.html', form=form, title='register')
+
+
+@app.route('/login')
+def Login_page():
+    form = LoginForm()
+    return render_template('login.html', form=form, title='Login')
+
 
 if __name__ in '__main__':
     app.run(debug=True)

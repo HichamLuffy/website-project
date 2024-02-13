@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime-x-Register</title>
+    <link rel="icon" href="../static/images/logoo.png">
+    <link rel="stylesheet" href="../static/styles/registerstyle.css">
+</head>
+<body>
+    <form id="register-form" method="POST" action="{{ url_for('register_page') }}">
+        {{ form.hidden_tag() }}
+        <img id="skunaa" class="skunaa" src="../static/images/skunaalog.png">
+        <legend><h3>Register Here</h3></legend>
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="username" autocomplete="username">
+        <label for="Email">Email</label>
+        <input type="text" name="Email" placeholder="Email" autocomplete="email">
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Password">
+        <label for="password">Confirm Password</label>
+        <input type="password" name="Confirm password" placeholder="Confirm Password">
+        
+        <button type="submit">Register</button>
+        <p>Already have an account? <a href="/login">Login</a></p>
+    </form>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include custom JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
