@@ -40,8 +40,9 @@ def quiz_page():
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
+    data = form.username.data
     if form.validate_on_submit():
-        flash(f'Account created for {form.username.data}!', 'success')
+        flash(f'Account created for {data}!')
         return redirect(url_for('about'))
     print("Form submission failed")
     return render_template('register.html', form=form, title='register')
