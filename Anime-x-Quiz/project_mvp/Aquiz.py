@@ -46,7 +46,7 @@ def register_page():
     form = RegisterForm()
     data = form.username.data
     if form.validate_on_submit():
-        flash(f'Account created for {data}!')
+        flash(f'Account created for {data}!', 'success')
         return redirect(url_for('about'))
     print("Form submission failed")
     return render_template('register.html', form=form, title='register')
