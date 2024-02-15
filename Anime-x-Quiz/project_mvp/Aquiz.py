@@ -12,8 +12,8 @@ app.config['SECRET_KEY'] = '5e930833f20b0d4a5fa7505d70f5aa80'
 
 connection = pymysql.connect(
     host='localhost',
-    user='admin',
-    password='admin',
+    user='Luffy',
+    password='hhh123',
     database='AQZ',
     cursorclass=pymysql.cursors.DictCursor
 )

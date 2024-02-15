@@ -12,16 +12,16 @@
         {{ form.hidden_tag() }}
         <img id="skunaa" class="skunaa" src="../static/images/skunaalog.png">
         <legend><h3>Register Here</h3></legend>
-        <!-- <label>Username</label> -->
-        <input type="text" name="username" placeholder="username" autocomplete="username">
-        <!-- <label>Email</label> -->
-        <input type="text" name="Email" placeholder="Email" autocomplete="email">
-        <!-- <label >Password</label> -->
-        <input type="password" name="password" placeholder="Password">
-        <!-- <label >Confirm Password</label> -->
-        <input type="password" name="Confirm password" placeholder="Confirm Password">
+        <label>Username</label>
+        {{ form.username(class="form-control", placeholder="Username") }}
+        <label>Email</label>
+        {{ form.email(class="form-control", placeholder="Email") }}
+        <label>Password</label>
+        {{ form.password(class="form-control", placeholder="Password") }}
+        <label>Confirm Password</label>
+        {{ form.confirm_password(class="form-control", placeholder="Confirm Password") }}
         
-        <input value="Register" type="submit">
+        {{ form.submit(class="btn btn-primary", value="Register") }}
         <p>Already have an account? <a href="/login">Login</a></p>
     </form>
     <!-- Include jQuery -->
