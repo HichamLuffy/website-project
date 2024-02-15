@@ -9,8 +9,8 @@ app = Flask(__name__)
 
 connection = pymysql.connect(
     host='localhost',
-    user='Luffy',
-    password='hhh123',
+    user='admin',
+    password='admin',
     database='AQZ',
     cursorclass=pymysql.cursors.DictCursor
 )
@@ -33,5 +33,8 @@ def quiz_page():
         posts = cursor.fetchall()
     return render_template('quiz.html', posts=posts, title='Quiz')
 
+@app.route('/main/profile')
+def profile_page():
+    return render_template('profile.html', title='Profile')
 if __name__ in '__main__':
     app.run(debug=True)
