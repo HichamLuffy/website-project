@@ -73,7 +73,7 @@ form * {
 form .skunaa {
     position: absolute;
     z-index: -3; /* Ensure the skunaa pic is above other elements */
-    top: 73%; /* Adjust the top position */
+    top: 85%; /* Adjust the top position */
     left: 50.1%; /* Adjust the left position */
     transform: translate(-50%, -50%); /* Center the skunaa pic */
     max-width: 100%; /* Set maximum width */
@@ -162,4 +162,55 @@ button:hover {
 
 .social div:hover {
     background-color: rgba(255,255,255,0.47);
+}
+
+
+#register-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+legend h3 {
+    text-align: center;
+}
+
+/* Error message styling */
+.errors {
+    color: #dc3545; /* Red color for error messages */
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Submit button styling */
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Blue color for submit button */
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+}
+
+.errormessag {
+    stroke: #080710;
+    stroke-width: 2px;
+    color: #ff0000; 
+    font-size: 14px;
+    font-weight: 10px;
 }

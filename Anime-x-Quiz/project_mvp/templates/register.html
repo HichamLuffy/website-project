@@ -14,13 +14,40 @@
         <legend><h3>Register Here</h3></legend>
         <label>Username</label>
         {{ form.username(class="form-control", placeholder="Username") }}
+        {% if form.username.errors %}
+        <div class="errors">
+            {% for error in form.username.errors %}
+            <span class="errormessag">{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
         <label>Email</label>
         {{ form.email(class="form-control", placeholder="Email") }}
+        {% if form.email.errors %}
+        <div class="errors">
+            {% for error in form.email.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
         <label>Password</label>
         {{ form.password(class="form-control", placeholder="Password") }}
+        {% if form.password.errors %}
+        <div class="errors">
+            {% for error in form.password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
         <label>Confirm Password</label>
         {{ form.confirm_password(class="form-control", placeholder="Confirm Password") }}
-        
+        {% if form.confirm_password.errors %}
+        <div class="errors">
+            {% for error in form.confirm_password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
         {{ form.submit(class="btn btn-primary", value="Register") }}
         <p>Already have an account? <a href="/login">Login</a></p>
     </form>
