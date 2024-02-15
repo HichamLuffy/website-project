@@ -10,23 +10,42 @@
     <link rel="stylesheet" href="../static/styles/loginstyle.css">
 </head>
 <body>
-    <form id="login-form">
+    <form id="login-form"  method="POST" action="">
         <h3>Login Here</h3>
-
+        {{ form.hidden_tag() }}
         <label for="Email">Email</label>
-        <input type="text" placeholder="Email" id="username" name="Email">
-
+        {{ form.email(class="form-control", placeholder="Email") }}
+        {% if form.email.errors %}
+        <div class="errors">
+            {% for error in form.email.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- <input type="text" placeholder="Email" id="username" name="Email"> -->
         <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password" name="password">
+        {{ form.password(class="form-control", placeholder="Password") }}
+        {% if form.password.errors %}
+        <div class="errors">
+            {% for error in form.password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- <input type="password" placeholder="Password" id="password" name="password"> -->
         <label id="rememberme" class="remember-me">
             Remember me
-            <input type="checkbox">
+            {{ form.rememberme(class="remember-me") }}
         </label>
-        <button type="submit">Log In</button>
+        {{ form.submit(class="btn btn-primary btn-block", value="Login") }}
+        <!-- <button type="submit">Log In</button> -->
         <button id="signup" type="submit"> <a href="/register"> Sign Up</button>
         <div class="social">
-            <div class="go">join as guest</div>
+            <div class="go">
+                <small><a href="/main">Join as a guest</a></small>
+            </div>
         </div>
+        <small><a href="#">Forget password?</a></small>
     </form>
     <nav class="nav">
         <input id="menu" type="checkbox">

@@ -12,8 +12,8 @@ app.config['SECRET_KEY'] = '5e930833f20b0d4a5fa7505d70f5aa80'
 
 connection = pymysql.connect(
     host='localhost',
-    user='Luffy',
-    password='hhh123',
+    user='admin',
+    password='admin',
     database='AQZ',
     cursorclass=pymysql.cursors.DictCursor
 )
@@ -52,9 +52,13 @@ def register_page():
     return render_template('register.html', form=form, title='register')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def Login_page():
     form = LoginForm()
+    data = form.email.data
+    if form.validate_on_submit():
+        flash(f'welcome {data} ! ', 'success')
+        return redirect(url_for('about'))
     return render_template('login.html', form=form, title='Login')
 
 

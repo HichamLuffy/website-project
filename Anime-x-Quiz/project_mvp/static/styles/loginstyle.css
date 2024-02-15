@@ -89,6 +89,24 @@ input {
     color: #e5e5e5;
 }
 
+.btn-block {
+    margin-top: 5px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+.btn-block:hover {
+    background-color: #ffffff; /* Change background color on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add box shadow on hover */
+}
+
 button {
     margin-top: 5px;
     width: 100%;
@@ -119,19 +137,20 @@ button:hover {
 }
 
 .social {
-    margin-top: 3px;
-    margin-left: 27%;
+    margin-bottom: 1px;
+    margin-left: 200px;
     display: flex;
 }
+
 
 .social div {
     text-decoration: none;
     width: 150px;
     border-radius: 15px;
-    padding: 5px 10px 10px 5px;
     transition: background-color 0.3s ease;
     color: #eaf0fb;
-    text-align: center;
+    margin-bottom: 1px;
+    
 }
 
 .social div:hover {
@@ -299,8 +318,8 @@ nav input:checked ~ .menu li a button {
 .remember-me {
     display: flex;
     align-items: center; /* Align items vertically */
-    margin-top: 10px;
-    margin-bottom: 20px; /* Adjust margin-bottom to create space between password input and remember label */
+    margin-top: 1px;
+    margin-bottom: 5px; /* Adjust margin-bottom to create space between password input and remember label */
     color: #f8fcecee;
     font-size: 14px;
     cursor: pointer;
@@ -311,7 +330,7 @@ nav input:checked ~ .menu li a button {
 .remember-me input[type="checkbox"] {
     margin-right: 6px; /* Adjust margin to create space between checkbox and text */
     width: 15px; /* Set the width of the checkbox */
-    margin-top: 3px;
+    margin-top: 10px;
     margin-left: 3px;
     height: 15px; /* Set the height of the checkbox */
 }
