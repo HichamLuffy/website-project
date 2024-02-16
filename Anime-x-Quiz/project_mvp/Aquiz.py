@@ -65,20 +65,25 @@ class Quiz (db.Model):
         return f"Quiz('{self.title}', '{self.category}', '{self.level}', '{self.created_at}') "
 
 
-class Question (db.Model):
+class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.Text, nullable=False)
-    image = db.Column(db.String(20), nullable=True)
-    option_1 = db.Column(db.Text, nullable=False)
-    option_2 = db.Column(db.Text, nullable=False)
-    option_3 = db.Column(db.Text, nullable=False)
-    option_4 = db.Column(db.Text, nullable=False)
-    correct_answer = db.Column(db.Text, nullable=False)
+    question_text = db.Column(db.Text, nullable=False)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
+    options = db.relationship('Option', backref='question', lazy=True)
+
     def __repr__(self):
-        return f"Question('{self.question}, {self.image}, {self.option_1}, {self.option_2}, {self.option_3}, {self.option_4}')"
+        return f"Question('{self.question_text}')"
+
+class Option(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text, nullable=False)
+    is_correct = db.Column(db.Boolean, nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Option('{self.text}', '{self.is_correct}')"
 
 
 connection = pymysql.connect(
