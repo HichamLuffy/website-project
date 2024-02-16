@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="../static/styles/registerstyle.css">
 </head>
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message alert alert-{{ category }}" role="alert">
+                {{ message }}
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
     <form id="register-form" method="POST" action="">
         {{ form.hidden_tag() }}
         <img id="skunaa" class="skunaa" src="../static/images/skunaalog.png">
@@ -49,7 +60,7 @@
         </div>
         {% endif %}
         {{ form.submit(class="btn btn-primary", value="Register") }}
-        <p style="margin-top: 70px; margin-left: 40px;">Already have an account? <a style="color: rgb(255, 0, 0);" href="/login">Login</a></p>
+        <p style="margin-top: 50px; margin-left: 40px;">Already have an account? <a style="color: rgb(255, 0, 0);" href="/login">Login</a></p>
     </form>
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

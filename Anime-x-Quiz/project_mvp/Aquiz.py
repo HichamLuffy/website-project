@@ -4,6 +4,7 @@
 
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegisterForm, LoginForm
+from flask_sqlalchemy import SQLAlchemy
 import pymysql.cursors
 
 app = Flask(__name__)
@@ -57,8 +58,11 @@ def Login_page():
     form = LoginForm()
     data = form.email.data
     if form.validate_on_submit():
-        flash(f'welcome {data} ! ', 'success')
-        return redirect(url_for('about'))
+        if form.email.data == 'luffy@gmail.com' and form.password.data == 'hhh123':
+            flash(f'login sucess', 'success')
+            return redirect(url_for('about'))
+        else:
+            flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', form=form, title='Login')
 
 

@@ -8,8 +8,20 @@
     <link rel="stylesheet" href="../static/images/geto.png">
     <link rel="stylesheet" href="../static/styles/snow.css" type="text/css" href="{{ url_for('static', filename='snow.css') }}">
     <link rel="stylesheet" href="../static/styles/loginstyle.css">
+    <link rel="stylesheet" href="../static/styles/alertmsg.css">
 </head>
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message alert alert-{{ category }}" role="alert">
+                {{ message }}
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
     <form id="login-form"  method="POST" action="">
         <h3>Login Here</h3>
         {{ form.hidden_tag() }}
