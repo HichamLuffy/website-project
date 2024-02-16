@@ -2,6 +2,7 @@
 """quiz app"""
 
 
+from datetime import datetime
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegisterForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
@@ -17,10 +18,11 @@ class User (db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    quiz = db.relationship('Quiz', backref='user', lazy=True)
     profile = db.relationship('Profile', backref='user', lazy=True)
     score = db.relationship('Score', backref='user', lazy=True)
-    created_at = db.Column(db.DateTime, nullable=False)
-    updated_at = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     def __repr__(self):
         return f"User('{self.username}', '{self.email}, '{self.profile}, '{self.score}')"
 
@@ -30,9 +32,9 @@ class Profile (db.Model):
     full_name = db.Column(db.String(30), nullable=False)
     avatar = db.Column(db.String(20), nullable=False, default='default.jpg')
     bio = db.Column(db.Text, nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
-    updated_at = db.Column(db.DateTime, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     def __repr__(self):
         return f"Profile('{self.full_name}', '{self.avatar}, '{self.bio}')"
 
@@ -42,11 +44,11 @@ class Score (db.Model):
     user_answewr = db.Column(db.Text, nullable=False)
     is_correct = db.Column(db.Boolean, nullable=False)
     score = db.Column(db.Integer, nullable=False)
-    question_id = db.Column(db.Integer, db.ForeignKey('Question.id'), nullable=False)
-    quiz_id = db.Column(db.Integer, db.ForeignKey('Quiz.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
-    updated_at = db.Column(db.DateTime, nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     def __repr__(self):
         return f"Score('{self.score}')"
 
@@ -56,11 +58,11 @@ class Quiz (db.Model):
     title = db.Column(db.String(100), nullable=False)
     category = db.Column(db.String(100), nullable=False)
     level = db.Column(db.String(100), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
-    updated_at = db.Column(db.DateTime, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     def __repr__(self):
-        return f"Quiz('{self.title}')"
+        return f"Quiz('{self.title}', '{self.category}', '{self.level}', '{self.created_at}') "
 
 
 class Question (db.Model):
@@ -72,7 +74,7 @@ class Question (db.Model):
     option_3 = db.Column(db.Text, nullable=False)
     option_4 = db.Column(db.Text, nullable=False)
     correct_answer = db.Column(db.Text, nullable=False)
-    quiz_id = db.Column(db.Integer, db.ForeignKey('Quiz.id'), nullable=False)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
     def __repr__(self):
