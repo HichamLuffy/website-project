@@ -1,18 +1,14 @@
 #!/usr/bin/python3
-"""quiz app"""
+"""quiz routes"""
 
 
-from datetime import datetime
 from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegisterForm, LoginForm
+from Aquiz.forms import RegisterForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
 import pymysql.cursors
-from models import User, Profile, Score, Quiz, Question, option
+from Aquiz import app
+from Aquiz.models import User, Profile, Score, Quiz, Question, Option
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '5e930833f20b0d4a5fa7505d70f5aa80'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
 
 
 connection = pymysql.connect(
@@ -68,8 +64,3 @@ def Login_page():
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', form=form, title='Login')
-
-
-
-if __name__ in '__main__':
-    app.run(debug=True)
