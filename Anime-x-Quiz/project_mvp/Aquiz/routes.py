@@ -6,7 +6,7 @@ from flask import Flask, render_template, url_for, flash, redirect
 from Aquiz.forms import RegisterForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
 import pymysql.cursors
-from Aquiz import app
+from Aquiz import app, db, bcrypt
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option
 
 
@@ -47,8 +47,12 @@ def register_page():
     form = RegisterForm()
     data = form.username.data
     if form.validate_on_submit():
-        flash(f'Account created for {data}!', 'success')
-        return redirect(url_for('about'))
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Account created for {data}! you can login', 'success')
+        return redirect(url_for('Login_page'))
     print("Form submission failed")
     return render_template('register.html', form=form, title='register')
 
