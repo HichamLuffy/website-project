@@ -8,7 +8,7 @@ from Aquiz import app, db, bcrypt
 from Aquiz.forms import RegisterForm, LoginForm
 import pymysql.cursors
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 
 
@@ -84,5 +84,6 @@ def logout_page():
 
 
 @app.route('/account')
+@login_required
 def account():
     return render_template('account.html', title='Account')
