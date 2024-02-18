@@ -2,9 +2,7 @@
 """quiz app"""
 
 
-from datetime import datetime
 from flask import Flask
-from Aquiz.forms import RegisterForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 

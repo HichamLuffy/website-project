@@ -3,12 +3,10 @@
 
 
 from flask_wtf import FlaskForm
+from Aquiz.models import User
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from models import *
-from Aquiz.models import User
-from Aquiz import *
-from .. import db
+
 
 
 class RegisterForm(FlaskForm):

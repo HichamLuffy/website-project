@@ -3,10 +3,10 @@
 
 
 from flask import Flask, render_template, url_for, flash, redirect
-from Aquiz.forms import RegisterForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
-import pymysql.cursors
 from Aquiz import app, db, bcrypt
+from Aquiz.forms import RegisterForm, LoginForm
+import pymysql.cursors
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option
 
 
@@ -62,7 +62,8 @@ def Login_page():
     form = LoginForm()
     data = form.email.data
     if form.validate_on_submit():
-        if form.email.data == 'luffy@gmail.com' and form.password.data == 'hhh123':
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
             flash(f'login sucess', 'success')
             return redirect(url_for('about'))
         else:
