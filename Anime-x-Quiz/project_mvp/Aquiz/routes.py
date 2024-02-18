@@ -8,6 +8,7 @@ from Aquiz import app, db, bcrypt
 from Aquiz.forms import RegisterForm, LoginForm
 import pymysql.cursors
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option
+from flask_login import login_user, current_user, logout_user
 
 
 
@@ -44,6 +45,8 @@ def profile_page():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
+    if current_user.is_authenticated:
+        return redirect(url_for('about'))
     form = RegisterForm()
     data = form.username.data
     if form.validate_on_submit():
@@ -59,13 +62,22 @@ def register_page():
 
 @app.route('/login', methods=['GET', 'POST'])
 def Login_page():
+    if current_user.is_authenticated:
+        return redirect(url_for('about'))
     form = LoginForm()
     data = form.email.data
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.rememberme.data)
             flash(f'login sucess', 'success')
             return redirect(url_for('about'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', form=form, title='Login')
+
+
+@app.route('/logout')
+def logout_page():
+    logout_user()
+    return redirect(url_for('about'))
