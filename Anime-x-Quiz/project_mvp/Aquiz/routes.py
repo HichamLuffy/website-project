@@ -2,7 +2,7 @@
 """quiz routes"""
 
 
-from flask import Flask, render_template, url_for, flash, redirect
+from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from Aquiz import app, db, bcrypt
 from Aquiz.forms import RegisterForm, LoginForm
@@ -70,8 +70,9 @@ def Login_page():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.rememberme.data)
+            next_page = request.args.get('next')
             flash(f'login sucess', 'success')
-            return redirect(url_for('about'))
+            return redirect(next_page) if next_page else redirect(url_for('about'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', form=form, title='Login')
