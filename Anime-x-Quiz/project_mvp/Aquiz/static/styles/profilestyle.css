@@ -1,0 +1,46 @@
+.profile-page {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.profile-page h2 {
+    color: #333;
+}
+
+.profile-details {
+    margin-bottom: 20px;
+}
+
+.profile-details img {
+    width: 150px; /* Adjust width as needed */
+    height: 150px; /* Adjust height as needed */
+    border-radius: 50%;
+    object-fit: cover; /* Resize the image to cover the container */
+    margin-bottom: 10px;
+}
+
+.profile-details p {
+    margin: 5px 0;
+}
+
+.profile-actions ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.profile-actions li {
+    margin-bottom: 10px;
+}
+
+.profile-actions li a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.profile-actions li a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}

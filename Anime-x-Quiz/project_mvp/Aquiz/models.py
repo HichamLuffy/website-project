@@ -16,20 +16,20 @@ class User (db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     quiz = db.relationship('Quiz', backref='user', lazy=True)
-    profile = db.relationship('Profile', backref='user', lazy=True)
+    profile = db.relationship('Profile', backref='user', lazy=True, uselist=False)
     score = db.relationship('Score', backref='user', lazy=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}, '{self.profile}, '{self.score}')"
+        return f"User('{self.username}', '{self.email}, '{self.profile}', '{self.score}')"
 
 
 class Profile (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(30), nullable=False)
-    avatar = db.Column(db.String(20), nullable=False, default='default.jpg')
+    avatar = db.Column(db.String(255), nullable=False)
     bio = db.Column(db.Text, nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     def __repr__(self):
