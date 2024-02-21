@@ -6,6 +6,7 @@
     <title>Anime x Quiz - {{ title }}</title>
     <link rel="icon" href="../static/images/logoo.png">
     <link rel="stylesheet" href="../static/styles/postsstyel.css">
+    <link rel="stylesheet" href="../static/styles/profilestyle.css">
     <link rel="stylesheet" href="../static/styles/alertmsg.css">
 
 </head>
@@ -19,12 +20,14 @@
                     <li><a href="{{ url_for('quiz_page') }}">Quiz</a></li>
                     <li><a href="#">Create Quiz</a></li>
                     <li><a href="{{ url_for('posts_page') }}">Posts</a></li>
-                    <li><a href="{{ url_for('account') }}">Profile</a></li>
                     <div class="loginsignup">
                         <nav class="user-buttons">
                             <div class="user-button">
                                 {% if current_user.is_authenticated %}
                                 <button class="login"><a href="{{ url_for('logout_page') }}">lOGOUT</a></button>
+                                <img src="{{ image_file }}" alt="Profile Picture">
+                                <p>{{ current_user.username }}</p>
+                                <li><a href="{{ url_for('account') }}">Profile</a></li>
                                 {% else %}
                                     <button class="login"><a href="{{ url_for('Login_page') }}">Login</a></button>
                                     <button class="signup"> <a href="{{ url_for('register_page') }}">Sign Up</a></button>
@@ -53,6 +56,7 @@
     {% block content %}{% endblock %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../static/scripts/scripts.js"></script>
+    <script src="../static/scripts/editprofile.js"></script>
     {% include "footer.html" %}
 </body>
 </html>

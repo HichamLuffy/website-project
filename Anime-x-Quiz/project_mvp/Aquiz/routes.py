@@ -2,10 +2,13 @@
 """quiz routes"""
 
 
+import os
+import secrets
+import random
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from Aquiz import app, db, bcrypt
-from Aquiz.forms import RegisterForm, LoginForm
+from Aquiz.forms import RegisterForm, LoginForm, updateprofileForm
 import pymysql.cursors
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option
 from flask_login import login_user, current_user, logout_user, login_required
@@ -53,6 +56,12 @@ def register_page():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
+        default_avatar = random.choice(['astadefault.jpg', 'deathnotedefault.jpg', 'emmadefault.jpg', 'gojodefault.jpg', 'gokudefault.jpg',
+                                        'kurabikadefault.jpg', 'levidefault.jpg', 'luffydefault.jpg', 'narutodefault.jpg', 'tanjirodefault.jpg', 'todorokidefault.jpt'])
+        default_profile = Profile(full_name=form.username.data, avatar=f'static/images/{default_avatar}', bio='add bio.')
+        user.profile = default_profile
+
+        db.session.add(user)
         db.session.commit()
         flash(f'Account created for {data}! you can login', 'success')
         return redirect(url_for('Login_page'))
@@ -84,7 +93,35 @@ def logout_page():
     return redirect(url_for('about'))
 
 
-@app.route('/account')
+def save_pfp(form_pfp):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_pfp.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
+    print(picture_path)
+    form_pfp.save(picture_path)
+
+    return (picture_fn)
+
+
+@app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
-    return render_template('account.html', title='Account')
+    form = updateprofileForm()
+    if form.validate_on_submit():
+        if form.pfp.data:
+            pic_file = save_pfp(form.pfp.data)
+            current_user.profile.avatar = pic_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        current_user.profile.bio = form.bio.data
+        db.session.commit()
+        flash('you account has been updated')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+        form.bio.data = current_user.profile.bio
+    image_file = current_user.profile.avatar
+    return render_template('account.html', title='Account',
+                           image_file=image_file, form=form)
