@@ -5,10 +5,11 @@
 import os
 import secrets
 import random
+from PIL import Image
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from Aquiz import app, db, bcrypt
-from Aquiz.forms import RegisterForm, LoginForm, updateprofileForm
+from Aquiz.forms import RegisterForm, LoginForm, updateprofileForm, New_Quiz
 import pymysql.cursors
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option
 from flask_login import login_user, current_user, logout_user, login_required
@@ -27,24 +28,22 @@ connection = pymysql.connect(
 def about():
     return render_template('main.html', title='Home')
 
-@app.route('/main/posts')
-def posts_page():
-    with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM posts')
-        posts = cursor.fetchall()
-    return render_template('posts.html', posts=posts, title='posts')
+# @app.route('/main/posts')
+# def posts_page():
+#     with connection.cursor() as cursor:
+#         cursor.execute('SELECT * FROM posts')
+#         posts = cursor.fetchall()
+#     return render_template('posts.html', posts=posts, title='posts')
 
-@app.route('/main/quiz')
+@app.route('/Quiz')
 def quiz_page():
-    with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM posts')
-        posts = cursor.fetchall()
-    return render_template('quiz.html', posts=posts, title='Quiz')
+    return render_template('quiz.html', title='Quiz')
 
 
 @app.route('/main/profile')
 def profile_page():
-    return render_template('profile.html', title='Profile')
+    image_file = current_user.profile.avatar
+    return render_template('profile.html', title='Profile', image_file=image_file)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
@@ -57,7 +56,7 @@ def register_page():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         default_avatar = random.choice(['astadefault.jpg', 'deathnotedefault.jpg', 'emmadefault.jpg', 'gojodefault.jpg', 'gokudefault.jpg',
-                                        'kurabikadefault.jpg', 'levidefault.jpg', 'luffydefault.jpg', 'narutodefault.jpg', 'tanjirodefault.jpg', 'todorokidefault.jpt'])
+                                        'kurabikadefault.jpg', 'levidefault.jpg', 'luffydefault.jpg', 'narutodefault.jpg', 'tanjirodefault.jpg', 'todorokidefault.jpg'])
         default_profile = Profile(full_name=form.username.data, avatar=f'static/images/{default_avatar}', bio='add bio.')
         user.profile = default_profile
 
@@ -99,17 +98,23 @@ def save_pfp(form_pfp):
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
     print(picture_path)
-    form_pfp.save(picture_path)
+
+    resize_pic = (256, 256)
+    img = Image.open(form_pfp)
+    img.thumbnail(resize_pic)
+    img.save(picture_path)
 
     return (picture_fn)
 
 
-@app.route('/account', methods=['GET', 'POST'])
+@app.route('/main/account', methods=['GET', 'POST'])
 @login_required
 def account():
     form = updateprofileForm()
     if form.validate_on_submit():
-        if form.pfp.data:
+        if form.new_avatar.data:
+            current_user.profile.avatar = url_for('static', filename='images/' + form.new_avatar.data)
+        elif form.pfp.data:
             pic_file = save_pfp(form.pfp.data)
             current_user.profile.avatar = pic_file
         current_user.username = form.username.data
@@ -123,5 +128,21 @@ def account():
         form.email.data = current_user.email
         form.bio.data = current_user.profile.bio
     image_file = current_user.profile.avatar
+    print(image_file)
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
+
+
+@app.route('/Quiz/new', methods=['GET', 'POST'])
+@login_required
+def new_quiz():
+    form = New_Quiz()
+    if form.validate_on_submit():
+        # Process the form data here
+        # For example, you can create a new Quiz instance and save it to the database
+        flash('Quiz created successfully!', 'success')
+        return redirect(url_for('about'))  # Redirect to a success page or homepage
+    else:
+        print("nothing happend")
+        
+    return render_template('create_quiz.html', title='Add Quiz', form=form)

@@ -18,6 +18,8 @@
             <div id="edit-profile-div" style="display: none;">
                 <form id="register-form" method="POST" action="" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
+                    {{ form.new_avatar.label() }}
+                    {{ form.new_avatar(class="form-control") }}
                     <legend><h3>Update your account</h3></legend>
                     <a href="#" id="username-edit">edit your username</a>
                     {{ form.username(id="username-edit", class="form-control", placeholder="new username") }}
@@ -45,10 +47,10 @@
                         {{ form.pfp(class="form-control-file") }}
                         {% if form.pfp.errors %}
                             {% for error in form.pfp.errors %}
-                            <span class="text-danger">{{ error }}</span></br>
+                            <span class="text-danger">{{ error }}</span>
                             {% endfor %}
                         {% endif %}
-                    </div></br>
+                    </div>
                     {{ form.submit (class="btn btn-online-info") }}
                 </form>
             </div>
