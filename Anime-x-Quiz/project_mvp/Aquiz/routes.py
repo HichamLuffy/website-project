@@ -9,7 +9,7 @@ from PIL import Image
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from Aquiz import app, db, bcrypt
-from Aquiz.forms import RegisterForm, LoginForm, updateprofileForm, New_Quiz
+from Aquiz.forms import RegisterForm, LoginForm, updateprofileForm, New_QuizForm
 import pymysql.cursors
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option
 from flask_login import login_user, current_user, logout_user, login_required
@@ -136,13 +136,26 @@ def account():
 @app.route('/Quiz/new', methods=['GET', 'POST'])
 @login_required
 def new_quiz():
-    form = New_Quiz()
+    form = New_QuizForm()
+    title = form.title.data
+    category = form.category.data
+    level = form.level.data
+    num_questions = form.num_questions.data
+    questions = form.questions.data
+    option1 = form.option1.data
+    option2 = form.option2.data
+    option3 = form.option3.data
+    option4 = form.option4.data
+    correct_option = form.correct_option.data
+    print("title: {} category: {} level : {} num_questions: {} \n".format(title, category, level, num_questions))
+    print("questions = {}".format(questions))
+
     if form.validate_on_submit():
-        # Process the form data here
-        # For example, you can create a new Quiz instance and save it to the database
+        
         flash('Quiz created successfully!', 'success')
         return redirect(url_for('about'))  # Redirect to a success page or homepage
     else:
+        flash('Quiz not created ', 'danger')
         print("nothing happend")
-        
+
     return render_template('create_quiz.html', title='Add Quiz', form=form)

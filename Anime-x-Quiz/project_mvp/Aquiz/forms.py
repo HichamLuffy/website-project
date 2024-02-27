@@ -74,7 +74,7 @@ class updateprofileForm(FlaskForm):
                 raise ValidationError('That email is taken. Please choose a different one.')
 
 
-class New_Quiz(FlaskForm):
+class New_QuizForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     category = SelectField('Category', choices=[('category1', 'Questions'), ('category2', 'Sound'), ('category3', 'images')], validators=[DataRequired()])
     level = SelectField('Level', choices=[('easy', 'Easy'), ('medium', 'Medium'), ('hard', 'Hard')], validators=[DataRequired()])
