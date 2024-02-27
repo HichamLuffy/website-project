@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
     $('.category').click(function(e) {
         e.preventDefault();
