@@ -25,7 +25,6 @@
                             <div class="user-button">
                                 {% if current_user.is_authenticated %}
                                 <button class="login"><a href="{{ url_for('logout_page') }}">lOGOUT</a></button>
-                                <img src="{{ image_file }}" alt="Profile Picture">
                                 <p>{{ current_user.username }}</p>
                                 <li><a href="{{ url_for('account') }}">Profile</a></li>
                                 {% else %}
