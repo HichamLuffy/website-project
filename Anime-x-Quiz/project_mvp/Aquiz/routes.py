@@ -141,85 +141,54 @@ def quiz():
 
 
 @app.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
-def take_quiz(quiz_id):
+def quiz_questions(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
+    questions = quiz.questions
     if request.method == 'POST':
-        total_score = 0
-        for question in quiz.questions:
-            selected_option = request.form.get(f'question_{question.id}')
-            correct_option = Option.query.filter_by(question_id=question.id, is_correct=True).first()
-            if selected_option == correct_option.text:
-                total_score += question.score
+        total_questions = len(questions)
+        user_score = 0  # Initialize user's score
+        for question in questions:
+            selected_option_id = int(request.form.get(f'question{question.id}'))
+            selected_option = Option.query.get(selected_option_id)
+            if selected_option.is_correct:
+                user_score += 1  # Increment user's score for each correct answer
 
-        # Render the quiz_results.html template with the score
-        return render_template('quiz_results.html', title='Quiz Results', quiz=quiz, score=total_score)
-    
-    return render_template('take_quiz.html', title='Take Quiz', quiz=quiz)
-
-
-@app.route('/quiz/<int:quiz_id>/results')
-def quiz_results(quiz_id):
-    quiz = Quiz.query.get_or_404(quiz_id)
-    # Retrieve the user's score from the database and display it
-    # You can also display correct/incorrect answers if needed
-    return render_template('quiz_results.html', title='Quiz Results', quiz=quiz)
-
-
-@app.route('/new_quiz', methods=['GET', 'POST'])
-@app.route('/new_quiz', methods=['GET', 'POST'])
-def new_quiz():
-    form = New_QuizForm()
-    if form.validate_on_submit():
-        # Create a new quiz instance
-        quiz = Quiz(
-            title=form.title.data,
-            category=form.category.data,
-            level=form.level.data,
-            user_id=current_user.id  # Assuming you have a current user
-        )
-        db.session.add(quiz)
+            # Save the user's answer and whether it's correct in the database
+            score_entry = Score(
+                user_answer=selected_option.text,
+                is_correct=selected_option.is_correct,
+                score=user_score,  # Update the user's score in the score entry
+                question_id=question.id,
+                quiz_id=quiz.id,
+                user_id=current_user.id  # Assuming you have the current user available through Flask-Login
+            )
+            db.session.add(score_entry)
+        
+        # Commit changes to the database
         db.session.commit()
 
-        # Split the questions input by newline and create questions
-        questions_list = form.questions.data.split('\n')
-        for i, question_text in enumerate(questions_list):
-            question = Question(
-                question_text=question_text,
-                quiz_id=quiz.id,
-                score=10
-            )
-            db.session.add(question)
-            db.session.commit()
+        flash('Answers submitted successfully', 'success')
+        return redirect(url_for('quiz_results'))  # Redirect to a results page
+    return render_template('quiz_questions.html', title='Quiz Questions', quiz=quiz, questions=questions)
 
-            # Create options for each question
-            option1 = Option(
-                text=form.option1.data,
-                is_correct=form.correct_option.data == 'option1',
-                question_id=question.id
-            )
-            option2 = Option(
-                text=form.option2.data,
-                is_correct=form.correct_option.data == 'option2',
-                question_id=question.id
-            )
-            option3 = Option(
-                text=form.option3.data,
-                is_correct=form.correct_option.data == 'option3',
-                question_id=question.id
-            )
-            option4 = Option(
-                text=form.option4.data,
-                is_correct=form.correct_option.data == 'option4',
-                question_id=question.id
-            )
 
-            db.session.add_all([option1, option2, option3, option4])
-            db.session.commit()
+@app.route('/quiz/results')
+@login_required
+def quiz_results():
+    # Retrieve the scores for the current user and quiz
+    user_scores = Score.query.filter_by(user_id=current_user.id).all()
 
-        flash('Quiz created successfully!', 'success')
-        return redirect(url_for('quiz'))  # Redirect to the quiz page after successful quiz creation
-    else:
-        print('nothing happened')
-        flash('Quiz not created', 'danger')
+    # Calculate total score
+    total_score = sum(score.score for score in user_scores)
 
-    return render_template('new_quiz.html', title='Create a New Quiz', form=form)
+    # Get total number of questions for the quiz
+    quiz_id = user_scores[0].quiz_id  # Assuming all scores are for the same quiz
+    total_questions = Question.query.filter_by(quiz_id=quiz_id).count()
+
+    # Count the number of correct answers
+    correct_answers = sum(score.is_correct for score in user_scores)
+
+    # Calculate percentage of correct answers
+    percentage_correct = (correct_answers / total_questions) * 100 if total_questions > 0 else 0
+
+    return render_template('quiz_results.html', title='Quiz Results', total_score=total_score, total_questions=total_questions, correct_answers=correct_answers, percentage_correct=percentage_correct)

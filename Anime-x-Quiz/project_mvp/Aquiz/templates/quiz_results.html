@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Quiz Results</h1>
-        <p>Your score for {{ quiz.title }}:</p>
-        <p>{{ score }}</p>
+<h1>Quiz Results</h1>
+<div>
+  <p>Total Score: {{ total_score }}</p>
+  <p>Total Questions: {{ total_questions }}</p>
+  <p>Correct Answers: {{ correct_answers }}</p>
+  <p>Percentage Correct: {{ percentage_correct }}%</p>
+</div>
+<hr>
+<a href="{{ url_for('about') }}">Back to Home</a>
 {% endblock %}

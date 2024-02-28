@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>{{ quiz.title }}</h1>
+<p>Category: {{ quiz.category }}</p>
+<p>Level: {{ quiz.level }}</p>
+<hr>
+<form method="POST">
+    {% for question in questions %}
+    <h3>{{ question.question_text }}</h3>
+    <ul>
+        {% for option in question.options %}
+        <li><input type="radio" name="question{{ question.id }}" value="{{ option.id }}"> {{ option.text }}</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+    <button type="submit">Submit Answers</button>
+</form>
+{% endblock %}
