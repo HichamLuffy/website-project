@@ -13,6 +13,7 @@ from Aquiz.forms import RegisterForm, LoginForm, updateprofileForm, New_QuizForm
 import pymysql.cursors
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option
 from flask_login import login_user, current_user, logout_user, login_required
+from flask import jsonify
 
 
 
@@ -133,29 +134,92 @@ def account():
                            image_file=image_file, form=form)
 
 
-@app.route('/Quiz/new', methods=['GET', 'POST'])
-@login_required
+@app.route('/quiz')
+def quiz():
+    quizzes = Quiz.query.all()
+    return render_template('quiz.html', title='Quiz', quizzes=quizzes)
+
+
+@app.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
+def take_quiz(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    if request.method == 'POST':
+        total_score = 0
+        for question in quiz.questions:
+            selected_option = request.form.get(f'question_{question.id}')
+            correct_option = Option.query.filter_by(question_id=question.id, is_correct=True).first()
+            if selected_option == correct_option.text:
+                total_score += question.score
+
+        # Render the quiz_results.html template with the score
+        return render_template('quiz_results.html', title='Quiz Results', quiz=quiz, score=total_score)
+    
+    return render_template('take_quiz.html', title='Take Quiz', quiz=quiz)
+
+
+@app.route('/quiz/<int:quiz_id>/results')
+def quiz_results(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    # Retrieve the user's score from the database and display it
+    # You can also display correct/incorrect answers if needed
+    return render_template('quiz_results.html', title='Quiz Results', quiz=quiz)
+
+
+@app.route('/new_quiz', methods=['GET', 'POST'])
+@app.route('/new_quiz', methods=['GET', 'POST'])
 def new_quiz():
     form = New_QuizForm()
-    title = form.title.data
-    category = form.category.data
-    level = form.level.data
-    num_questions = form.num_questions.data
-    questions = form.questions.data
-    option1 = form.option1.data
-    option2 = form.option2.data
-    option3 = form.option3.data
-    option4 = form.option4.data
-    correct_option = form.correct_option.data
-    print("title: {} category: {} level : {} num_questions: {} \n".format(title, category, level, num_questions))
-    print("questions = {}".format(questions))
-
     if form.validate_on_submit():
-        
-        flash('Quiz created successfully!', 'success')
-        return redirect(url_for('about'))  # Redirect to a success page or homepage
-    else:
-        flash('Quiz not created ', 'danger')
-        print("nothing happend")
+        # Create a new quiz instance
+        quiz = Quiz(
+            title=form.title.data,
+            category=form.category.data,
+            level=form.level.data,
+            user_id=current_user.id  # Assuming you have a current user
+        )
+        db.session.add(quiz)
+        db.session.commit()
 
-    return render_template('create_quiz.html', title='Add Quiz', form=form)
+        # Split the questions input by newline and create questions
+        questions_list = form.questions.data.split('\n')
+        for i, question_text in enumerate(questions_list):
+            question = Question(
+                question_text=question_text,
+                quiz_id=quiz.id,
+                score=10
+            )
+            db.session.add(question)
+            db.session.commit()
+
+            # Create options for each question
+            option1 = Option(
+                text=form.option1.data,
+                is_correct=form.correct_option.data == 'option1',
+                question_id=question.id
+            )
+            option2 = Option(
+                text=form.option2.data,
+                is_correct=form.correct_option.data == 'option2',
+                question_id=question.id
+            )
+            option3 = Option(
+                text=form.option3.data,
+                is_correct=form.correct_option.data == 'option3',
+                question_id=question.id
+            )
+            option4 = Option(
+                text=form.option4.data,
+                is_correct=form.correct_option.data == 'option4',
+                question_id=question.id
+            )
+
+            db.session.add_all([option1, option2, option3, option4])
+            db.session.commit()
+
+        flash('Quiz created successfully!', 'success')
+        return redirect(url_for('quiz'))  # Redirect to the quiz page after successful quiz creation
+    else:
+        print('nothing happened')
+        flash('Quiz not created', 'danger')
+
+    return render_template('new_quiz.html', title='Create a New Quiz', form=form)

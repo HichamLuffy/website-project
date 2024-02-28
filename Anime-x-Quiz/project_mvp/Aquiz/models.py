@@ -68,8 +68,6 @@ class Question(db.Model):
     question_text = db.Column(db.Text, nullable=False)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
     score = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
-    updated_at = db.Column(db.DateTime, nullable=False)
     options = db.relationship('Option', backref='question', lazy=True)
 
     def __repr__(self):

@@ -1,24 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-    <style>
-        /* Define styles for unvisited links */
-        a {
-            color: rgb(109, 109, 109); /* Set unvisited link color */
-            text-decoration: none; /* Remove underline */
-        }
-        
-        /* Define styles for visited links */
-        a:visited {
-            color: rgb(128, 128, 128); /* Set visited link color */
-        }
-    </style>
-
-    <div class="container">
-        <button type="button">
-            <a href="/Quiz/new">
-                <h2>Make a Quiz</h2>
-            </a>
-        </button>
-    </div>
-    <h1>Existing quiz (not added yet)</h1>
+    <h1>Available Quizzes</h1>
+    <ul>
+        {% for quiz in quizzes %}
+            <li><a href="{{ url_for('take_quiz', quiz_id=quiz.id) }}">{{ quiz.title }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}
