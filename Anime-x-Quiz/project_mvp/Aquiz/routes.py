@@ -24,10 +24,28 @@ connection = pymysql.connect(
     database='AQZ',
     cursorclass=pymysql.cursors.DictCursor
 )
+
+
+def get_total_score():
+    # Check if the user is authenticated
+    if current_user.is_authenticated:
+        # Retrieve the scores for the current user
+        user_scores = Score.query.filter_by(user_id=current_user.id).all()
+
+        # Calculate total score
+        total_score = sum(score.score for score in user_scores)
+
+        return total_score
+    else:
+        # Return 0 or handle the case when the user is not authenticated
+        return 0  # You can adjust this based on your requirements
+
+
 @app.route('/')
 @app.route('/main')
 def about():
-    return render_template('main.html', title='Home')
+    total_score = get_total_score()
+    return render_template('main.html', title='Home', total_score=total_score)
 
 # @app.route('/main/posts')
 # def posts_page():
@@ -36,15 +54,18 @@ def about():
 #         posts = cursor.fetchall()
 #     return render_template('posts.html', posts=posts, title='posts')
 
+
 @app.route('/Quiz')
 def quiz_page():
-    return render_template('quiz.html', title='Quiz')
+    total_score = get_total_score()
+    return render_template('quiz.html', title='Quiz', total_score=total_score)
 
 
 @app.route('/main/profile')
 def profile_page():
+    total_score = get_total_score()
     image_file = current_user.profile.avatar
-    return render_template('profile.html', title='Profile', image_file=image_file)
+    return render_template('profile.html', title='Profile', image_file=image_file, total_score=total_score)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
@@ -66,7 +87,8 @@ def register_page():
         flash(f'Account created for {data}! you can login', 'success')
         return redirect(url_for('Login_page'))
     print("Form submission failed")
-    return render_template('register.html', form=form, title='register')
+    total_score = get_total_score()
+    return render_template('register.html', form=form, title='register', total_score=total_score)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -84,7 +106,8 @@ def Login_page():
             return redirect(next_page) if next_page else redirect(url_for('about'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', form=form, title='Login')
+    total_score = get_total_score()
+    return render_template('login.html', form=form, title='Login', total_score=total_score)
 
 
 @app.route('/logout')
@@ -130,19 +153,22 @@ def account():
         form.bio.data = current_user.profile.bio
     image_file = current_user.profile.avatar
     print(image_file)
+    total_score = get_total_score()
     return render_template('account.html', title='Account',
-                           image_file=image_file, form=form)
+                           image_file=image_file, form=form, total_score=total_score)
 
 
 @app.route('/quiz')
 @login_required
 def quiz():
+    total_score = get_total_score()
     quizzes = Quiz.query.all()
-    return render_template('quiz.html', title='Quiz', quizzes=quizzes)
+    return render_template('quiz.html', title='Quiz', quizzes=quizzes, total_score=total_score)
 
 
 @app.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
 def quiz_questions(quiz_id):
+    total_score = get_total_score()
     quiz = Quiz.query.get_or_404(quiz_id)
     questions = quiz.questions
     if request.method == 'POST':
@@ -170,12 +196,13 @@ def quiz_questions(quiz_id):
 
         flash('Answers submitted successfully', 'success')
         return redirect(url_for('quiz_results'))  # Redirect to a results page
-    return render_template('quiz_questions.html', title='Quiz Questions', quiz=quiz, questions=questions)
+    return render_template('quiz_questions.html', title='Quiz Questions', quiz=quiz, questions=questions, total_score=total_score)
 
 
 @app.route('/quiz/results')
 @login_required
 def quiz_results():
+    
     # Retrieve the scores for the current user and quiz
     user_scores = Score.query.filter_by(user_id=current_user.id).all()
 

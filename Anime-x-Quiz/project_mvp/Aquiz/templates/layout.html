@@ -26,6 +26,7 @@
                                 <button class="login"><a href="{{ url_for('logout_page') }}">lOGOUT</a></button>
                                 <img src="{{ image_file }}" alt="Profile Picture">
                                 <p>{{ current_user.username }}</p>
+                                <p style="color: red;">Score: {{ total_score }}</p>
                                 <li><a href="{{ url_for('account') }}">Profile</a></li>
                                 {% else %}
                                     <button class="login"><a href="{{ url_for('Login_page') }}">Login</a></button>
