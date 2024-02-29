@@ -135,6 +135,7 @@ def account():
 
 
 @app.route('/quiz')
+@login_required
 def quiz():
     quizzes = Quiz.query.all()
     return render_template('quiz.html', title='Quiz', quizzes=quizzes)
