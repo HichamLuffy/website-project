@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Create a New Quiz</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <fieldset>
+            <legend>Quiz Information</legend>
+            <div>
+                {{ form.title.label }}: {{ form.title }}
+            </div>
+            <div>
+                {{ form.category.label }}: {{ form.category }}
+            </div>
+            <div>
+                {{ form.level.label }}: {{ form.level }}
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Questions</legend>
+            <div>
+                {{ form.questions.label }}: {{ form.questions }}
+            </div>
+            <div>
+                {{ form.option1.label }}: {{ form.option1 }}
+            </div>
+            <div>
+                {{ form.option2.label }}: {{ form.option2 }}
+            </div>
+            <div>
+                {{ form.option3.label }}: {{ form.option3 }}
+            </div>
+            <div>
+                {{ form.option4.label }}: {{ form.option4 }}
+            </div>
+            <div>
+                {{ form.correct_option.label }}: {{ form.correct_option }}
+            </div>
+        </fieldset>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+{% endblock %}
