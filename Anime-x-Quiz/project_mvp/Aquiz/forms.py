@@ -47,6 +47,7 @@ class updateprofileForm(FlaskForm):
     pfp = FileField('pfp', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
     default_avatar = [
+        ('', ''),
         ('astadefault.jpg', 'Asta'),
         ('deathnotedefault.jpg', 'Death Note'),
         ('emmadefault.jpg', 'Emma'),
