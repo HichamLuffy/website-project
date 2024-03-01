@@ -176,6 +176,7 @@ def quiz_questions(quiz_id):
         user_score = 0  # Initialize user's score
         for question in questions:
             selected_option_id = int(request.form.get(f'question{question.id}'))
+            print(f"Question {question.id} selected option ID: {selected_option_id}")
             selected_option = Option.query.get(selected_option_id)
             if selected_option.is_correct:
                 user_score += 1  # Increment user's score for each correct answer

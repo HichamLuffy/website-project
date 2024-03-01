@@ -67,6 +67,8 @@ class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question_text = db.Column(db.Text, nullable=False)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
+    image_path = db.Column(db.String(255))  # Add field for image path/URL
+    sound_path = db.Column(db.String(255))  # Add field for sound path/URL
     score = db.Column(db.Integer, nullable=False)
     options = db.relationship('Option', backref='question', lazy=True)
 
