@@ -205,13 +205,14 @@ def quiz_questions(quiz_id):
 @app.route('/quiz/results')
 @login_required
 def quiz_results():
+    total_score = get_total_score()
     # Retrieve the latest score for the current user
     latest_score = Score.query.filter_by(user_id=current_user.id).order_by(desc(Score.id)).first()
 
     if latest_score:
         # Extract the score
-        quiz_score = latest_score.score
+        quiz_score = latest_score.score * 2
     else:
         quiz_score = 0
 
-    return render_template('quiz_results.html', title='Quiz Results', quiz_score=quiz_score)
+    return render_template('quiz_results.html', title='Quiz Results', quiz_score=quiz_score, total_score=total_score)
