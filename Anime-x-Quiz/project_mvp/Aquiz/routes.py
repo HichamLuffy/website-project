@@ -14,6 +14,8 @@ import pymysql.cursors
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import jsonify
+from sqlalchemy import desc
+
 
 
 
@@ -203,21 +205,13 @@ def quiz_questions(quiz_id):
 @app.route('/quiz/results')
 @login_required
 def quiz_results():
-    
-    # Retrieve the scores for the current user and quiz
-    user_scores = Score.query.filter_by(user_id=current_user.id).all()
+    # Retrieve the latest score for the current user
+    latest_score = Score.query.filter_by(user_id=current_user.id).order_by(desc(Score.id)).first()
 
-    # Calculate total score
-    total_score = sum(score.score for score in user_scores)
+    if latest_score:
+        # Extract the score
+        quiz_score = latest_score.score
+    else:
+        quiz_score = 0
 
-    # Get total number of questions for the quiz
-    quiz_id = user_scores[0].quiz_id  # Assuming all scores are for the same quiz
-    total_questions = Question.query.filter_by(quiz_id=quiz_id).count()
-
-    # Count the number of correct answers
-    correct_answers = sum(score.is_correct for score in user_scores)
-
-    # Calculate percentage of correct answers
-    percentage_correct = (correct_answers / total_questions) * 100 if total_questions > 0 else 0
-
-    return render_template('quiz_results.html', title='Quiz Results', total_score=total_score, total_questions=total_questions, correct_answers=correct_answers, percentage_correct=percentage_correct)
+    return render_template('quiz_results.html', title='Quiz Results', quiz_score=quiz_score)
