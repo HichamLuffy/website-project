@@ -192,8 +192,11 @@ section {
     margin-left: 80px;
 }
 
-.logo{
-    font-family: 'Another America', sans-serif;
+img{
 
+    height: 90px; /* Adjust the height of the logo as needed */
+    width: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add spacing between the logo and other header content */
+    margin-top: -10px; /* Adjust the margin to move the logo up */
+    margin-left: -10px; 
 }
-
