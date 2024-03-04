@@ -44,6 +44,7 @@ class Score (db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    question = db.relationship('Question', backref='scores', lazy=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     def __repr__(self):

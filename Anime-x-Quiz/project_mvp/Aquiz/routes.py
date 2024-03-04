@@ -173,6 +173,7 @@ def quiz_questions(quiz_id):
     total_score = get_total_score()
     quiz = Quiz.query.get_or_404(quiz_id)
     questions = quiz.questions
+    num_questions = len(questions)
     if request.method == 'POST':
         total_questions = len(questions)
         user_score = 0  # Initialize user's score
@@ -199,7 +200,7 @@ def quiz_questions(quiz_id):
 
         flash('Answers submitted successfully', 'success')
         return redirect(url_for('quiz_results'))  # Redirect to a results page
-    return render_template('quiz_questions.html', title='Quiz Questions', quiz=quiz, questions=questions, total_score=total_score)
+    return render_template('quiz_questions.html', title='Quiz Questions', quiz=quiz, questions=questions, total_score=total_score, num_questions=num_questions)
 
 
 @app.route('/quiz/results')
