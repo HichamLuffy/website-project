@@ -14,11 +14,12 @@
 <body>
     <header>
         <div class="container">
-            <h1>Anime x Quiz</h1>
+            <h1 class="logo" >Anime x Quiz</h1>
             <nav>
                 <ul>
                     <li><a href="{{ url_for('about') }}">Home</a></li>
                     <li><a href="{{ url_for('quiz') }}">Quiz</a></li>
+                    <li><a href="{{ url_for('make_quiz') }}">Make a quiz</a></li>
                     <div class="loginsignup">
                         <nav class="user-buttons">
                             <div class="user-button">
@@ -56,6 +57,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../static/scripts/scripts.js"></script>
     <script src="../static/scripts/editprofile.js"></script>
-    {% include "footer.html" %}
 </body>
+<footer class = '{{title}}'>
+    <div class="footer">
+        <p>&copy; 2024 Anime x Quiz.</p>
+    </div>
+</footer>
 </html>

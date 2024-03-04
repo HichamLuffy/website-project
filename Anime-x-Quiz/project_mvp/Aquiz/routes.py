@@ -216,3 +216,9 @@ def quiz_results():
         quiz_score = 0
 
     return render_template('quiz_results.html', title='Quiz Results', quiz_score=quiz_score, total_score=total_score)
+
+
+@app.route('/make_quiz')
+def make_quiz():
+    # Your view logic here
+    return render_template('new_quiz.html')

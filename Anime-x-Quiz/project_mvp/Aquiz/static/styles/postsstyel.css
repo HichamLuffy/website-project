@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+/* Import the Poppins font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 
 /* Resetting default browser styles */
 * {
@@ -7,33 +8,35 @@
     box-sizing: border-box;
 }
 
+/* Apply Poppins font to the body */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #d6d5d5;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('../images/peakpx.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ccc;
+    min-height: 100vh; /* Ensure body extends to at least viewport height */
+    display: flex;
+    flex-direction: column;
 }
 
+/* Container for content */
 .container {
     max-width: fit-content;
     margin: 0 auto;
     padding: 0 20px;
+    flex: 1;
 }
 
+/* Header styles */
 header {
-    background-color: #333;
+
     color: #fff;
-    padding: 20px 0;
+    padding: 20px;
 }
 
-header h1 {
-    margin: 0;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
+/* Navigation styles */
 nav ul {
     list-style-type: none;
     margin-left: 640px;
@@ -56,62 +59,20 @@ nav ul li:hover {
     text-decoration: underline;
 }
 
-section {
-    padding: 50px 0;
-}
+/* Footer styles */
+footer {
 
-h2 {
-    margin-bottom: 20px;
-}
-
-ul {
-    list-style-type: none;
-}
-
-ul li {
-    margin-bottom: 10px;
-}
-
-#quiz-levels {
-    display: none; /* Hide initially */
-}
-
-#quiz-levels.show {
-    display: block; /* Show when category is clicked */
-}
-
-#doneButton {
-    display: none;
+    color: #fff;
+    padding: 20px;
+    margin-top: auto;
+    text-align: center;
     position: fixed;
-    bottom: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 16px;
-    font-weight: 20px;
-    background-color: #4CAF50; /* Green background color */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
-#doneButton.show {
-    display: block;
-    position: fixed;
-    bottom: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 16px;
-    font-weight: 20px;
-    background-color: #4CAF50; /* Green background color */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
+/* User buttons styles */
 .loginsignup {
     position: relative;
 }
@@ -120,7 +81,7 @@ ul li {
     display: relative;
     justify-content: center;
     align-items: center;
-    margin-left: 840px;/* Align to the right */
+    margin-left: 840px; /* Adjust positioning */
 }
 
 .user-buttons button {
@@ -133,25 +94,24 @@ ul li {
     border-style: dotted;
 }
 
+/* Post styles */
 section {
     padding: 20px 0;
 }
 
 .post {
+    background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 15px;
+    padding: 20px;
     margin-bottom: 20px;
 }
 
-/* Style the post header */
 .post-header {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-/* Style the author and date */
 .post-header h3 {
     margin-right: 10px;
     font-weight: bold;
@@ -162,7 +122,6 @@ section {
     color: #777;
 }
 
-/* Style the post content */
 .post-content {
     margin-bottom: 15px;
 }
@@ -173,65 +132,8 @@ section {
     margin-left: 500px;
 }
 
-#post-form button {
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-#posts {
-    margin-top: 20px;
-}
-
-.post {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-h6 {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-h5 {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 10px;
-}
-
-p {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-footer.posts {
-    position: relative;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-}
-
-footer.posts p {
-    margin: 0;
-}
-
-.card{
-
+/* Card styles */
+.card {
     width: 380px;
     border: none;
     border-radius: 15px;
@@ -239,60 +141,59 @@ footer.posts p {
     background-color: #fff;
     position: relative;
     height: 370px;
-   }
+}
 
-   .upper{
-
+.upper {
     height: 100px;
+}
 
-   }
-
-   .upper img{
-
+.upper img {
     width: 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
 
-   }
-
-   .user{
-    position: relative;
-   }
-
-   .profile img{
-
-    
+.profile img {
     height: 80px;
     width: 80px;
-    margin-top:2px;
+    margin-top: 2px;
+}
 
-   
-   }
-
-   .profile{
-
+.profile {
     position: absolute;
-    top:-50px;
+    top: -50px;
     left: 38%;
     height: 90px;
     width: 90px;
-    border:3px solid #fff;
-
+    border: 3px solid #fff;
     border-radius: 50%;
 
-   }
+}
 
-   .follow{
-
+.follow {
     border-radius: 15px;
     padding-left: 20px;
     padding-right: 20px;
     height: 35px;
-   }
+}
 
-   .stats span{
-
+.stats span {
     font-size: 29px;
-   }
+}
 
-   
+/* Style the aside text */
+.aside-text {
+    font-family: 'ClashDisplay-Bold', sans-serif; /* Specify the desired font family */
+    
+    color: #fff; /* Text color */
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-right: 150px;
+    margin-left: 80px;
+}
+
+.logo{
+    font-family: 'Another America', sans-serif;
+
+}
+
