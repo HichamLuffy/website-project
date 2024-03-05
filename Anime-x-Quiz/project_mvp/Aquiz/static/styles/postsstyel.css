@@ -183,7 +183,7 @@ section {
 
 /* Style the aside text */
 .aside-text {
-    font-family: 'ClashDisplay-Bold', sans-serif; /* Specify the desired font family */
+    font-family: 'ClashDisplay-Bold', sans-serif;
     
     color: #fff; /* Text color */
     margin-top: 100px;
