@@ -44,7 +44,7 @@ class updateprofileForm(FlaskForm):
     username = StringField('username', validators=[DataRequired(), Length(min=3, max=15)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     bio = StringField('bio', validators=[DataRequired(), Length(min=0, max=150)])
-    pfp = FileField('pfp', validators=[FileAllowed(['jpg', 'png'])])
+    pfp = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
     default_avatar = [
         ('', ''),

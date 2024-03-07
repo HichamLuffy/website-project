@@ -1,0 +1,50 @@
+/* Styles for the leaderboard column */
+.container2 .leaderboard-column {
+    flex: 1; /* Make the leaderboard column take up 50% of the container2 width */
+    text-align: center; /* Center the content */
+  }
+  
+  .first-place {
+    margin-bottom: 20px; /* Add some space between the first place user and the table */
+  }
+  
+  .first-place-user {
+    display: inline-block; /* Ensure elements are displayed inline */
+    text-align: center; /* Center the content */
+  }
+  
+  .first-place-user .profile-pic {
+    object-fit: cover;
+    border: 3px solid yellow; /* Add a yellow border */
+    border-radius: 50%; /* Make the profile picture round */
+    width: 100px; /* Adjust the width of the profile picture */
+    height: 100px; /* Adjust the height of the profile picture */
+    margin-bottom: 10px; /* Add some space between the profile picture and the username */
+  }
+  
+  .first-place-user .username {
+    font-weight: bold; /* Make the username bold */
+  }
+  
+  /* Style the leaderboard table */
+  .container2 .leaderboard-table {
+    width: 70%;
+    border-collapse: collapse;
+    margin: 0 auto; /* Center the table horizontally */
+  }
+  
+  /* Style the table header */
+  .container2 .leaderboard-table th {
+    background-color: #313131;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  /* Style the table rows */
+  .container2 .leaderboard-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  

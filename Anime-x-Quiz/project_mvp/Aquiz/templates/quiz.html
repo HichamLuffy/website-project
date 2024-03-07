@@ -1,9 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Quiz</h1>
-<ul>
-  {% for quiz in quizzes %}
-    <li><a href="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">{{ quiz.title }}</a></li>
-  {% endfor %}
-</ul>
+<div class="container2">
+  <div class="content-wrapper">
+    <div class="last-quiz">
+      <h2>Last Added Quiz</h2>
+      <div>
+        <a href="{{ url_for('quiz_questions', quiz_id=quizzes[-1].id) }}">{{ quizzes[-1].title }}</a>
+      </div>
+    </div>
+    <div class="quizzes-column">
+      <h2>Other Quizzes</h2>
+      <ul>
+        {% for quiz in quizzes[:-1] %}
+          <li><a href="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">{{ quiz.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
 {% endblock %}

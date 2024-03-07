@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="userprofile">
+    <div class="profile-page">
+        <h2>You are watching, {{ user.username }}</h2>
+        <div class="profile-details" id="profile-details">
+            <div class="profile-bio">
+                <img src="{{ user_image }}" alt="Profile Picture">
+                <h4>{{ user.profile.bio }}</h4>
+            </div>
+            <nav class="user-detail">
+                <ul>
+                    <li>Player name: <p>{{ user.username }}</p></li>
+                    <li>Started on: <p>{{ user.created_at.strftime('%m/%d/%Y') }}</p></li>
+                </ul>
+            </nav>
+            <!-- Add more profile details as needed -->
+        </div>
+        
+    </div>
+    <div class="profile-score">
+        <h4>Stats</h4>
+        <nav>
+            <ul>
+                <li>Score: <p>{{ total_score }}</p></li>
+                <li>Time Played: <p>{{ total_attempts}}</p></li>
+                <li>Average score: <p>{{ average_score }}</p></li>
+                <li>Last Quiz Played: <p>{{ most_recent_quiz }}</p></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}

@@ -1,61 +1,87 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="profile-page">
-    <h2>Welcome to your profile, {{ current_user.username }}</h2>
-    <div class="profile-details">
-        <img src="{{ image_file }}" alt="Profile Picture">
-        <p>{{ current_user.username }}</p>
-        <p>{{ current_user.profile.bio }}</p>
-        <p style="color: rgb(138, 235, 11);">Score: {{ total_score }}</p>
-        <p>Email: {{ current_user.email }}</p>
-        <!-- Add more profile details as needed -->
-    </div>
-    <div class="profile-actions">
-        <h3>Profile Actions</h3>
-        <ul>
-            <li><a href="#" id="edit-profile-link">Edit Profile</a></li>
-            <div id="edit-profile-div" style="display: none;">
-                <form id="register-form" method="POST" action="" enctype="multipart/form-data">
-                    {{ form.hidden_tag() }}
-                    {{ form.new_avatar.label() }}
-                    {{ form.new_avatar(class="form-control") }}
-                    <legend><h3>Update your account</h3></legend>
-                    <a href="#" id="username-edit">edit your username</a>
-                    {{ form.username(id="username-edit", class="form-control", placeholder="new username") }}
-                    {% if form.username.errors %}
-                    <div class="errors">
-                        {% for error in form.username.errors %}
-                        <span class="errormessag">{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                    </br>
-                    <a href="#" id="email-edit">edit your email</a>
-                    {{ form.email(id="email-edit", class="form-control", placeholder="New Email") }}
-                    {% if form.email.errors %}
-                    <div class="errors">
-                        {% for error in form.email.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                    </br>
-                    {{ form.bio (class="form-control", placeholder="tell us about your self") }}
-                    <div>
-                        {{ form.pfp.label() }}
-                        {{ form.pfp(class="form-control-file") }}
-                        {% if form.pfp.errors %}
-                            {% for error in form.pfp.errors %}
-                            <span class="text-danger">{{ error }}</span>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                    {{ form.submit (class="btn btn-online-info") }}
-                </form>
+<div class="userprofile">
+    <div class="profile-page">
+        <h2>Welcome to your profile, {{ current_user.username }}</h2>
+        <div class="profile-actions">
+            <ul>
+                <li>
+                    <a href="#" id="edit-profile-link"><img src="../static/images/settingsicon.png"></a>
+                </li>
+                <div id="edit-profile-div" style="display: none;">
+                    <form id="register-form" method="POST" action="" enctype="multipart/form-data">
+                        <fieldset>
+                            {{ form.hidden_tag() }}
+                            {{ form.new_avatar.label() }}
+                            {{ form.new_avatar(class="form-control") }}
+                            <legend><h3>Update your account</h3></legend>
+                            <a id="username-edit">edit your username</a>
+                            {{ form.username(id="username-edit", class="form-control", placeholder="new username") }}
+                            {% if form.username.errors %}
+                            <div class="errors">
+                                {% for error in form.username.errors %}
+                                <span class="errormessag">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            </br>
+                            <a id="email-edit">edit your email</a>
+                            {{ form.email(id="email-edit", class="form-control", placeholder="New Email") }}
+                            {% if form.email.errors %}
+                            <div class="errors">
+                                {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            </br>
+                            <a id="username-edit">edit your bio</a>
+                            {{ form.bio (class="form-control", placeholder="tell us about your self") }}
+                            <div>
+                                {{ form.pfp.label() }}
+                                {{ form.pfp(class="form-control-file") }}
+                                {% if form.pfp.errors %}
+                                    {% for error in form.pfp.errors %}
+                                        <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="btnupdate">
+                                {{ form.submit (class="btnlogout") }}
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- <li><a href="#">Change Password</a></li> -->
+                <!-- Add more profile actions as needed -->
+            </ul>
+        </div>
+        <div class="profile-details" id="profile-details">
+            <div class="profile-bio">
+                <img src="{{ image_file }}" alt="Profile Picture">
+                <h4>{{ current_user.profile.bio }}</h4>
+                <button class="btnlogout"><a href="{{ url_for('logout_page') }}">lOGOUT</a></button>
             </div>
-            <li><a href="#">Change Password</a></li>
-            <!-- Add more profile actions as needed -->
-        </ul>
+            <nav class="user-detail">
+                <ul>
+                    <li>Player name: <p>{{ current_user.username }}</p></li>
+                    <li>Started on: <p>{{ current_user.created_at.strftime('%m/%d/%Y') }}</p></li>
+                </ul>
+            </nav>
+            <!-- Add more profile details as needed -->
+        </div>
+        
+    </div>
+    <div class="profile-score">
+        <h4>Stats</h4>
+        <nav>
+            <ul>
+                <li>Score: <p>{{ total_score }}</p></li>
+                <li>Time Played: <p>{{ total_attempts}}</p></li>
+                <li>Average score: <p>{{ average_score }}</p></li>
+                <li>Last Quiz Played: <p>{{ most_recent_quiz }}</p></li>
+            </ul>
+        </nav>
     </div>
 </div>
 {% endblock %}

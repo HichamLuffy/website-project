@@ -15,6 +15,7 @@ from Aquiz.models import User, Profile, Score, Quiz, Question, Option
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import jsonify
 from sqlalchemy import desc
+from collections import defaultdict
 
 
 
@@ -26,6 +27,38 @@ connection = pymysql.connect(
     database='AQZ',
     cursorclass=pymysql.cursors.DictCursor
 )
+
+
+def get_quiz_statistics(user_id):
+    # Calculate total quiz attempts
+    total_attempts = Score.query.filter_by(user_id=user_id).count()
+
+    # Calculate average quiz score
+    user_scores = Score.query.filter_by(user_id=user_id).all()
+    total_score = sum(score.score for score in user_scores)
+    average_score = total_score / max(len(user_scores), 1)
+    average_score = round(average_score, 2)  # Round to 2 decimal places
+
+    # Retrieve the most recent quiz played by the user
+    most_recent_quiz = (
+        db.session.query(Quiz.title)
+        .join(Score, Score.quiz_id == Quiz.id)
+        .filter(Score.user_id == user_id)
+        .order_by(Score.id.desc())
+        .first()
+    )
+
+    return {
+        'total_attempts': total_attempts,
+        'average_score': average_score,
+        'most_recent_quiz': most_recent_quiz[0] if most_recent_quiz else None
+    }
+
+def get_profile_picture(user_id):
+    user = User.query.get(user_id)
+    if user and user.profile:
+        return url_for('static', filename=f'images/{user.profile.avatar}')
+    return 'default_avatar.jpg'
 
 
 def get_total_score():
@@ -43,11 +76,42 @@ def get_total_score():
         return 0  # You can adjust this based on your requirements
 
 
+def get_leaderboard_data():
+    leaderboard_data = {}
+    # Query database to retrieve scores ordered by score in descending order
+    scores = Score.query.order_by(Score.score.desc()).all()
+
+    # Populate the leaderboard data with unique users and their total scores
+    for score in scores:
+        if score.user_id not in leaderboard_data:
+            user = User.query.get(score.user_id)
+            leaderboard_data[score.user_id] = (user.username, score.score)
+        else:
+            # Add the score to the existing user entry
+            username, current_score = leaderboard_data[score.user_id]
+            leaderboard_data[score.user_id] = (username, current_score + score.score)
+
+    return leaderboard_data
+
+
+def get_username(user_id):
+    user = User.query.get(user_id)
+    if user:
+        return user.username
+    return "Unknown User"
+
+
 @app.route('/')
 @app.route('/main')
 def about():
-    total_score = get_total_score()
-    return render_template('main.html', title='Home', total_score=total_score)
+    if current_user.is_authenticated:
+        if 'static/' not in current_user.profile.avatar:
+            image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+        else:
+            image_file = '/' + current_user.profile.avatar
+        total_score = get_total_score()
+        return render_template('main.html', title='Home', total_score=total_score, image_file=image_file)
+    return render_template('main.html', title='Home')
 
 # @app.route('/main/posts')
 # def posts_page():
@@ -59,14 +123,18 @@ def about():
 
 @app.route('/Quiz')
 def quiz_page():
+    if 'static/' not in current_user.profile.avatar:
+        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+    else:
+        image_file = '/' + current_user.profile.avatar
     total_score = get_total_score()
-    return render_template('quiz.html', title='Quiz', total_score=total_score)
+    return render_template('quiz.html', title='Quiz', total_score=total_score, image_file=image_file)
 
 
 @app.route('/main/profile')
 def profile_page():
-    total_score = get_total_score()
     image_file = current_user.profile.avatar
+    total_score = get_total_score()
     return render_template('profile.html', title='Profile', image_file=image_file, total_score=total_score)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -126,7 +194,8 @@ def save_pfp(form_pfp):
     print(picture_path)
 
     resize_pic = (256, 256)
-    img = Image.open(form_pfp)
+    form_pfp.save(picture_path)  # Save the file
+    img = Image.open(picture_path)  # Open the saved file
     img.thumbnail(resize_pic)
     img.save(picture_path)
 
@@ -139,10 +208,13 @@ def account():
     form = updateprofileForm()
     if form.validate_on_submit():
         if form.new_avatar.data:
+            print(form.new_avatar.data)
             current_user.profile.avatar = url_for('static', filename='images/' + form.new_avatar.data)
+            print("im new avatar", current_user.profile.avatar)
         elif form.pfp.data:
             pic_file = save_pfp(form.pfp.data)
             current_user.profile.avatar = pic_file
+            print(current_user.profile.avatar)
         current_user.username = form.username.data
         current_user.email = form.email.data
         current_user.profile.bio = form.bio.data
@@ -153,23 +225,39 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
         form.bio.data = current_user.profile.bio
-    image_file = current_user.profile.avatar
+    if 'static/' not in current_user.profile.avatar:
+        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+    else:
+        image_file = '/' + current_user.profile.avatar
+    print(current_user.profile.avatar)
     print(image_file)
+    quiz_stats = get_quiz_statistics(current_user.id)
     total_score = get_total_score()
     return render_template('account.html', title='Account',
-                           image_file=image_file, form=form, total_score=total_score)
+                           image_file=image_file, form=form, total_score=total_score, total_attempts=quiz_stats['total_attempts'],
+                            average_score=quiz_stats['average_score'],
+                            most_recent_quiz=quiz_stats['most_recent_quiz'])
 
 
 @app.route('/quiz')
 @login_required
 def quiz():
+    if 'static/' not in current_user.profile.avatar:
+        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+    else:
+        image_file = '/' + current_user.profile.avatar
     total_score = get_total_score()
     quizzes = Quiz.query.all()
-    return render_template('quiz.html', title='Quiz', quizzes=quizzes, total_score=total_score)
+    leaderboard_data = get_leaderboard_data()
+    return render_template('quiz.html', title='Quiz', quizzes=quizzes, total_score=total_score, leaderboard_data=leaderboard_data, get_username=get_username, image_file=image_file)
 
 
 @app.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
 def quiz_questions(quiz_id):
+    if 'static/' not in current_user.profile.avatar:
+        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+    else:
+        image_file = '/' + current_user.profile.avatar
     total_score = get_total_score()
     quiz = Quiz.query.get_or_404(quiz_id)
     questions = quiz.questions
@@ -200,12 +288,16 @@ def quiz_questions(quiz_id):
 
         flash('Answers submitted successfully', 'success')
         return redirect(url_for('quiz_results'))  # Redirect to a results page
-    return render_template('quiz_questions.html', title='Quiz Questions', quiz=quiz, questions=questions, total_score=total_score, num_questions=num_questions)
+    return render_template('quiz_questions.html', title='Quiz Questions', quiz=quiz, questions=questions, total_score=total_score, num_questions=num_questions, image_file=image_file)
 
 
 @app.route('/quiz/results')
 @login_required
 def quiz_results():
+    if 'static/' not in current_user.profile.avatar:
+        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+    else:
+        image_file = '/' + current_user.profile.avatar
     total_score = get_total_score()
     # Retrieve the latest score for the current user
     latest_score = Score.query.filter_by(user_id=current_user.id).order_by(desc(Score.id)).first()
@@ -216,10 +308,35 @@ def quiz_results():
     else:
         quiz_score = 0
 
-    return render_template('quiz_results.html', title='Quiz Results', quiz_score=quiz_score, total_score=total_score)
+    return render_template('quiz_results.html', title='Quiz Results', quiz_score=quiz_score, total_score=total_score, image_file=image_file)
 
 
-@app.route('/make_quiz')
-def make_quiz():
+@app.route('/leaderboard')
+def leaderboard():
     # Your view logic here
-    return render_template('new_quiz.html')
+    if 'static/' not in current_user.profile.avatar:
+        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+    else:
+        image_file = '/' + current_user.profile.avatar
+    total_score = get_total_score()
+    leaderboard_data = get_leaderboard_data()
+    return render_template('quizleaderboard.html', title='Quiz', leaderboard_data=leaderboard_data, get_username=get_username, get_profile_picture=get_profile_picture, total_score=total_score, image_file=image_file)
+
+
+@app.route('/user/<int:user_id>')
+def user_profile(user_id):
+    if 'static/' not in current_user.profile.avatar:
+        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+    else:
+        image_file = '/' + current_user.profile.avatar
+    user = User.query.get_or_404(user_id)
+    if 'static/' not in user.profile.avatar:
+        user_image = url_for('static', filename='images/' + user.profile.avatar)
+    else:
+        user_image = '/' + user.profile.avatar
+    print(user_image)
+    quiz_stats = get_quiz_statistics(user_id)
+    total_score = get_total_score()  # Or any other way to calculate total score for this user
+    return render_template('user_profile.html', title='User Profile', user=user, user_image=user_image, total_score=total_score, image_file=image_file, total_attempts=quiz_stats['total_attempts'],
+                            average_score=quiz_stats['average_score'],
+                            most_recent_quiz=quiz_stats['most_recent_quiz'])

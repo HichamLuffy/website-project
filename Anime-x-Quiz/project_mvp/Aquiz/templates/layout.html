@@ -5,40 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anime x Quiz - {{ title }}</title>
     <link rel="icon" href="../static/images/logoo.png">
-    <link rel="stylesheet" href="../static/styles/headerstyle.css">
+    <!-- <link rel="stylesheet" href="../static/styles/headerstyle.css"> -->
     <link rel="stylesheet" href="../static/styles/postsstyel.css">
     <link rel="stylesheet" href="../static/styles/profilestyle.css">
     <link rel="stylesheet" href="../static/styles/alertmsg.css">
+    <link rel="stylesheet" href="../static/styles/quizpage.css">
+    <link rel="stylesheet" href="../static/styles/leaderboard.css">
 
 </head>
 <body>
-    <header>
-        <div class="container">
-            <img src="../static/images/logo.png" alt="Your Logo">
-            <nav>
-                <ul>
-                    <li><a href="{{ url_for('about') }}">Home</a></li>
-                    <li><a href="{{ url_for('quiz') }}">Quiz</a></li>
-                    <li><a href="{{ url_for('make_quiz') }}">Make a quiz</a></li>
-                    <div class="loginsignup">
-                        <nav class="user-buttons">
-                            <div class="user-button">
-                                {% if current_user.is_authenticated %}
-                                <button class="login"><a href="{{ url_for('logout_page') }}">lOGOUT</a></button>
-                                <p>{{ current_user.username }}</p>
-                                <p style="color: red;">Score: {{ total_score }}</p>
-                                <li><a href="{{ url_for('account') }}">Profile</a></li>
-                                {% else %}
-                                    <button class="login"><a href="{{ url_for('Login_page') }}">Login</a></button>
-                                    <button class="signup"> <a href="{{ url_for('register_page') }}">Sign Up</a></button>
-                                {% endif %}
-                            </div>
-                        </nav>
-                    </div>
-                </ul>
+    <div class="container">
+        <nav class="head">
+            <img src="../static/images/logo.png" alt="Your Logo" class="logopage" type="button">
+            <ul>
+                <li><a href="{{ url_for('about') }}">Home</a></li>
+                <li>|</li>
+                <li><a href="{{ url_for('quiz') }}">Quiz</a></li>
+                <li>|</li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+            </ul>
+            <button id="colorControlsButton" class="btn" type="button">Themet</button>
+            {% if current_user.is_authenticated %}
+            <button class="btn"><a href="{{ url_for('account') }}"><img src="{{ image_file }}" alt="Profile Picture">{{ current_user.username }}</a></button>
+            <!-- <button class="btn"><a href="{{ url_for('logout_page') }}">lOGOUT</a></button> -->
+            {% else %}
+                <button class="btn"><a href="{{ url_for('Login_page') }}">Login</a></button>
+                <button class="btn"> <a href="{{ url_for('register_page') }}">Sign-Up</a></button>
+            {% endif %}
+        </nav>
+        <div class="gradient-controls-container">
+            <nav class="gradient-controls">
+                <input type="range" min="0" max="360" value="150" id="degRange">
+                <input type="color" id="colorPicker">
+                <input type="range" min="0" max="100" value="71" id="percentageRange">
             </nav>
         </div>
-    </header>
+        <div class="blockcntn">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <div class="flash-messages">
@@ -53,10 +58,45 @@
             </div>
         {% endif %}
     {% endwith %}
-    {% block content %}{% endblock %}
+    <img src="../static/images/tanjirobackground.jpg" alt="background" class="background-img">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../static/scripts/scripts.js"></script>
     <script src="../static/scripts/editprofile.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Extracting the color value from the CSS background gradient
+            const initialColor = $('.container').css('background').match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/)[0];
+            // Setting the initial color value to the color picker input
+            $('#colorPicker').val(initialColor);
+            $('#colorControlsButton').on('click', function() {
+                $('.gradient-controls-container').toggleClass('show');
+            });
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('.gradient-controls-container').length && !$(event.target).is('#colorControlsButton')) {
+                    $('.gradient-controls-container').removeClass('show');
+                }
+            });
+            $('#degRange, #percentageRange').on('input', function() {
+                updateGradient();
+            });
+    
+            $('#colorPicker').on('change', function() {
+                updateGradient();
+            });
+    
+            function updateGradient() {
+                const deg = $('#degRange').val();
+                const color = $('#colorPicker').val();
+                const percentage = $('#percentageRange').val();
+                const gradient = `linear-gradient(${deg}deg, rgba(2,0,36,1) 0%, ${color} 0%, rgba(0,0,0,1) ${percentage}%)`;
+                $('.container').css('background', gradient);
+            };
+            $('.gradient-controls input[type="range"]').hover(function() {
+                $(this).find('::-webkit-slider-thumb, ::-moz-range-thumb, ::-ms-thumb').css('transform', 'scale(1.2)');
+            }, function() {
+                $(this).find('::-webkit-slider-thumb, ::-moz-range-thumb, ::-ms-thumb').css('transform', 'scale(1)');
+            });
+        });
+    </script>
 </body>
 <footer class = '{{title}}'>
     <div class="footer">

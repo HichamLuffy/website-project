@@ -1,0 +1,9 @@
+.container2 .content-wrapper {
+    display: flex; /* Use flexbox to align items horizontally */
+  }
+  
+  /* Styles for the quizzes column */
+  .container2 .quizzes-column {
+    flex: 2; /* Make the quizzes column take up 50% of the container2 width */
+    margin-right: 1px; /* Add some space between the two columns */
+  }

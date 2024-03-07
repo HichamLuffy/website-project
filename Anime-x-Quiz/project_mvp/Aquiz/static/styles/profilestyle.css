@@ -1,9 +1,44 @@
+@font-face {
+    font-family: 'Clash Display';
+    src: url('../fonts/ClashDisplay-Bold.otf') format('woff2'), /* Path to .woff2 file */
+         url('../fonts/ClashDisplay-Regular.otf') format('woff'); /* Path to .woff file */
+    /* Add additional font formats if available */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/Helvetica.ttf') format('woff2'),
+         url('../fonts/Helvetica-Bold.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'inter';
+    src: url('../fonts/InterVariable.ttf') format('woff2'),
+         url('../fonts/InterVariable.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.userprofile {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .profile-page {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    margin: 90px auto;
+    font-family:  'inter', serif;
+    padding: 10px;
+    margin-left: 20px;
+    background: rgba( 255, 255, 255, 0.1 );
+    box-shadow: 0 8px 32px 0 rgba(27, 27, 27, 0.37);
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .profile-page h2 {
@@ -11,20 +46,34 @@
 }
 
 .profile-details {
+    display: flex; /* Use flexbox */
+    align-items: center; /* Align items vertically */
     margin-bottom: 20px;
 }
 
 .profile-details img {
     width: 150px; /* Adjust width as needed */
-    height: 150px; /* Adjust height as needed */
+    height: auto 0; /* Adjust height as needed */
     border-radius: 50%;
+    margin-left: 40px;
     object-fit: cover; /* Resize the image to cover the container */
     margin-bottom: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Circular border with a blur effect */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Blur effect */
 }
 
 .profile-details p {
     margin: 5px 0;
 }
+
+
+/* Style for the settings image */
+
+.profile-actions {
+    margin-left: 6px; /* Adjust margin as needed */
+    margin-top: 20px; /* Adjust margin-top as needed */
+}
+
 
 .profile-actions ul {
     list-style-type: none;
@@ -36,11 +85,234 @@
 }
 
 .profile-actions li a {
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    color: #007bff;
+    color: #6d6d6d;
+    font-size: 18px;
+    transition: color 0.3s ease;
 }
 
 .profile-actions li a:hover {
-    text-decoration: underline;
-    color: #0056b3;
+    color: #0056b3; /* Change color on hover */
+}
+
+.profile-actions li a img {
+    width: 20px; /* Adjust width as needed */
+    height: 20px; /* Adjust height as needed */
+    margin-left: 650px; /* Adjust margin-left as needed */
+}
+
+.profile-actions li#edit-profile-link a {
+    color: #007bff; /* Change color for edit profile link */
+}
+
+.profile-actions li#edit-profile-link a:hover {
+    color: #0056b3; /* Change color on hover for edit profile link */
+}
+
+.profile-actions #edit-profile-div {
+    margin-top: 10px; /* Adjust margin-top as needed */
+}
+
+.profile-actions #register-form {
+    font-family: 'Helvetica', serif; /* Use Helvetica font for the form */
+    margin-top: 20px; /* Adjust margin-top as needed */
+}
+
+.profile-actions #register-form fieldset {
+    border: none;
+    padding: 0;
+}
+
+.profile-actions #register-form legend {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-actions #register-form a {
+    color: #c9c9c9; /* Change color for edit links */
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.profile-actions #register-form .errors {
+    color: red; /* Change color for error messages */
+    margin-top: 5px; /* Adjust margin-top for error messages */
+}
+
+.profile-actions #register-form .form-control {
+    width: 100%;
+    margin-bottom: 10px; /* Adjust margin-bottom as needed */
+}
+
+.profile-actions #register-form .form-control-file {
+    margin-top: 10px; /* Adjust margin-top as needed */
+}
+
+.profile-actions #register-form .btn2 {
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #007bff; /* Change background color for buttons */
+    color: #fff; /* Change text color for buttons */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.profile-actions #register-form .btn2:hover {
+    background-color: #0056b3; /* Change background color on hover for buttons */
+}
+
+/* edit for user detail */
+
+.user-detail {
+    margin-left: 100px;
+}
+
+.user-detail ul {
+    list-style: none;
+    padding: 0;
+}
+
+.user-detail ul li {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    color: #6d6d6d; /* Adjust text color as needed */
+    margin-bottom: 20px; /* Adjust spacing between list items */
+    font-size: 20px;
+}
+
+
+.user-detail ul li img {
+    width: 20px; /* Adjust width of the bullet */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 5px; /* Adjust spacing between bullet and text */
+}
+
+.user-detail ul li p {
+    margin: 0; /* Remove default margin */
+    font-size: 20px; /* Adjust font size */
+}
+
+.user-detail ul li:first-child p {
+    margin-left: 30px;
+    color: bisque;
+    font-weight: bold; /* Optionally make the first paragraph bold */
+}
+
+.user-detail ul li:last-child p {
+    margin-left: 45px;
+    color: bisque;
+    font-weight: bold; /* Optionally make the first paragraph bold */
+}
+
+.profile-bio h4 {
+    font-family:  'inter', serif;
+    margin: 0; /* Remove default margin */
+    color: #c7c7c7; /* Adjust text color as needed */
+    font-size: 16px; /* Adjust font size */
+    margin-left: 65px;
+}
+
+.profile-bio button {
+    font-family:  'inter', serif;
+    margin: 0; /* Remove default margin */
+    font-size: 10px; /* Adjust font size */
+    margin-left: 75px;
+}
+
+.btnlogout {
+    display: flex;
+    align-items: center;
+    padding: 3px 20px;
+    border: 0;
+    outline: 0;
+    border-radius: 70px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    background: #bbbbbb00;
+    box-shadow: 0 0px 0px 0 rgba(27, 27, 27, 0.37);
+    background-image: linear-gradient(45deg, transparent 50%, #000000 50%);
+    background-position: 25%;
+    color: #d3d3d3;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 100px;
+    background-size: 400%;
+    -webkit-transition: background 500ms ease-in-out, color 500ms ease-in-out;
+    transition: background 500ms ease-in-out, color 500ms ease-in-out;
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+    z-index: 55;
+}
+
+.btnlogout a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-family:  'Helvetica', serif;
+    color: inherit; /* Inherit text color from parent */
+    white-space: nowrap; 
+}
+
+.btnlogout:hover {
+    color: #ffffff;
+    background-position: 100%;
+}
+
+.btnupdate {
+    margin-left: 480px;
+}
+
+/* style for score */
+
+
+.profile-score {
+    padding: 10px;
+    margin-bottom: 140px;
+    margin-top: 160px;
+    margin-right: 70px;
+    width: auto;
+    height: 180px;
+    font-family: 'inter', serif;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(27, 27, 27, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.profile-score h4 {
+    font-family: 'Helvetica', serif;
+    font-size: 20px;
+    justify-content: center;
+    color: rgb(182, 182, 182);
+    margin-left: 44%;
+}
+
+.profile-score ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-left: -5%;
+}
+
+.profile-score ul li {
+    display: flex;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    align-items: center;
+    color: #b8b8b8;
+    font-size: 20px;
+}
+
+.profile-score ul li p {
+    margin: 0;
+    font-size: 20px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: #b8b8b8;
 }
