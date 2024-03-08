@@ -418,3 +418,13 @@ section {
     background: rgba(0, 0, 0, 0.5);
     z-index: 55;
 }
+
+.rectangle-overlay {
+    position: absolute;
+    top: 23%;
+    left: 0;
+    width: 100%; /* Cover the entire width of the page */
+    height: 60%; /* Cover the entire height of the page */
+    background-color: rgba(0, 0, 0, 0.5); /* Black color with 50% opacity */
+    z-index: 1; /* Ensure it's above other content */
+}
