@@ -16,17 +16,17 @@
     </p>
   </div>
 </nav>
-<div class="last-quiz">
+<div class="quiz-box">
   <h2>Last Added Quiz</h2>
-  <div>
+  <div class="quiz-item">
     <a href="{{ url_for('quiz_questions', quiz_id=quizzes[-1].id) }}">{{ quizzes[-1].title }}</a>
   </div>
 </div>
-<div class="quizzes-column">
+<div class="quiz-box">
   <h2>Other Quizzes</h2>
   <ul>
     {% for quiz in quizzes[:-1] %}
-    <li><a href="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">{{ quiz.title }}</a></li>
+    <li class="quiz-item"><a href="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">{{ quiz.title }}</a></li>
     {% endfor %}
   </ul>
 </div>
