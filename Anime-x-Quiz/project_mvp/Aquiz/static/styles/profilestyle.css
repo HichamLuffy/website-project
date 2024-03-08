@@ -180,11 +180,10 @@
     display: flex;
     margin-bottom: 10px;
     align-items: center;
-    color: #6d6d6d; /* Adjust text color as needed */
+    color: #1d1d1d; /* Adjust text color as needed */
     margin-bottom: 20px; /* Adjust spacing between list items */
     font-size: 20px;
 }
-
 
 .user-detail ul li img {
     width: 20px; /* Adjust width of the bullet */
@@ -193,21 +192,15 @@
 }
 
 .user-detail ul li p {
+    display: flex; /* Add flexbox display */
+    justify-content: center; /* Center align the list items */
     margin: 0; /* Remove default margin */
     font-size: 20px; /* Adjust font size */
+    margin-left: 40px;
+    color: rgb(255, 240, 221);
+    font-weight: bold;
 }
 
-.user-detail ul li:first-child p {
-    margin-left: 30px;
-    color: bisque;
-    font-weight: bold; /* Optionally make the first paragraph bold */
-}
-
-.user-detail ul li:last-child p {
-    margin-left: 45px;
-    color: bisque;
-    font-weight: bold; /* Optionally make the first paragraph bold */
-}
 
 .profile-bio h4 {
     font-family:  'inter', serif;
