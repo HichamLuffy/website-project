@@ -18,7 +18,7 @@
     background-size: cover;
     z-index: -26;
     background-position: center;
-    padding: 0.5px 2%;
+    /* padding: 0.5px 2%; */
 }
 
 .gradient-controls-container {
@@ -228,6 +228,8 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+
 .footer{
     position: absolute;
     left: 50%;
@@ -244,11 +246,12 @@ footer button {
     padding: 3px 20px;
     border: 0;
     outline: 0;
+    margin-right: 40px;
     border-radius: 70px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     background: #bbbbbb00;
     box-shadow: 0 0px 0px 0 rgba(27, 27, 27, 0.37);
-    background-image: linear-gradient(45deg, transparent 50%, #060020 50%);
+    background-image: linear-gradient(45deg, transparent 50%, #000000 50%);
     background-position: 25%;
     color: #d3d3d3;
     font-weight: 500;
@@ -305,7 +308,7 @@ section {
 } */
 
 .logopage {
-    margin-left: 10px; /* Adjust the left margin of the logo image */
+    margin-left: 40px; /* Adjust the left margin of the logo image */
     margin-right: 10px; /* Adjust the right margin of the logo image */
     z-index: 1;
 }
@@ -421,12 +424,15 @@ section {
 
 .rectangle-overlay {
     position: absolute;
-    top: 23%;
+    top: 1%;
     left: 0;
+    margin-right: 100%;
     width: 100%; /* Cover the entire width of the page */
-    height: 60%; /* Cover the entire height of the page */
+    height: 100%; /* Cover the entire height of the page */
     background-color: rgba(0, 0, 0, 0.5); /* Black color with 50% opacity */
-    z-index: 1; /* Ensure it's above other content */
+    z-index: -1; /* Ensure it's behind other content */
+    margin: 0; /* Remove any margins */
+    padding: 0; /* Remove any paddings */
 }
 .top-overlay {
     position: absolute;
