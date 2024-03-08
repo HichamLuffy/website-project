@@ -70,10 +70,11 @@
     width: 20px;
     height: 20px;
     z-index: 55;
-    background: #4caf50;
+    background: #43488f;
     border-radius: 50%;
     cursor: pointer;
     border: none;
+    transform: scale(1);
     transition: transform 0.3s ease-in-out;
 }
 
@@ -85,6 +86,7 @@
     border-radius: 50%;
     cursor: pointer;
     border: none;
+    transform: scale(1);
     transition: transform 0.3s ease-in-out;
 }
 
@@ -96,6 +98,7 @@
     border-radius: 50%;
     cursor: pointer;
     border: none;
+    transform: scale(1);
     transition: transform 0.3s ease-in-out;
 }
 #colorPicker {
@@ -188,7 +191,7 @@
     width: 100%;
     padding: 0.5px 0px;
     text-align: center; /* Center the list items */
-    margin-left: 120px;
+    /* margin-left: 10px; */
 }
 
 .head ul li {
@@ -215,9 +218,9 @@
 
 /* Footer styles */
 footer {
-
+    display: flex;
     color: #fff;
-    padding: 20px;
+    padding: 10px;
     margin-top: auto;
     text-align: center;
     position: fixed;
@@ -225,8 +228,16 @@ footer {
     bottom: 0;
     width: 100%;
 }
-
-
+.footer{
+    position: absolute;
+    left: 50%;
+    transform: translate(-40%, -70%);
+}
+footer button {
+    position: absolute;
+    left: 92%;
+    transform: translate(-10%, -70%);
+}
 .btn {
     display: flex;
     align-items: center;
@@ -237,7 +248,7 @@ footer {
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     background: #bbbbbb00;
     box-shadow: 0 0px 0px 0 rgba(27, 27, 27, 0.37);
-    background-image: linear-gradient(45deg, transparent 50%, #000000 50%);
+    background-image: linear-gradient(45deg, transparent 50%, #060020 50%);
     background-position: 25%;
     color: #d3d3d3;
     font-weight: 500;
