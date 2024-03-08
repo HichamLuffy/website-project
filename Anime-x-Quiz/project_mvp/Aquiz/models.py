@@ -18,10 +18,13 @@ class User (db.Model, UserMixin):
     quiz = db.relationship('Quiz', backref='user', lazy=True)
     profile = db.relationship('Profile', backref='user', lazy=True, uselist=False)
     score = db.relationship('Score', backref='user', lazy=True)
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    followers = db.relationship('Follower', foreign_keys='Follower.followed_id', backref='followed_by', lazy='dynamic')
+    following = db.relationship('Follower', foreign_keys='Follower.follower_id', backref='follower', lazy='dynamic')
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}, '{self.profile}', '{self.score}')"
+        return f"User('{self.username}', '{self.email})"
 
 
 class Profile (db.Model):
@@ -84,3 +87,9 @@ class Option(db.Model):
 
     def __repr__(self):
         return f"Option('{self.text}', '{self.is_correct}')"
+
+
+class Follower(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    follower_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    followed_id = db.Column(db.Integer, db.ForeignKey('user.id'))

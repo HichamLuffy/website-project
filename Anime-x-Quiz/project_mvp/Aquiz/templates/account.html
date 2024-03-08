@@ -66,6 +66,8 @@
                 <ul>
                     <li>Player name: <p>{{ current_user.username }}</p></li>
                     <li>Started on: <p>{{ current_user.created_at.strftime('%m/%d/%Y') }}</p></li>
+                    <li>Followers:<p>{{ followers_count }}</p></li>
+                    <li>Following: <p>{{ following_count }}</p></li>
                 </ul>
             </nav>
             <!-- Add more profile details as needed -->

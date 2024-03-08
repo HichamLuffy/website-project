@@ -14,6 +14,7 @@ import pymysql.cursors
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import jsonify
+from datetime import datetime
 from sqlalchemy import desc
 from collections import defaultdict
 
@@ -233,10 +234,13 @@ def account():
     print(image_file)
     quiz_stats = get_quiz_statistics(current_user.id)
     total_score = get_total_score()
+    user = User.query.get_or_404(current_user.id)
+    followers_count = user.followers.count()
+    following_count = user.following.count()
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form, total_score=total_score, total_attempts=quiz_stats['total_attempts'],
                             average_score=quiz_stats['average_score'],
-                            most_recent_quiz=quiz_stats['most_recent_quiz'])
+                            most_recent_quiz=quiz_stats['most_recent_quiz'], followers_count=followers_count, following_count=following_count)
 
 
 @app.route('/quiz')
@@ -337,6 +341,34 @@ def user_profile(user_id):
     print(user_image)
     quiz_stats = get_quiz_statistics(user_id)
     total_score = get_total_score()  # Or any other way to calculate total score for this user
+    if (datetime.utcnow() - user.last_seen).total_seconds() < 300:  # 5 minutes threshold
+        status = 'Online'
+    else:
+        status = 'Offline'
+    followers_count = user.followers.count()
+    following_count = user.following.count()
     return render_template('user_profile.html', title='User Profile', user=user, user_image=user_image, total_score=total_score, image_file=image_file, total_attempts=quiz_stats['total_attempts'],
                             average_score=quiz_stats['average_score'],
-                            most_recent_quiz=quiz_stats['most_recent_quiz'])
+                            most_recent_quiz=quiz_stats['most_recent_quiz'],
+                            followers_count=followers_count, following_count=following_count, status=status)
+
+
+@app.route('/follow/<int:user_id>', methods=['POST'])
+@login_required
+def follow(user_id):
+    user_to_follow = User.query.get(user_id)
+    if user_to_follow:
+        if user_to_follow != current_user:
+            current_user.following.append(user_to_follow)
+            db.session.commit()
+            flash(f'You are now following {user_to_follow.username}', 'success')
+        else:
+            flash('You cannot follow yourself', 'warning')
+    return redirect(url_for('user_profile', user_id=user_id))
+
+
+@app.before_request
+def update_last_seen():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()

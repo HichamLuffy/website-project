@@ -12,10 +12,21 @@
                 <ul>
                     <li>Player name: <p>{{ user.username }}</p></li>
                     <li>Started on: <p>{{ user.created_at.strftime('%m/%d/%Y') }}</p></li>
+                    <li>Followers:<p>{{ followers_count }}</p></li>
+                    <li>Following: <p>{{ following_count }}</p></li>
+                    <li>status:: <p>{{ status }}</p></li>
+                    <li>last login: <p>{{ user.last_seen.strftime('%m/%d/%Y %H:%M:%S') }}</p></li>
                 </ul>
             </nav>
             <!-- Add more profile details as needed -->
         </div>
+
+        <!-- Follow Button -->
+        {% if current_user != user %}
+            <form action="{{ url_for('follow', user_id=user.id) }}" method="post">
+                <button type="submit" class="btn btn-primary">Follow</button>
+            </form>
+        {% endif %}
         
     </div>
     <div class="profile-score">
