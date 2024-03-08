@@ -188,7 +188,7 @@
     width: 100%;
     padding: 0.5px 0px;
     text-align: center; /* Center the list items */
-    margin-left: 70px;
+    margin-left: 120px;
 }
 
 .head ul li {
@@ -198,15 +198,19 @@
 }
 
 .head ul li a {
-    color: #fff;
+    color: #d3d3d3b9;
     text-decoration: none;
     font-family: 'ClashDisplay', sans-serif;
     font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Add transition for smoother color change, scaling, background color change, and shadow */
+    padding: 5px 10px; /* Add padding for spacing */
+    display: inline-block; /* Ensure inline-block display for smooth scaling */
 }
 
-.head ul li:hover {
-    color: #2e00fd;
-    text-decoration: underline;
+.head ul li a:hover {
+    color: #ffffff;
+    transform: scale(1.1); /* Scale up to 1.1 times on hover */
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  Add a subtle shadow on hover */
 }
 
 /* Footer styles */

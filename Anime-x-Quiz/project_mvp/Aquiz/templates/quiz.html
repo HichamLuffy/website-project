@@ -1,21 +1,33 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container2">
-  <div class="content-wrapper">
-    <div class="last-quiz">
-      <h2>Last Added Quiz</h2>
-      <div>
-        <a href="{{ url_for('quiz_questions', quiz_id=quizzes[-1].id) }}">{{ quizzes[-1].title }}</a>
-      </div>
-    </div>
-    <div class="quizzes-column">
-      <h2>Other Quizzes</h2>
-      <ul>
-        {% for quiz in quizzes[:-1] %}
-          <li><a href="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">{{ quiz.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
+<nav>
+  <div class="quizpage">
+    <p class="logo1">
+      <span class="anime">A N I M E</span>
+      <span class="x"> X </span>
+      <span class="quiz">Q U I Z</span>
+    </p>
+    <p class="text">
+      <span class="word1">Prepare</span>
+      <span class="word2">FOR</span>
+      <span class="word3">The</span>
+      <span class="word4">Ultimate</span>
+      <span class="word5">Challenge</span>
+    </p>
   </div>
+</nav>
+<div class="last-quiz">
+  <h2>Last Added Quiz</h2>
+  <div>
+    <a href="{{ url_for('quiz_questions', quiz_id=quizzes[-1].id) }}">{{ quizzes[-1].title }}</a>
+  </div>
+</div>
+<div class="quizzes-column">
+  <h2>Other Quizzes</h2>
+  <ul>
+    {% for quiz in quizzes[:-1] %}
+    <li><a href="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">{{ quiz.title }}</a></li>
+    {% endfor %}
+  </ul>
 </div>
 {% endblock %}

@@ -1,9 +1,77 @@
-.container2 .content-wrapper {
-    display: flex; /* Use flexbox to align items horizontally */
-  }
-  
-  /* Styles for the quizzes column */
-  .container2 .quizzes-column {
-    flex: 2; /* Make the quizzes column take up 50% of the container2 width */
-    margin-right: 1px; /* Add some space between the two columns */
-  }
+@font-face {
+  font-family: 'Another_America';
+  src: url('../fonts/Another_America.ttf') format('woff2'), /* Path to .woff2 file */
+       url('../fonts/Another_America.ttf') format('woff'); /* Path to .woff file */
+  /* Add additional font formats if available */
+  font-weight: normal;
+  font-style: normal;
+}
+
+p , h2{
+  color: beige;
+}
+.logo1{
+  font-family: 'Another_America';
+  font-size: 40px;
+}
+.quizpage img{
+  width: 300px;
+  height: 300px;
+}
+
+.quizpage {
+  display: grid;
+  place-items: center; /* Horizontally and vertically center */
+}
+
+
+.text {
+  text-align: center;
+}
+
+.text span {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.word1 {
+  color: white;
+  font-weight: bold;
+}
+
+.word2 {
+  color: red;
+  font-style: bold;
+  text-decoration: underline;
+}
+
+.word3 {
+  color: white;
+  font-style: bold;
+}
+
+.word4 {
+  color: orange;
+  font-family: Arial, sans-serif;
+  font-style: bold;
+}
+
+.word5 {
+  color: orange;
+  font-size: 20px;
+  font-style: bold;
+}
+
+.anime , .quiz{
+  color: white;
+  font-size: 110px;
+
+}
+
+.x{
+  color: black;
+  font-weight: bold;
+  font-size: 130px;
+  text-shadow: 0 0 2px red, 0 0 4px red, 0 0 6px red, 0 0 8px red;
+
+}

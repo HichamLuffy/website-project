@@ -24,7 +24,7 @@
                 <li>|</li>
                 <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
             </ul>
-            <button id="colorControlsButton" class="btn" type="button">Themet</button>
+           
             {% if current_user.is_authenticated %}
             <button class="btn"><a href="{{ url_for('account') }}"><img src="{{ image_file }}" alt="Profile Picture">{{ current_user.username }}</a></button>
             <!-- <button class="btn"><a href="{{ url_for('logout_page') }}">lOGOUT</a></button> -->
@@ -58,7 +58,7 @@
             </div>
         {% endif %}
     {% endwith %}
-    <img src="../static/images/tanjirobackground.jpg" alt="background" class="background-img">
+    <img src="../static/images/girl.jpeg" alt="background" class="background-img">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../static/scripts/editprofile.js"></script>
     <script>
@@ -102,5 +102,6 @@
     <div class="footer">
         <p>&copy; 2024 Anime x Quiz.</p>
     </div>
+    <button id="colorControlsButton" class="btn" type="button">Theme</button>
 </footer>
 </html>
