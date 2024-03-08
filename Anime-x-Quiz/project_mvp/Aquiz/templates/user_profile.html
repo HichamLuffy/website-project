@@ -23,9 +23,10 @@
 
         <!-- Follow Button -->
         {% if current_user != user %}
-            <form action="{{ url_for('follow', user_id=user.id) }}" method="post">
-                <button type="submit" class="btn btn-primary">Follow</button>
-            </form>
+        <form action="{{ url_for('user_profile', user_id=user.id) }}" method="post">
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <button type="submit" class="btn btn-primary">Follow</button>
+        </form>
         {% endif %}
         
     </div>

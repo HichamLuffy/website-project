@@ -327,13 +327,27 @@ def leaderboard():
     return render_template('quizleaderboard.html', title='Quiz', leaderboard_data=leaderboard_data, get_username=get_username, get_profile_picture=get_profile_picture, total_score=total_score, image_file=image_file)
 
 
-@app.route('/user/<int:user_id>')
+@app.route('/user/<int:user_id>', methods=['GET', 'POST'])
 def user_profile(user_id):
+    user = User.query.get_or_404(user_id)
+    if request.method == 'POST':  # Check if the request is a POST request
+        if current_user.is_authenticated:  # Check if the user is authenticated
+            follow_user_id = request.form.get('user_id')
+            if follow_user_id:  # Ensure a user ID is provided in the form data
+                user_to_follow = User.query.get(follow_user_id)
+                if user_to_follow and user_to_follow != current_user:
+                    current_user.following.append(user_to_follow)
+                    db.session.commit()
+                    flash(f'You are now following {user_to_follow.username}', 'success')
+                else:
+                    flash('Invalid user ID or you cannot follow yourself', 'warning')
+            else:
+                flash('User ID not provided', 'danger')
+
     if 'static/' not in current_user.profile.avatar:
         image_file = url_for('static', filename='images/' + current_user.profile.avatar)
     else:
         image_file = '/' + current_user.profile.avatar
-    user = User.query.get_or_404(user_id)
     if 'static/' not in user.profile.avatar:
         user_image = url_for('static', filename='images/' + user.profile.avatar)
     else:
@@ -347,24 +361,10 @@ def user_profile(user_id):
         status = 'Offline'
     followers_count = user.followers.count()
     following_count = user.following.count()
-    return render_template('user_profile.html', title='User Profile', user=user, user_image=user_image, total_score=total_score, image_file=image_file, total_attempts=quiz_stats['total_attempts'],
+    return render_template('user_profile.html', title=user.username, user=user, user_image=user_image, total_score=total_score, image_file=image_file, total_attempts=quiz_stats['total_attempts'],
                             average_score=quiz_stats['average_score'],
                             most_recent_quiz=quiz_stats['most_recent_quiz'],
                             followers_count=followers_count, following_count=following_count, status=status)
-
-
-@app.route('/follow/<int:user_id>', methods=['POST'])
-@login_required
-def follow(user_id):
-    user_to_follow = User.query.get(user_id)
-    if user_to_follow:
-        if user_to_follow != current_user:
-            current_user.following.append(user_to_follow)
-            db.session.commit()
-            flash(f'You are now following {user_to_follow.username}', 'success')
-        else:
-            flash('You cannot follow yourself', 'warning')
-    return redirect(url_for('user_profile', user_id=user_id))
 
 
 @app.before_request
