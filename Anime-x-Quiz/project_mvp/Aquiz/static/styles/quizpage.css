@@ -143,6 +143,7 @@ p , h2{
   color: white;
   background-image: url('../images/anime3.jpeg');
   object-fit: cover;
+  justify-content: center;
 }
 
 .boxed-link a {
