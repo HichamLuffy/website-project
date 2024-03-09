@@ -18,7 +18,6 @@
 </nav>
 
 <div class="quizzes-column">
-  <h2>Last Added Quiz</h2>
   <div class="last-quiz">
     <h2>Last Added Quiz</h2>
     <a href="{{ url_for('quiz_questions', quiz_id=quizzes[-1].id) }}">{{ quizzes[-1].title }}</a>
