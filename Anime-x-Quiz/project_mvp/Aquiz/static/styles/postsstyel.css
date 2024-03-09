@@ -17,10 +17,11 @@
     background: linear-gradient(150deg, rgba(2,0,36,1) 0%, rgba(26, 114, 239, 0.819) 0%, rgba(0,0,0,1) 71%);
     background-size: cover;
     z-index: -26;
-    /* overflow-x: hidden; */
+    overflow-y: auto;
     background-position: center;
     /* padding: 0.5px 2%; */
 }
+
 
 .gradient-controls-container {
     display: none;
@@ -453,3 +454,30 @@ section {
     z-index: 1; /* Ensure it's above other content */
 }
 
+body {
+    --sb-track-color: #1b1b1b00;
+    --sb-thumb-color: #1b1b1b;
+    --sb-size: 10px;
+}
+  
+  body::-webkit-scrollbar {
+    width: var(--sb-size);
+}
+  
+  body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 9px;
+    border: 1px solid #a1a1a100;
+}
+  
+  body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 9px;
+}
+  
+  @supports not selector(::-webkit-scrollbar) {
+    body {
+        scrollbar-color: var(--sb-thumb-color)
+                       var(--sb-track-color);
+    }
+}

@@ -79,6 +79,8 @@
                 $('.container').css('background', gradient);
                 $('.gradient-controls input[type="range"]').css('background', color);
                 $('.gradient-overlay').css('background', gradient2);
+                $('body').css('--sb-thumb-color', color);
+                // $('body').css('--sb-track-color', color);
                 // Save the background gradient to localStorage
                 localStorage.setItem('backgroundGradient', gradient);
                 // Save the theme color to localStorage
@@ -97,6 +99,8 @@
                     $('#colorPicker').val(savedColor);
                     $('#colorPicker').trigger('change'); // Trigger change event to update gradient
                     $('.gradient-overlay').css('background', savedimg);
+                    $('body').css('--sb-thumb-color', savedColor);
+                    // $('body').css('--sb-track-color', savedColor);
                 }
             }
     
