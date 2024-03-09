@@ -267,14 +267,15 @@ def quiz_questions(quiz_id):
     questions = quiz.questions
     num_questions = len(questions)
     if request.method == 'POST':
-        total_questions = len(questions)
         user_score = 0  # Initialize user's score
         for question in questions:
-            selected_option_id = int(request.form.get(f'question{question.id}'))
-            print(f"Question {question.id} selected option ID: {selected_option_id}")
-            selected_option = Option.query.get(selected_option_id)
-            if selected_option.is_correct:
-                user_score += 1  # Increment user's score for each correct answer
+            selected_option_id_str = request.form.get(f'question{question.id}')
+            if selected_option_id_str is not None:
+                selected_option_id = int(selected_option_id_str)
+                print(f"Question {question.id} selected option ID: {selected_option_id}")
+                selected_option = Option.query.get(selected_option_id)
+                if selected_option and selected_option.is_correct:
+                    user_score += 1  # Increment user's score for each correct answer
 
             # Save the user's answer and whether it's correct in the database
             score_entry = Score(
