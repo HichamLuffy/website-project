@@ -9,7 +9,41 @@
 }
 
 .question.active {
-    display: block;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.question-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 50%;
+}
+
+.image-box {
+    border: 1px solid #ccc;
+    width: 255px;
+    height: 255px;
+    margin: auto;
+    overflow: hidden; /* Ensures the image doesn't overflow the box */
+}
+
+.image-box img {
+    width: 100%; /* Ensures the image fills the box horizontally */
+    height: auto; /* Allows the image to maintain its aspect ratio */
+}
+
+.options-box {
+    padding: 20px;
+    width: 40%;
+}
+.options-boxa {
+    color: #ccc;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 10px;
+    width: 80%;
 }
 
 a.next {
@@ -28,4 +62,33 @@ a.prev {
     font-family: 'ClashDisplay', sans-serif;
     font-weight: bold;
     display: none;
+}
+
+.radio-input {
+    display: none;
+}
+
+.option-label {
+    display: block;
+    padding: 10px;
+    margin-top: 15px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, #ffe9ab 50%);
+    background-position: 25%;
+    background-size: 400%;
+    -webkit-transition: background 500ms ease-in-out, color 500ms ease-in-out;
+    transition: background 500ms ease-in-out, color 500ms ease-in-out;
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+}
+
+.option-label:hover {
+    color: #ffcaca;
+    background-position: 100%;
+    background-color: #ffffcc; /* Change background color on hover */
+}
+
+.radio-input:checked {
+    background-color: yellow; /* Change background color when radio input is checked */
 }
