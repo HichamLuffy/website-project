@@ -17,11 +17,13 @@ a.next {
     background-color: aliceblue;
     font-family: 'ClashDisplay', sans-serif;
     font-weight: bold;
+    cursor: pointer;
     margin-top: 20px;
 }
 
 a.prev {
     text-decoration: none;
+    cursor: pointer;
     background-color: aliceblue;
     font-family: 'ClashDisplay', sans-serif;
     font-weight: bold;
