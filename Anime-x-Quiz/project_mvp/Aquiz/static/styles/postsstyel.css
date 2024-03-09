@@ -11,12 +11,13 @@
 /* Container for content */
 .container {
     width: 100%; /* Adjusted to ensure responsiveness */
-    min-height: 100vh;
+    max-height: 100%;
     background: rgb(2,0,36);
     /* background: radial-gradient(at top, rgba(158, 50, 0, 0.76) 0%, rgba(0, 0, 0, 0.589) 60%, rgb(0, 0, 0) 100%); */
     background: linear-gradient(150deg, rgba(2,0,36,1) 0%, rgba(26, 114, 239, 0.819) 0%, rgba(0,0,0,1) 71%);
     background-size: cover;
     z-index: -26;
+    /* overflow-x: hidden; */
     background-position: center;
     /* padding: 0.5px 2%; */
 }
@@ -25,7 +26,7 @@
     display: none;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -165,7 +166,7 @@
 
 /* Header styles */
 .head {
-    z-index: 3;
+    z-index: 555;
     font-family: 'Clash Display', sans-serif;
     font-weight: bold;
     width: 100%;
@@ -198,6 +199,7 @@
     display: inline-block; /* Change to inline-block to allow margin and padding adjustments */
     margin: 10px 20px; /* Adjust margins between list items */
     color: #fff;
+    cursor: default;
 }
 
 .head ul li a {
@@ -220,10 +222,13 @@
 footer {
     display: flex;
     color: #fff;
-    padding: 10px;
+    padding: 60px;
     margin-top: auto;
     text-align: center;
     position: relative;
+    /* background: linear-gradient(150deg, rgba(2,0,36,1) 0%, rgba(0, 0, 0, 0.819) 0%, rgba(0,0,0,1) 71%);
+    background-size: cover;
+    background-position: center; */
     left: 0;
     bottom: 0;
     width: 100%;
@@ -315,10 +320,11 @@ section {
 
 /* Style the aside text */
 .content{
+    position: relative;
     margin-top: 8%;
-    margin-left: 5%;
+    /* margin-left: 5%; */
     color: #fdfdfd;
-    max-width: 920px;
+    max-width: 100%;
     cursor: default;
 }
 
@@ -341,7 +347,9 @@ section {
     margin-top: 2px;
     font-family:  'inter', serif;
 }
-
+.content-text {
+    margin-left: 5%; /* Move the text container to the right */
+}
 /* img{
 
     height: 90px;
@@ -368,8 +376,9 @@ section {
 }
 
 .blockcntn {
-    position: relative; /* Ensure the text is positioned relative to its container */
+    position: relative;
     z-index: 5;
+    /* margin-bottom: 200px; */
 }
 
 .bn3637 {

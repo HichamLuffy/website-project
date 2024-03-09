@@ -1,10 +1,75 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="rectangle-overlay"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
 <div class="content">
-    <h1> Test your anime<br> knowledge with<br> AQZ!</h1>
-    <p>Challenge yourself with our anime quizzes and see how much you know.</p>
-    <a href="/" class="bn3637 bn37">Play</a>
+    <div class="content-text">
+        <h1> Test your anime<br> knowledge with<br> AQZ!</h1>
+        <p>Challenge yourself with our anime quizzes and see how much you know.</p>
+        <a href="/" class="bn3637 bn37">Play</a>
+    </div>
+    <div class="rectangle-overlay"></div>
 </div>
+<div class="content2">
+    <div class="text-container">
+        <h5>Discover <span class="movie-night">AQZ</span></h5>
+        <p>Welcome to AQZ, the ultimate Anime Quiz experience.<br>
+        Choose from a variety of categories including openings, characters, logos, and more and put your knowledge to the test.<br>
+        Challenge yourself and see how well you know your favorite anime!</p>
+        <!-- <button class="btnaa">Start now</button> -->
+    </div>
+    <div class="image-container">
+        <div class="gradient-overlay"></div>
+        <img src="../static/images/content2.png" alt="Quiz">
+    </div>
+</div>
+<section class="main-section">
+    <div class="cards">
+      <div class="information">
+        <h5>Explore Anime Quiz <span class="movie-night">categories</span></h5>
+        <p>Choose from a variety of questions such as voice, eyes, smile, clothing, hair, and weapons to test your anime knowledge.</p>
+        <h5><span class="movie-night">Create</span> Your Own Quizzes</h5>
+        <p>Login to post your own quizzes, create polls, and challenge others to test their anime knowledge.</p>
+        <h5>Customize Your <span class="movie-night">Profile</span></h5>
+        <p>Personalize your profile, earn badges, and showcase your anime quiz achievements to the community</p>
+      </div>
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <h2>Guess Characters From Face</h2>
+          </div>
 
+          <div class="swiper-slide">
+            <h2>Guess Characters From Place</h2>
+          </div>
+
+          <div class="swiper-slide">
+            <h2>Guess Characters From Laugh</h2>
+          </div>
+
+          <div class="swiper-slide">
+            <h2>Guess Characters From Eye</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="circle-back">
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </section>
+<script>
+    var swiper = new Swiper(".swiper", {
+    effect: "cards",
+    grabCursor: true,
+    initialSlide: 2,
+    speed: 500,
+    loop: true,
+    rotate: true,
+    mousewheel: {
+    invert: false,
+  },
+});
+</script>
 {% endblock %}

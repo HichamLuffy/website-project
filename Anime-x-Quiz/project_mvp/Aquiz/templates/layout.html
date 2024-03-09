@@ -6,12 +6,17 @@
     <title>Anime x Quiz - {{ title }}</title>
     <link rel="icon" href="../static/images/logoo.png">
     <!-- <link rel="stylesheet" href="../static/styles/headerstyle.css"> -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
     <link rel="stylesheet" href="../static/styles/postsstyel.css">
     <link rel="stylesheet" href="../static/styles/profilestyle.css">
     <link rel="stylesheet" href="../static/styles/alertmsg.css">
     <link rel="stylesheet" href="../static/styles/quizpage.css">
     <link rel="stylesheet" href="../static/styles/leaderboard.css">
     <link rel="stylesheet" href="../static/styles/question.css">
+    <link rel="stylesheet" href="../static/styles/main.css">
 
 </head>
 <body>
@@ -59,7 +64,7 @@
             </div>
         {% endif %}
     {% endwith %}
-    <img src="../static/images/solo.jpg" alt="background" class="background-img">
+    <img src="../static/images/gojo.png" alt="background" class="background-img">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../static/scripts/editprofile.js"></script>
     <script>
@@ -70,22 +75,28 @@
                 const color = $('#colorPicker').val();
                 const percentage = $('#percentageRange').val();
                 const gradient = `linear-gradient(${deg}deg, rgba(2,0,36,1) 0%, ${color} 0%, rgba(0,0,0,1) ${percentage}%)`;
+                const gradient2 = `linear-gradient(${deg}deg, rgba(2,0,36,1) 0%, ${color} 0%, rgba(0,0,0,1) 100%)`;
                 $('.container').css('background', gradient);
                 $('.gradient-controls input[type="range"]').css('background', color);
+                $('.gradient-overlay').css('background', gradient2);
                 // Save the background gradient to localStorage
                 localStorage.setItem('backgroundGradient', gradient);
                 // Save the theme color to localStorage
                 localStorage.setItem('themeColor', color);
+                localStorage.setItem('imageGradient', gradient2)
             };
     
             // Function to restore the background gradient and theme color from localStorage
             function restoreSettings() {
                 const savedGradient = localStorage.getItem('backgroundGradient');
                 const savedColor = localStorage.getItem('themeColor');
-                if (savedGradient && savedColor) {
+                const savedimg = localStorage.getItem('imageGradient');
+                const saveditem = localStorage.getItem('itemGradient');
+                if (savedGradient && savedColor && savedimg) {
                     $('.container').css('background', savedGradient);
                     $('#colorPicker').val(savedColor);
                     $('#colorPicker').trigger('change'); // Trigger change event to update gradient
+                    $('.gradient-overlay').css('background', savedimg);
                 }
             }
     
