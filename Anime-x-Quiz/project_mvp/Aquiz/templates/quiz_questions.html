@@ -9,64 +9,83 @@
     <form method="POST" action="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">
         {% for question in questions %}
         <div class="question {% if loop.first %}active{% endif %}">
-            <h3>{{ question.question_text }}</h3>
-            {% if quiz.category == 'image' and question.image_path %}
-            <img src="{{ question.image_path }}" alt="Question Image">
-            {% endif %}
-            {% if quiz.category == 'sound' and question.sound_path %}
-            <audio controls>
-                <source src="{{ question.sound_path }}" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            {% endif %}
-            <ul>
-                {% for option in question.options %}
-                <li><input type="radio" name="question{{ question.id }}" value="{{ option.id }}"> {{ option.text }}</li>
-                {% endfor %}
-            </ul>
+            <div class="question-box">
+                <h3>{{ question.question_text }}</h3>
+                {% if quiz.category == 'image' and question.image_path %}
+                <div class="image-box">
+                    <img src="{{ question.image_path }}" alt="Question Image">
+                </div>
+                {% endif %}
+                {% if quiz.category == 'sound' and question.sound_path %}
+                <audio controls>
+                    <source src="{{ question.sound_path }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                {% endif %}
+            </div>
+            <div class="options-box">
+                <ul>
+                    {% for option in question.options %}
+                    <li>
+                        <label class="option-label">
+                            <input type="radio" name="question{{ question.id }}" value="{{ option.id }}" class="radio-input">
+                            <span class="option-text">{{ option.text }}</span>
+                        </label>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
         {% endfor %}
-        <a class="prev" onclick="prevQuestion()">Previous</a>
-        <a class="next" onclick="nextQuestion()">Next</a>
+        <a class="prev">Previous</a>
+        <a class="next">Next</a>
         <button type="submit" id="submitBtn" style="display: none;">Submit Answers</button>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     var currentQuestion = 0;
-    var questions = document.querySelectorAll('.question');
+    var questions = $('.question');
 
     function showQuestion(index) {
-        questions.forEach(function(question, i) {
+        questions.each(function(i, question) {
             if (i === index) {
-                question.classList.add('active');
+                $(question).addClass('active');
             } else {
-                question.classList.remove('active');
+                $(question).removeClass('active');
             }
         });
-        if (currentQuestion === 0) {
-            document.querySelector('.prev').style.display = 'none';
-        } else {
-            document.querySelector('.prev').style.display = 'inline-block';
-        }
-        if (currentQuestion === questions.length - 1) {
-            document.querySelector('#submitBtn').style.display = 'inline-block';
-        } else {
-            document.querySelector('#submitBtn').style.display = 'none';
-        }
+        $('.prev').toggle(currentQuestion !== 0);
+        $('#submitBtn').toggle(currentQuestion === questions.length - 1);
     }
 
-    function nextQuestion() {
+    $('.next').click(function() {
         if (currentQuestion < questions.length - 1) {
             currentQuestion++;
             showQuestion(currentQuestion);
         }
-    }
+    });
 
-    function prevQuestion() {
+    $('.prev').click(function() {
         if (currentQuestion > 0) {
             currentQuestion--;
             showQuestion(currentQuestion);
         }
-    }
+    });
+
+    // jQuery for handling radio button clicks
+    $('.option-label').click(function() {
+        var radioInput = $(this).find('.radio-input');
+        // Uncheck all other radio inputs in the same question
+        var allRadioInputs = $('input[name="' + radioInput.attr('name') + '"]');
+        allRadioInputs.prop('checked', false);
+        // Check the clicked radio input
+        radioInput.prop('checked', true);
+
+        // Remove checked class from all option labels
+        $('.option-label').removeClass('checked');
+        // Add checked class to the clicked option label
+        $(this).addClass('checked');
+    });
 </script>
 {% endblock %}
