@@ -110,8 +110,9 @@ p , h2{
   justify-content: center; /* Center items horizontally */
   align-items: center; /* Center items vertically */
   width: 1036px; /* Adjust the width */
-  height: 200px; /* Adjust the height */
-  background-image: url('../images/skunabackground.png');
+  height: 250px; /* Adjust the height */
+  background-image: url('../images/anime3.jpeg');
+  object-fit: cover;
   background-size: cover;
   background-position: center;
   background-color: #ccc;
@@ -119,6 +120,7 @@ p , h2{
   margin: 0 auto;
   color: white;
   text-decoration: none;
+  border-radius: 30px;
 }
 
 
@@ -130,14 +132,17 @@ p , h2{
 
 .boxed-link {
   width: 200px;
-  height: 200px;
+  height: 180px;
   line-height: 150px;
   background-color: #ccc;
   border: 1px solid #999;
+  border-top-left-radius: 10px;
+  border-radius: 30px;
   margin: 5px;
   text-decoration: none;
   color: white;
-  background-image: url('../images/skunabackground.png');
+  background-image: url('../images/anime3.jpeg');
+  object-fit: cover;
 }
 
 .boxed-link a {
@@ -147,4 +152,3 @@ p , h2{
   text-decoration: none;
   color: inherit;
 }
-
