@@ -97,15 +97,20 @@ p , h2{
   flex-basis: 200;
 }
 
+.last-quiz {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
 .last-quiz a:hover{
   flex-grow: 1;
   flex-basis: 200;
 }
 
-.last-quiz {
-  margin-bottom: 20px;
-}
 .last-quiz a {
+  flex-wrap: wrap;
   display: flex; /* Add display flex to the anchor to enable flex properties */
   justify-content: center; /* Center items horizontally */
   align-items: center; /* Center items vertically */
