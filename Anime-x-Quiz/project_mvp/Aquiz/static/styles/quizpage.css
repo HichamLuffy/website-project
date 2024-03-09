@@ -81,21 +81,92 @@ p , h2{
 
 }
 
-.quiz-box {
+.quizzes-column {
   margin-bottom: 20px;
-  border: 1px solid #ccc;
-  padding: 10px;
 }
 
-.quiz-item {
+.quizzes-column h2 {
+  margin-bottom: 10px;
+}
+
+.boxed-link, .last-quiz {
+  display: flex;
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: white;
   margin-bottom: 5px;
 }
 
-.quiz-item a {
+.boxed-link:hover {
+  text-decoration: underline;
+  flex-grow: 1;
+  flex-basis: 200;
+}
+
+.last-quiz {
+  margin-bottom: 15px;
+}
+
+.last-quiz a {
+  text-decoration: none;
+  color: white;
+}
+
+.last-quiz a:hover {
+  text-decoration: underline;
+}
+
+.quizzes-column {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.quizzes-column h2 {
+  margin-bottom: 10px;
+}
+
+.last-quiz {
+  margin-bottom: 20px;
+}
+
+.last-quiz a {
+  display: block;
+  width: 300px;
+  height: 200px;
+  line-height: 200px;
+  background-image: url('../images/solo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: #ccc;
+  border: 1px solid #999;
+  margin: 0 auto;
   text-decoration: none;
   color: #333;
 }
 
-.quiz-item a:hover {
-  text-decoration: underline;
+.other-quizzes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+.boxed-link {
+  width: 200px;
+  height: 150px;
+  line-height: 150px;
+  background-color: #ccc;
+  border: 1px solid #999;
+  margin: 5px;
+  text-decoration: none;
+  color: #333;
+  background-image: url('../images/anime1.jpeg');
+}
+}
+
+.boxed-link a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
 }
