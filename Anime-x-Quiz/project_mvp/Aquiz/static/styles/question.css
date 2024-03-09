@@ -1,0 +1,31 @@
+.question-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+.question {
+    display: none;
+}
+
+.question.active {
+    display: block;
+}
+
+a.next {
+    text-decoration: none;
+    background-color: aliceblue;
+    font-family: 'ClashDisplay', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+a.prev {
+    text-decoration: none;
+    cursor: pointer;
+    background-color: aliceblue;
+    font-family: 'ClashDisplay', sans-serif;
+    font-weight: bold;
+    display: none;
+}

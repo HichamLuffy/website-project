@@ -1,30 +1,72 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>{{ quiz.title }}</h1>
-<p>Number of question: {{ num_questions }}</p>
-<p>Category: {{ quiz.category }}</p>
-<p>Level: {{ quiz.level }}</p>
-<hr>
-<form method="POST" action="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">
-    {% for question in questions %}
-    <div class="question">
-        <h3>{{ question.question_text }}</h3>
-        {% if quiz.category == 'image' and question.image_path %}
-        <img src="{{ question.image_path }}" alt="Question Image">
-        {% endif %}
-        {% if quiz.category == 'sound' and question.sound_path %}
-        <audio controls>
-            <source src="{{ question.sound_path }}" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        {% endif %}
-        <ul>
-            {% for option in question.options %}
-            <li><input type="radio" name="question{{ question.id }}" value="{{ option.id }}"> {{ option.text }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endfor %}
-    <button type="submit">Submit Answers</button>
-</form>
+<div class="question-container">
+    <h1>{{ quiz.title }}</h1>
+    <p>Number of questions: {{ num_questions }}</p>
+    <p>Category: {{ quiz.category }}</p>
+    <p>Level: {{ quiz.level }}</p>
+    <hr>
+    <form method="POST" action="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">
+        {% for question in questions %}
+        <div class="question {% if loop.first %}active{% endif %}">
+            <h3>{{ question.question_text }}</h3>
+            {% if quiz.category == 'image' and question.image_path %}
+            <img src="{{ question.image_path }}" alt="Question Image">
+            {% endif %}
+            {% if quiz.category == 'sound' and question.sound_path %}
+            <audio controls>
+                <source src="{{ question.sound_path }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            {% endif %}
+            <ul>
+                {% for option in question.options %}
+                <li><input type="radio" name="question{{ question.id }}" value="{{ option.id }}"> {{ option.text }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+        <a class="prev" onclick="prevQuestion()">Previous</a>
+        <a class="next" onclick="nextQuestion()">Next</a>
+        <button type="submit" id="submitBtn" style="display: none;">Submit Answers</button>
+    </form>
+</div>
+<script>
+    var currentQuestion = 0;
+    var questions = document.querySelectorAll('.question');
+
+    function showQuestion(index) {
+        questions.forEach(function(question, i) {
+            if (i === index) {
+                question.classList.add('active');
+            } else {
+                question.classList.remove('active');
+            }
+        });
+        if (currentQuestion === 0) {
+            document.querySelector('.prev').style.display = 'none';
+        } else {
+            document.querySelector('.prev').style.display = 'inline-block';
+        }
+        if (currentQuestion === questions.length - 1) {
+            document.querySelector('#submitBtn').style.display = 'inline-block';
+        } else {
+            document.querySelector('#submitBtn').style.display = 'none';
+        }
+    }
+
+    function nextQuestion() {
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            showQuestion(currentQuestion);
+        }
+    }
+
+    function prevQuestion() {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            showQuestion(currentQuestion);
+        }
+    }
+</script>
 {% endblock %}
