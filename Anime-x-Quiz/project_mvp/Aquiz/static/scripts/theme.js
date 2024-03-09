@@ -10,6 +10,7 @@ $(document).ready(function() {
         $('.gradient-controls input[type="range"]').css('background', color);
         $('.gradient-overlay').css('background', gradient2);
         $('body').css('--sb-thumb-color', color);
+        $('.user-detail').css('background', color);
         // $('body').css('--sb-track-color', color);
         // Save the background gradient to localStorage
         localStorage.setItem('backgroundGradient', gradient);
@@ -30,7 +31,7 @@ $(document).ready(function() {
             $('#colorPicker').trigger('change'); // Trigger change event to update gradient
             $('.gradient-overlay').css('background', savedimg);
             $('body').css('--sb-thumb-color', savedColor);
-            // $('body').css('--sb-track-color', savedColor);
+            $('.user-detail').css('background', savedColor);
         }
     }
 

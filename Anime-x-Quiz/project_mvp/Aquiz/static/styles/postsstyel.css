@@ -9,18 +9,6 @@
 }
 
 /* Container for content */
-.container {
-    width: 100%; /* Adjusted to ensure responsiveness */
-    max-height: 100%;
-    background: rgb(2,0,36);
-    /* background: radial-gradient(at top, rgba(158, 50, 0, 0.76) 0%, rgba(0, 0, 0, 0.589) 60%, rgb(0, 0, 0) 100%); */
-    background: linear-gradient(150deg, rgba(2,0,36,1) 0%, rgba(26, 114, 239, 0.819) 0%, rgba(0,0,0,1) 71%);
-    background-size: cover;
-    z-index: -26;
-    overflow-y: auto;
-    background-position: center;
-    /* padding: 0.5px 2%; */
-}
 
 
 .gradient-controls-container {

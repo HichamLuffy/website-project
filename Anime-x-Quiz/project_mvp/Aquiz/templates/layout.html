@@ -69,10 +69,12 @@
     <script src="../static/scripts/editprofile.js"></script>
     <script src="../static/scripts/theme.js"></script>
 </body>
-<footer class = '{{title}}'>
-    <div class="footer">
-        <p>&copy; 2024 Anime x Quiz.</p>
-    </div>
-    <button id="colorControlsButton" class="btn" type="button">Theme</button>
-</footer>
+{% if title == 'main' %}
+    <footer class="{{ title }}">
+        <div class="footer">
+            <p>&copy; 2024 Anime x Quiz.</p>
+        </div>
+        <button id="colorControlsButton" class="btn" type="button">Theme</button>
+    </footer>
+{% endif %}
 </html>

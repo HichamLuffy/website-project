@@ -23,9 +23,23 @@
     font-style: normal;
 }
 
+.profilecontainer {
+    width: 100%; /* Adjusted to ensure responsiveness */
+    max-height: 100%;
+    background: rgb(2,0,36);
+    /* background: radial-gradient(at top, rgba(158, 50, 0, 0.76) 0%, rgba(0, 0, 0, 0.589) 60%, rgb(0, 0, 0) 100%); */
+    background: linear-gradient(150deg, rgba(2,0,36,1) 0%, rgba(26, 114, 239, 0.819) 0%, rgba(0,0,0,1) 71%);
+    background-size: cover;
+    z-index: -26;
+    overflow-y: auto;
+    background-position: center;
+    /* padding: 0.5px 2%; */
+}
+
 .userprofile {
     display: flex;
-    justify-content: flex-end;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .profile-page {
@@ -169,6 +183,12 @@
 
 .user-detail {
     margin-left: 100px;
+    padding: 22px; /* Add padding for spacing */
+    background: rgba(53, 69, 214, 0.719);
+    opacity: 0.5;
+    box-shadow: 0 8px 32px 0 rgba(27, 27, 27, 0.37);
+    border-radius: 10px;
+    border: 1px solid rgba(56, 56, 56, 0.719);
 }
 
 .user-detail ul {
@@ -181,7 +201,8 @@
     margin-bottom: 10px;
     align-items: center;
     color: #1d1d1d; /* Adjust text color as needed */
-    margin-bottom: 20px; /* Adjust spacing between list items */
+    text-shadow: 0 0 2px rgb(255, 255, 255), 0 0 4px rgb(255, 255, 255), 0 0 6px rgb(219, 219, 219), 0 0 8px rgb(221, 221, 221);
+    margin-bottom: 15px; /* Adjust spacing between list items */
     font-size: 20px;
 }
 
@@ -196,8 +217,9 @@
     justify-content: center; /* Center align the list items */
     margin: 0; /* Remove default margin */
     font-size: 20px; /* Adjust font size */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.963);
     margin-left: 40px;
-    color: rgb(255, 240, 221);
+    color: rgb(255, 253, 251);
     font-weight: bold;
 }
 
