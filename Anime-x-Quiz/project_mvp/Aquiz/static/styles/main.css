@@ -71,7 +71,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Clash Display', cursive;
 }
 
 .main-section {
@@ -182,6 +181,7 @@
   position: relative;
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+  font-family: 'Poppins', cursive;
 }
 
 .swiper-slide span {
@@ -195,7 +195,6 @@
   letter-spacing: 2px;
   font-size: 0.8rem;
   font-weight: 700;
-  font-family: inherit;
   background: rgba(255, 255, 255, 0.095);
   box-shadow: inset 2px -2px 20px rgba(214, 214, 214, 0.2), inset -3px 3px 3px rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(74px);
