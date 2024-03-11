@@ -383,9 +383,11 @@
 }
 
 .quiz-container {
-    width: calc(33.333% - 20px); /* Example for three quizzes per row, adjust the percentage as needed */
+    width: calc(20% - 20px); /* Example for three quizzes per row, adjust the percentage as needed */
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
+    padding: 4px;
+    margin-left: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);

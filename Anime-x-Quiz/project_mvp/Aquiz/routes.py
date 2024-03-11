@@ -238,15 +238,17 @@ def account():
     user = User.query.get_or_404(current_user.id)
     followers_count = user.followers.count()
     following_count = user.following.count()
-    quizzes_with_images = []
-    quizzes = Quiz.query.all()
-    for quiz in quizzes[:-1]:  # Exclude the last quiz
-        image_path = url_for('static', filename='images/quizzes/' + quiz.quizpic) if quiz.quizpic else None
-        quizzes_with_images.append((quiz, image_path))
+    # quizzes = Quiz.query.all()
+    quizzes = Quiz.query.filter_by(user_id=current_user.id).all()
+    if quizzes:
+        quizzes_with_images = []
+        for quiz in quizzes[:-1]:  # Exclude the last quiz
+            image_path = url_for('static', filename='images/quizzes/' + quiz.quizpic) if quiz.quizpic else None
+            quizzes_with_images.append((quiz, image_path))
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form, total_score=total_score, total_attempts=quiz_stats['total_attempts'],
                             average_score=quiz_stats['average_score'],
-                            most_recent_quiz=quiz_stats['most_recent_quiz'], quizzes_with_images=quizzes_with_images, followers_count=followers_count, following_count=following_count, quizzes=quizzes, image_path=image_path)
+                            most_recent_quiz=quiz_stats['most_recent_quiz'], followers_count=followers_count, following_count=following_count, quizzes_with_images=quizzes_with_images if quizzes_with_images else None, image_path=image_path if image_path else None)
 
 
 @app.route('/quiz')
@@ -381,10 +383,17 @@ def user_profile(user_id):
         status = 'Offline'
     followers_count = user.followers.count()
     following_count = user.following.count()
+    quizzes = Quiz.query.filter_by(user_id=current_user.id).all()
+    if quizzes:
+        quizzes_with_images = []
+        for quiz in quizzes[:-1]:  # Exclude the last quiz
+            image_path = url_for('static', filename='images/quizzes/' + quiz.quizpic) if quiz.quizpic else None
+            quizzes_with_images.append((quiz, image_path))
     return render_template('user_profile.html', title=user.username, user=user, user_image=user_image, total_score=total_score, image_file=image_file, total_attempts=quiz_stats['total_attempts'],
                             average_score=quiz_stats['average_score'],
                             most_recent_quiz=quiz_stats['most_recent_quiz'],
-                            followers_count=followers_count, following_count=following_count, status=status)
+                            followers_count=followers_count, following_count=following_count, status=status, quizzes_with_images=quizzes_with_images if quizzes_with_images else None, 
+                       image_path=image_path if image_path else None)
 
 
 @app.before_request
