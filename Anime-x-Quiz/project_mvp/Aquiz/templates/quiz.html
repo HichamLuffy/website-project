@@ -16,15 +16,18 @@
     </p>
   </div>
 </nav>
-<div>
-  <a href="/Create_Quiz">create new Quiz</a>
+<div class="create-quiz-button">
+  <a href="/Create_Quiz">Create New Quiz</a>
 </div>
 <div class="quizzes-column">
   <h2>Last Added Quiz</h2>
   <div class="last-quiz" style="background-image: url('{{ last_quiz_image_path }}');">
     <a href="{{ url_for('quiz_questions', quiz_id=quizzes[-1].id) }}">{{ quizzes[-1].title }}</a>
   </div>
-
+  <div class="search-container">
+    <input type="text" placeholder="Search quizzes..." id="search-input" name="search" required>
+    <div id="search-results" style="background-image: url('{{ image_path }}');"></div>
+  </div>
   <h2>Other Quizzes</h2>
   <div class="other-quizzes">
     {% for quiz, image_path in quizzes_with_images %}
@@ -34,4 +37,39 @@
     {% endfor %}
   </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('search-input');
+      const resultsContainer = document.getElementById('search-results');
+  
+      function fetchSearchResults(query) {
+          fetch(`/search_quizzes_ajax?search=${encodeURIComponent(query)}`)
+              .then(response => response.json())
+              .then(quizzes => {
+                  resultsContainer.innerHTML = ''; // Clear previous results
+                  if (quizzes.length > 0) {
+                      quizzes.forEach(quiz => {
+                          const div = document.createElement('div');
+                          div.className = 'search-result-item';
+                          div.style.backgroundImage = `url('${quiz.image_path}')`;
+                          div.innerHTML = `<a href="/quiz_questions/${quiz.id}" class="search-result-link">${quiz.title}</a>`;
+                          resultsContainer.appendChild(div);
+                      });
+                  } else {
+                      resultsContainer.innerHTML = '<div class="search-result-item">No quizzes found.</div>';
+                  }
+              })
+              .catch(error => console.error('Error fetching search results:', error));
+      }
+  
+      searchInput.addEventListener('keyup', function() {
+          const query = searchInput.value.trim();
+          if (query.length >= 1) { // Only search if query is 1 or more characters
+              fetchSearchResults(query);
+          } else {
+              resultsContainer.innerHTML = '';
+          }
+      });
+  });
+</script>
 {% endblock %}

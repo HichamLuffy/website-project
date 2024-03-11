@@ -515,3 +515,18 @@ def user_following(user_id):
     following = user.following
     following_list = [{'username': followed.followed.username, 'id': followed.followed.id} for followed in following]
     return jsonify(following_list)
+
+
+@app.route('/search_quizzes_ajax')
+def search_quizzes_ajax():
+    search_term = request.args.get('search', '')
+    if search_term:
+        # Search for quizzes by title
+        matching_quizzes = Quiz.query.filter(Quiz.title.ilike(f'%{search_term}%')).all()
+
+        # Prepare the data for JSON response
+        quizzes_data = [{'id': quiz.id, 'title': quiz.title, 'image_path': url_for('static', filename='images/quizzes/' + quiz.quizpic)} for quiz in matching_quizzes]
+    else:
+        quizzes_data = []
+
+    return jsonify(quizzes_data)

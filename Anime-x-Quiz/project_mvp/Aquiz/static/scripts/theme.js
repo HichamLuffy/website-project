@@ -13,7 +13,7 @@ $(document).ready(function() {
         $('body').css('--sb-thumb-color', color);
         $('.modal-content').css('background-color', color);
         $('.user-detail').css('background', color);
-        // $('body').css('--sb-track-color', color);
+        $('.create-quiz-button a').css('background-color', color);
         // Save the background gradient to localStorage
         localStorage.setItem('backgroundGradient', gradient);
         // Save the theme color to localStorage
@@ -34,6 +34,7 @@ $(document).ready(function() {
             $('body').css('--sb-thumb-color', savedColor);
             $('.user-detail').css('background', savedColor);
             $('.modal-content').css('background-color', savedColor);
+            $('.create-quiz-button a').css('background-color', savedColor);
         }
     }
 
