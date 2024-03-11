@@ -37,16 +37,18 @@
             </div>
         </div>
         {% endfor %}
-        <a class="prev">Previous</a>
-        <a class="next">Next</a>
-        <button type="submit" id="submitBtn" style="display: none;">Submit Answers</button>
+        <div class="qstbtn">
+            <a class="prev">Previous</a>
+            <a class="next">Next</a>
+            <button type="submit" id="submitBtn" style="display: none;">Submit Answers</button>
+        </div>
     </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     var currentQuestion = 0;
     var questions = $('.question');
-
+    
     function showQuestion(index) {
         questions.each(function(i, question) {
             if (i === index) {
@@ -57,10 +59,17 @@
         });
         $('.prev').toggle(currentQuestion !== 0);
         $('#submitBtn').toggle(currentQuestion === questions.length - 1);
+        // Disable Next button by default when showing a new question
+        $('.next').prop('disabled', !isOptionSelected());
+    }
+
+    function isOptionSelected() {
+        // Check if any radio button in the current question is checked
+        return $('.question.active .radio-input:checked').length > 0;
     }
 
     $('.next').click(function() {
-        if (currentQuestion < questions.length - 1) {
+        if (currentQuestion < questions.length - 1 && isOptionSelected()) {
             currentQuestion++;
             showQuestion(currentQuestion);
         }
@@ -73,19 +82,29 @@
         }
     });
 
-    // jQuery for handling radio button clicks
-    $('.option-label').click(function() {
-        var radioInput = $(this).find('.radio-input');
-        // Uncheck all other radio inputs in the same question
-        var allRadioInputs = $('input[name="' + radioInput.attr('name') + '"]');
-        allRadioInputs.prop('checked', false);
-        // Check the clicked radio input
-        radioInput.prop('checked', true);
+    $(document).on('change', '.radio-input', function() {
+        $('.next').prop('disabled', false);
+        // Optionally, you can also enable the Submit button here if you're on the last question
+        if (currentQuestion === questions.length - 1) {
+            $('#submitBtn').prop('disabled', !isOptionSelected());
+        }
+    });
 
-        // Remove checked class from all option labels
-        $('.option-label').removeClass('checked');
-        // Add checked class to the clicked option label
+    // jQuery for handling radio button clicks and visual feedback
+    $('.option-label').click(function() {
+        // First, remove 'checked' class from all options in the current question
+        $(this).closest('.question').find('.option-label').removeClass('checked');
+
+        // Then, add 'checked' class only to the clicked option
         $(this).addClass('checked');
+    });
+
+    // Modify form submission to check for selection on the last question
+    $('form').submit(function(e) {
+        if (!isOptionSelected()) {
+            e.preventDefault(); // Prevent form submission
+            alert('Please select an option before submitting.');
+        }
     });
 </script>
 {% endblock %}

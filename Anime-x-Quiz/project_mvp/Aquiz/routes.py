@@ -6,19 +6,21 @@ import os
 import secrets
 import random
 from PIL import Image
+from werkzeug.utils import secure_filename
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from Aquiz import app, db, bcrypt
 from Aquiz.forms import RegisterForm, LoginForm, updateprofileForm, New_QuizForm
 import pymysql.cursors
-from Aquiz.models import User, Profile, Score, Quiz, Question, Option
+from Aquiz.models import User, Profile, Score, Quiz, Question, Option, Follower
 from flask_login import login_user, current_user, logout_user, login_required
-from flask import jsonify
+from flask import Blueprint, jsonify
 from datetime import datetime
 from sqlalchemy import desc
 from collections import defaultdict
 
 
+bp = Blueprint('main', __name__)
 
 
 connection = pymysql.connect(
@@ -253,7 +255,20 @@ def quiz():
     total_score = get_total_score()
     quizzes = Quiz.query.all()
     leaderboard_data = get_leaderboard_data()
-    return render_template('quiz.html', title='Quiz', quizzes=quizzes, total_score=total_score, leaderboard_data=leaderboard_data, get_username=get_username, image_file=image_file)
+
+    # Prepare quizzes with image paths
+    quizzes_with_images = []
+    for quiz in quizzes[:-1]:  # Exclude the last quiz
+        image_path = url_for('static', filename='images/quizzes/' + quiz.quizpic) if quiz.quizpic else None
+        quizzes_with_images.append((quiz, image_path))
+
+    # Handle the last quiz separately if needed
+    if quizzes:
+        last_quiz_image_path = url_for('static', filename='images/quizzes/' + quizzes[-1].quizpic)
+    else:
+        last_quiz_image_path = None
+
+    return render_template('quiz.html', title='Quiz',quizzes=quizzes , quizzes_with_images=quizzes_with_images, total_score=total_score, leaderboard_data=leaderboard_data, get_username=get_username, image_file=image_file, last_quiz_image_path=last_quiz_image_path)
 
 
 @app.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
@@ -373,3 +388,111 @@ def update_last_seen():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+
+
+@app.route('/Create_Quiz', methods=['GET', 'POST'])
+@login_required
+def Create_Quiz():
+    form = New_QuizForm()
+    if form.validate_on_submit():
+        # check if the post request has the file part
+        file = form.quizpic.data
+        if file:
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+        # Create and add the new quiz
+        new_quiz = Quiz(
+            title=form.title.data,
+            category=form.category.data,
+            level=form.level.data,
+            quizpic=filename,  # Assuming you handle file saving elsewhere
+            user_id=current_user.id
+        )
+        db.session.add(new_quiz)
+        try:
+            db.session.commit() # Commit here to obtain an ID for the quiz
+        except Exception as e:
+            print(f"Error committing to database: {e}")
+            db.session.rollback()   
+
+        # Process dynamically added questions and options
+        num_questions = int(form.num_questions.data)
+        for i in range(1, num_questions + 1):
+            question_text = request.form.get(f'question{i}', None)
+            if question_text:  # Only proceed if question_text is not None
+                new_question = Question(question_text=question_text, quiz_id=new_quiz.id)
+                db.session.add(new_question)
+                db.session.flush()
+                for j in range(1, 5):  # Assuming 4 options per question
+                    option_text = request.form.get(f'option{i}_{j}')
+                    is_correct = request.form.get(f'correct_option{i}') == str(j)
+                    if option_text:  # Ensure option text is not empty
+                        new_option = Option(text=option_text, is_correct=is_correct, question_id=new_question.id)
+                        db.session.add(new_option)
+            try:
+                db.session.commit() # Commit here to obtain an ID for the question
+            except Exception as e:
+                print(f"Error committing to database: {e}")
+                db.session.rollback() 
+        
+        flash('Quiz created successfully!', 'success')
+        return redirect(url_for('quiz'))  # Redirect as appropriate
+
+    return render_template('create_quiz.html', title='Create New Quiz', form=form)
+
+
+@app.route('/delete_quiz/<int:quiz_id>', methods=['POST'])
+@login_required
+def delete_quiz(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    if quiz.user_id == current_user.id:
+        db.session.delete(quiz)
+        db.session.commit()
+        flash('Quiz deleted successfully.', 'success')
+    else:
+        flash('You do not have permission to delete this quiz.', 'danger')
+    return redirect(url_for('account'))  # Adjust this to wherever you want the user to be redirected after deletion
+
+
+@app.route('/follow/<int:user_id>', methods=['POST'])
+@login_required
+def follow(user_id):
+    user = User.query.get_or_404(user_id)
+    if user == current_user:
+        flash('You cannot follow yourself.', 'danger')
+        return redirect(url_for('user_profile', user_id=user.id))
+    
+    # Check if already following
+    if current_user.is_following(user):
+        flash('You are already following this user.', 'info')
+        return redirect(url_for('user_profile', user_id=user.id))
+    
+    # Follow the user
+    new_follow = Follower(follower_id=current_user.id, followed_id=user.id)
+    db.session.add(new_follow)
+    db.session.commit()
+    flash('You are now following {}.'.format(user.username), 'success')
+    return redirect(url_for('user_profile', user_id=user.id))
+
+# You might need to add an is_following method to your User model
+def is_following(self, user):
+    return self.following.filter_by(followed_id=user.id).count() > 0
+
+
+@app.route('/user/followers/<int:user_id>')
+def user_followers(user_id):
+    user = User.query.get_or_404(user_id)
+    # Assuming 'followers' is a relationship attribute that returns instances of a relationship model,
+    # and each instance has a 'follower' attribute pointing to the User who is following 'user'
+    followers = user.followers
+    followers_list = [{'username': follower.follower.username, 'id': follower.follower.id} for follower in followers]
+    return jsonify(followers_list)
+
+@app.route('/user/following/<int:user_id>')
+def user_following(user_id):
+    user = User.query.get_or_404(user_id)
+    # Assuming 'following' returns a list of relationships where 'user' is the follower
+    following = user.following
+    following_list = [{'username': followed.followed.username, 'id': followed.followed.id} for followed in following]
+    return jsonify(following_list)

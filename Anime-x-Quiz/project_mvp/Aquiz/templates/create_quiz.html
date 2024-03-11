@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }} {{ form.title() }}
+    {{ form.category.label }} {{ form.category() }}
+    {{ form.level.label }} {{ form.level() }}
+    {{ form.quizpic.label }} {{ form.quizpic() }}
+    {{ form.num_questions.label }} {{ form.num_questions() }}
+    <div id="questions-container"></div> <!-- Placeholder for dynamic questions -->
+    {{ form.submit() }}
+</form>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const numQuestionsInput = document.getElementById('num_questions');
+    const questionsContainer = document.getElementById('questions-container');
+
+    numQuestionsInput.addEventListener('change', function() {
+        const numQuestions = parseInt(this.value, 10);
+        questionsContainer.innerHTML = ''; // Clear existing questions
+
+        for (let i = 0; i < numQuestions; i++) {
+            const questionDiv = document.createElement('div');
+            questionDiv.innerHTML = `
+                <label>Question ${i + 1}</label>
+                <input type="text" name="question${i + 1}" required>
+                <div>
+                    <input type="text" name="option${i + 1}_1" placeholder="Option 1" required>
+                    <input type="text" name="option${i + 1}_2" placeholder="Option 2" required>
+                    <input type="text" name="option${i + 1}_3" placeholder="Option 3" required>
+                    <input type="text" name="option${i + 1}_4" placeholder="Option 4" required>
+                    <select name="correct_option${i + 1}">
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+            `;
+            questionsContainer.appendChild(questionDiv);
+        }
+    });
+
+    form.addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent form submission initially
+
+        const textInputs = document.querySelectorAll('input[type="text"]');
+        for (let input of textInputs) {
+            const isProfane = await checkProfanity(input.value);
+            if (isProfane) {
+                alert("Please remove inappropriate language from your questions and options.");
+                return; // Stop checking further and do not submit the form
+            }
+        }
+
+        // If all inputs are clean, proceed with form submission
+        form.submit();
+    });
+});
+
+async function checkProfanity(text) {
+    const response = await fetch(`https://www.purgomalum.com/service/containsprofanity?text=${encodeURIComponent(text)}`);
+    const isProfane = await response.text(); // The response is a plain text "true" or "false"
+    return isProfane === 'true';
+}
+</script>
+{% endblock %}

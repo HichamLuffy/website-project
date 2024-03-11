@@ -25,6 +25,13 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     def __repr__(self):
         return f"User('{self.username}', '{self.email})"
+    
+    def is_following(self, user):
+        """Check if this user is following another user."""
+        return db.session.query(Follower).filter(
+            Follower.follower_id == self.id,
+            Follower.followed_id == user.id
+        ).count() > 0
 
 
 
@@ -60,7 +67,8 @@ class Quiz (db.Model):
     title = db.Column(db.String(100), nullable=False)
     category = db.Column(db.String(100), nullable=False)
     level = db.Column(db.String(100), nullable=False)
-    questions = db.relationship('Question', backref='quiz', lazy=True)
+    quizpic = db.Column(db.String(255), nullable=False)
+    questions = db.relationship('Question', backref='quiz', lazy=True, cascade='all, delete-orphan')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -74,7 +82,7 @@ class Question(db.Model):
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
     image_path = db.Column(db.String(255))  # Add field for image path/URL
     sound_path = db.Column(db.String(255))  # Add field for sound path/URL
-    score = db.Column(db.Integer, nullable=False)
+    score = db.Column(db.Integer, default=10)
     options = db.relationship('Option', backref='question', lazy=True)
 
     def __repr__(self):

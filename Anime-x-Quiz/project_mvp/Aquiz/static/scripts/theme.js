@@ -6,10 +6,12 @@ $(document).ready(function() {
         const percentage = $('#percentageRange').val();
         const gradient = `linear-gradient(${deg}deg, rgba(2,0,36,1) 0%, ${color} 0%, rgba(0,0,0,1) ${percentage}%)`;
         const gradient2 = `linear-gradient(${deg}deg, rgba(2,0,36,1) 0%, ${color} 0%, rgba(0,0,0,1) 100%)`;
+        const followbackground = `linear-gradient(to top, rgba(2,0,36,1) 0%, rgba(${color}, 0.5) 0%, rgba(0,0,0,1) 100%);`
         $('.container').css('background', gradient);
         $('.gradient-controls input[type="range"]').css('background', color);
         $('.gradient-overlay').css('background', gradient2);
         $('body').css('--sb-thumb-color', color);
+        $('.modal-content').css('background-color', color);
         $('.user-detail').css('background', color);
         // $('body').css('--sb-track-color', color);
         // Save the background gradient to localStorage
@@ -24,7 +26,6 @@ $(document).ready(function() {
         const savedGradient = localStorage.getItem('backgroundGradient');
         const savedColor = localStorage.getItem('themeColor');
         const savedimg = localStorage.getItem('imageGradient');
-        const saveditem = localStorage.getItem('itemGradient');
         if (savedGradient && savedColor && savedimg) {
             $('.container').css('background', savedGradient);
             $('#colorPicker').val(savedColor);
@@ -32,6 +33,7 @@ $(document).ready(function() {
             $('.gradient-overlay').css('background', savedimg);
             $('body').css('--sb-thumb-color', savedColor);
             $('.user-detail').css('background', savedColor);
+            $('.modal-content').css('background-color', savedColor);
         }
     }
 

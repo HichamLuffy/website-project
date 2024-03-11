@@ -109,7 +109,7 @@ p , h2{
   flex-basis: 200;
 }
 
-.last-quiz a {
+.last-quiz {
   flex-wrap: wrap;
   display: flex; /* Add display flex to the anchor to enable flex properties */
   justify-content: center; /* Center items horizontally */

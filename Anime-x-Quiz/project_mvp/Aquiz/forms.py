@@ -5,16 +5,23 @@
 import random
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from Aquiz.models import User
+from Aquiz.models import User, Quiz
+from profanity_check import predict, predict_prob
+from better_profanity import profanity
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 
 
 
+def validate_no_profanity(form, field):
+    if predict([field.data])[0] or profanity.contains_profanity(field.data):
+        raise ValidationError('Please avoid using profane language')
+
+
 class RegisterForm(FlaskForm):
     """register form"""
-    username = StringField('username', validators=[DataRequired(), Length(min=3, max=15)])
+    username = StringField('username', validators=[DataRequired(), validate_no_profanity, Length(min=3, max=15)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('password', validators=[DataRequired()])
     confirm_password = password = PasswordField('Confirm password',
@@ -41,9 +48,9 @@ class LoginForm(FlaskForm):
 
 class updateprofileForm(FlaskForm):
     """register form"""
-    username = StringField('username', validators=[DataRequired(), Length(min=3, max=15)])
+    username = StringField('username', validators=[DataRequired(), validate_no_profanity, Length(min=3, max=15)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    bio = StringField('bio', validators=[DataRequired(), Length(min=0, max=150)])
+    bio = StringField('bio', validators=[DataRequired(), validate_no_profanity, Length(min=0, max=150)])
     pfp = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
     default_avatar = [
@@ -76,14 +83,25 @@ class updateprofileForm(FlaskForm):
 
 
 class New_QuizForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    category = SelectField('Category', choices=[('category1', 'Questions'), ('category2', 'Sound'), ('category3', 'images')], validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired(), validate_no_profanity, Length(min=5, max=40)])
+    category = SelectField('Category', choices=[('category1', 'Questions'), ('category2', 'Sound'), ('category3', 'Images')], validators=[DataRequired()])
     level = SelectField('Level', choices=[('easy', 'Easy'), ('medium', 'Medium'), ('hard', 'Hard')], validators=[DataRequired()])
-    questions = TextAreaField('Questions', validators=[DataRequired()])
-    option1 = StringField('Option 1', validators=[DataRequired()])
-    option2 = StringField('Option 2', validators=[DataRequired()])
-    option3 = StringField('Option 3', validators=[DataRequired()])
-    option4 = StringField('Option 4', validators=[DataRequired()])
-    correct_option = SelectField('Correct Option', choices=[('option1', 'Option 1'), ('option2', 'Option 2'), ('option3', 'Option 3'), ('option4', 'Option 4')], validators=[DataRequired()])
+    quizpic = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     num_questions = IntegerField('Number of Questions', validators=[DataRequired(), NumberRange(min=1, max=10)])
     submit = SubmitField('Create Quiz')
+
+    def validate_title(self, title):
+        quiz = Quiz.query.filter_by(title=title.data).first()
+        if quiz:
+            raise ValidationError('This Quiz Already Exists. Please choose a different one.')
+
+    def validate_questions(self, questions):
+        # Split questions by newline character
+        question_list = questions.data.split('\n')
+        
+        # Remove any empty strings from the list
+        question_list = [question.strip() for question in question_list if question.strip()]
+
+        # Check if there are any duplicate questions
+        if len(question_list) != len(set(question_list)):
+            raise ValidationError('Questions must be unique.')

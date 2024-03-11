@@ -16,19 +16,21 @@
     </p>
   </div>
 </nav>
-
+<div>
+  <a href="/Create_Quiz">create new Quiz</a>
+</div>
 <div class="quizzes-column">
   <h2>Last Added Quiz</h2>
-  <div class="last-quiz">
+  <div class="last-quiz" style="background-image: url('{{ last_quiz_image_path }}');">
     <a href="{{ url_for('quiz_questions', quiz_id=quizzes[-1].id) }}">{{ quizzes[-1].title }}</a>
   </div>
 
   <h2>Other Quizzes</h2>
   <div class="other-quizzes">
-    {% for quiz in quizzes[:-1] %}
-    <div class="boxed-link">
-      <a href="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">{{ quiz.title }}</a>
-    </div>
+    {% for quiz, image_path in quizzes_with_images %}
+      <div class="boxed-link" style="background-image: url('{{ image_path }}');">
+        <a href="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">{{ quiz.title }}</a>
+      </div>
     {% endfor %}
   </div>
 </div>

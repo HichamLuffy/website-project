@@ -1,7 +1,21 @@
 .question-container {
-    width: 80%;
-    margin: auto;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
     text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.question-container h1 {
+    color: #f0f0f0;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.question-container p {
+    color: #8f8f8f;
+    margin: 5px 0;
 }
 
 .question {
@@ -9,29 +23,42 @@
 }
 
 .question.active {
-    color: white;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .question-box {
+    color: #fff;
     border: 1px solid #ccc;
+    margin: auto;
     padding: 20px;
     width: 50%;
+    height: 50%;
 }
 
 .image-box {
     border: 1px solid #ccc;
-    width: 255px;
-    height: 255px;
+    width: auto;
+    height: auto;
     margin: auto;
     overflow: hidden; /* Ensures the image doesn't overflow the box */
 }
 
 .image-box img {
-    width: 100%; /* Ensures the image fills the box horizontally */
-    height: auto; /* Allows the image to maintain its aspect ratio */
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 10px auto;
+}
+
+.audio-box audio {
+    width: 100%; /* Ensures audio controls stretch to container width */
+    margin: 10px 0; /* Adds some spacing around the audio element */
 }
 
 .options-box {
@@ -70,9 +97,13 @@ a.prev {
 
 .option-label {
     display: block;
-    padding: 10px;
-    margin-top: 15px;
-    border: 1px solid #ccc;
+    backdrop-filter: blur( 5px );
+    -webkit-backdrop-filter: blur( 5px );
+    color: #e7e7e7;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    border: 2px solid #ddd;
     cursor: pointer;
     background-image: linear-gradient(45deg, transparent 50%, #ffe9ab 50%);
     background-position: 25%;
@@ -84,11 +115,46 @@ a.prev {
 }
 
 .option-label:hover {
-    color: #ffcaca;
+    color: #ff2929;
     background-position: 100%;
     background-color: #ffffcc; /* Change background color on hover */
 }
 
-.radio-input:checked {
-    background-color: yellow; /* Change background color when radio input is checked */
+.option-label.checked, .option-label:hover {
+    color: #810400;
+    background-position: 100%;
+    background-color: #ffffcc; /* Maintain this background color for checked option */
+}
+
+a.prev, a.next, button#submitBtn {
+    padding: 10px 20px;
+    border-radius: 2px;
+    border: 1px solid white;
+    color: #fff;
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+    background-color: #050505;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+a.prev {
+    background-color: #6c757d;
+}
+
+a.prev:hover, a.next:hover, button#submitBtn:hover {
+    background-color: #7e7e7e;
+}
+
+a.next[disabled], a.next.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#submitBtn {
+    display: none; /* Initially hidden */
+}
+
+.qstbtn {
+    margin-top: 30px;
 }
