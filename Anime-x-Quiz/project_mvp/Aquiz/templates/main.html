@@ -23,43 +23,81 @@
     </div>
 </div>
 <section class="main-section">
-    <div class="cards">
-      <div class="information">
-        <h5>Explore Anime Quiz <span class="movie-night">categories</span></h5>
-        <p>Choose from a variety of questions such as voice, eyes, smile, clothing, hair, and weapons to test your anime knowledge.</p>
-        <h5><span class="movie-night">Create</span> Your Own Quizzes</h5>
-        <p>Login to post your own quizzes, create polls, and challenge others to test their anime knowledge.</p>
-        <h5>Customize Your <span class="movie-night">Profile</span></h5>
-        <p>Personalize your profile, earn badges, and showcase your anime quiz achievements to the community</p>
-      </div>
-      <div class="swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <h2>Guess Characters From Face</h2>
-          </div>
+  <div class="cards">
+    <div class="information">
+      <h5>Explore Anime Quiz <span class="movie-night">categories</span></h5>
+      <p>Choose from a variety of questions such as voice, eyes, smile, clothing, hair, and weapons to test your anime knowledge.</p>
+      <h5><span class="movie-night">Create</span> Your Own Quizzes</h5>
+      <p>Login to post your own quizzes, create polls, and challenge others to test their anime knowledge.</p>
+      <h5>Customize Your <span class="movie-night">Profile</span></h5>
+      <p>Personalize your profile, earn badges, and showcase your anime quiz achievements to the community</p>
+    </div>
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <h2>Guess Characters From Face</h2>
+        </div>
 
-          <div class="swiper-slide">
-            <h2>Guess Characters From Place</h2>
-          </div>
+        <div class="swiper-slide">
+          <h2>Guess Characters From Place</h2>
+        </div>
 
-          <div class="swiper-slide">
-            <h2>Guess Characters From Laugh</h2>
-          </div>
+        <div class="swiper-slide">
+          <h2>Guess Characters From Laugh</h2>
+        </div>
 
-          <div class="swiper-slide">
-            <h2>Guess Characters From Eye</h2>
-          </div>
+        <div class="swiper-slide">
+          <h2>Guess Characters From Eye</h2>
         </div>
       </div>
     </div>
+  </div>
 
-    <ul class="circle-back">
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
-  </section>
+  <ul class="circle-back">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</section>
+  <div class="comments-section">
+    <div class="comments-container" id="comments-container">
+        <!-- Comments will be dynamically added here -->
+    </div>
+    <form id="comment-form" class="comment-form" method="POST">
+        <textarea id="comment-text" name="comment-text" placeholder="Add your comment"></textarea>
+        <input type="number" id="comment-rating" name="comment-rating" min="1" max="5" placeholder="Rating (1-5)">
+        <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
 <script>
+function fetchAndAppendComments() {
+  fetch('/comments')
+      .then(response => response.json())
+      .then(comments => {
+          const commentsContainer = document.getElementById('comments-container');
+          commentsContainer.innerHTML = ''; // Clear existing comments
+          comments.forEach(comment => {
+              const commentBox = document.createElement('div');
+              commentBox.classList.add('comment-box');
+              commentBox.innerHTML = `
+                  <img src="${comment.profile_pic}" alt="${comment.username}" class="profile-pic">
+                  <span class="username">${comment.username}</span>
+                  <div class="comment-text">${comment.text}</div>
+                  <div class="rating">${generateStars(comment.rating)}</div>
+              `;
+              commentsContainer.appendChild(commentBox);
+          });
+      })
+      .catch(error => {
+          console.error('Error fetching comments:', error);
+      });
+
+}
+// Fetch comments when the page initially loads
+
+document.addEventListener('DOMContentLoaded', fetchAndAppendComments);
+
     var swiper = new Swiper(".swiper", {
     effect: "cards",
     grabCursor: true,
@@ -71,5 +109,51 @@
     invert: false,
   },
 });
+
+// Handle form submission
+document.getElementById('comment-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get comment text and rating from the form
+    const commentText = document.getElementById('comment-text').value;
+    const commentRating = document.getElementById('comment-rating').value;
+
+    // Send the comment data to the server
+    fetch('/add-comment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            text: commentText,
+            rating: commentRating
+        })
+    })
+    .then(response => response.json())
+    .then(comment => {
+        // Fetch and append comments again after successful submission
+        fetchAndAppendComments();
+        // Clear the form
+        document.getElementById('comment-text').value = '';
+        document.getElementById('comment-rating').value = '';
+    })
+    .catch(error => {
+        console.error('Error adding comment:', error);
+    });
+});
+
+// Function to generate star icons based on rating
+function generateStars(rating) {
+    const starCount = Math.round(rating);
+    let stars = '';
+    for (let i = 0; i < 5; i++) {
+        if (i < starCount) {
+            stars += '<i class="fa fa-star"></i>';
+        } else {
+            stars += '<i class="far fa-star"></i>';
+        }
+    }
+    return stars;
+}
 </script>
 {% endblock %}

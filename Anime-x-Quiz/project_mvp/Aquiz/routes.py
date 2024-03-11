@@ -12,7 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 from Aquiz import app, db, bcrypt
 from Aquiz.forms import RegisterForm, LoginForm, updateprofileForm, New_QuizForm
 import pymysql.cursors
-from Aquiz.models import User, Profile, Score, Quiz, Question, Option, Follower
+from Aquiz.models import User, Profile, Score, Quiz, Question, Option, Follower, Comment
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import Blueprint, jsonify
 from datetime import datetime
@@ -274,6 +274,7 @@ def quiz():
         image_file = '/' + current_user.profile.avatar
     total_score = get_total_score()
     quizzes = Quiz.query.all()
+    quizzes.reverse()
     leaderboard_data = get_leaderboard_data()
 
     # Prepare quizzes with image paths
@@ -283,6 +284,7 @@ def quiz():
         quizzes_with_images.append((quiz, image_path))
 
     # Handle the last quiz separately if needed
+    quizzes = Quiz.query.all()
     if quizzes:
         last_quiz_image_path = url_for('static', filename='images/quizzes/' + quizzes[-1].quizpic)
     else:
@@ -398,6 +400,7 @@ def user_profile(user_id):
     followers_count = user.followers.count()
     following_count = user.following.count()
     quizzes = Quiz.query.filter_by(user_id=user_id).all()
+    quizzes.reverse()
     quizzes_with_images = []
     image_path = []
     if quizzes:
@@ -448,7 +451,7 @@ def quiz_pfp(form_pfp, resize_width=800):
     aspect_ratio = img.height / img.width
     new_height = int(resize_width * aspect_ratio)
     
-    img = img.resize((resize_width, new_height), Image.ANTIALIAS)
+    img = img.resize((resize_width, new_height))
     
     img.save(picture_path)
 
@@ -580,3 +583,44 @@ def search_quizzes_ajax():
         quizzes_data = []
 
     return jsonify(quizzes_data)
+
+
+@app.route('/comments', methods=['GET'])
+def get_comments():
+    comments = Comment.query.all()
+    comments.reverse()
+    comments_data = [{'username': comment.author.username, 
+                    'profile_pic': url_for('static', filename='images/' + comment.author.profile.avatar) if 'static/' not in comment.author.profile.avatar else '/' + comment.author.profile.avatar, 
+                    'rating': comment.rating, 
+                    'text': comment.text} 
+                    for comment in comments]
+    return jsonify(comments_data)
+
+
+@app.route('/add-comment', methods=['POST'])
+@login_required
+def add_comment():
+    data = request.json
+    comment_text = data.get('text')
+    comment_rating = data.get('rating')
+    # You may need to authenticate the user and get the user_id before adding the comment
+    if not current_user.is_authenticated:
+        return jsonify({'error': 'User must be logged in to add a comment'}), 401
+
+    # Create a new Comment object
+    new_comment = Comment(user_id=current_user.id, text=comment_text, rating=comment_rating)
+
+    # Add the new comment to the database
+    db.session.add(new_comment)
+    db.session.commit()
+    if 'static/' not in new_comment.author.profile.avatar:
+        image_file = url_for('static', filename='images/' + new_comment.author.profile.avatar)
+    else:
+        image_file = '/' + new_comment.author.profile.avatar
+    if 'static/' not in new_comment.author.profile.avatar:
+        user_image = url_for('static', filename='images/' + new_comment.author.profile.avatar)
+    else:
+        user_image = '/' + new_comment.author.profile.avatar
+    # Return the newly added comment as JSON response
+    comment_data = {'username': new_comment.author.username, 'profile_pic': user_image, 'rating': new_comment.rating, 'text': comment_text}
+    return jsonify(comment_data), 201

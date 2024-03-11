@@ -1,9 +1,10 @@
 /* Enhanced general styling for the create quiz form */
 .createform {
     max-width: 800px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #ffffff8e;
+    margin: 10px auto;
+    padding: 10px;
+    border: 2px solid #303030;
+    border-radius: 20px; /* Rounded corners */
     backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 10px );
     border-radius: 10px;
@@ -24,14 +25,23 @@
 
 .form-section {
     flex-basis: 60%;
+    font-family: 'inter', serif;
+    padding: 10px 20px;
+    border: 2px solid #303030;
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
 }
+
 
 .form-section > label {
     font-size: 20px;
-    color: #494949; /* Using the accent color */
+    color: #ffffff; /* Using the accent color */
     font-weight: bold;
     margin-bottom: 10px;
     display: block; /* Ensure it's on its own line */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Change values as needed */
 }
 
 .form-image {
@@ -119,23 +129,56 @@
 }
 
 .createform input[type="file"] {
-    background-color: #eee;
+    background-color: #dadadac2;
     padding: 10px;
     border-radius: 8px;
 }
 
 /* Submit button enhancements */
 .createform input[type="submit"] {
-    background-color: #888888;
-    color: #000000;
+    display: inline-block;
+    background-color: #181818; /* Accent color */
+    color: #ffffff; /* Text color */
     padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    border-radius: 20px;
+    font-family: 'Clash Display', serif;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    background-image: linear-gradient(45deg, transparent 50%, #ffffff 50%);
+    background-position: 25%;
+    background-size: 400%;
+    -webkit-transition: background 500ms ease-in-out, color 500ms ease-in-out;
+    transition: background 500ms ease-in-out, color 500ms ease-in-out;
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
 }
 
-.createform input[type="submit"]:hover {
-    
-    background-color: #f0f0f0;
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+  }
+
+/* .createform input[type="submit"] {
+    animation: pulse 2s infinite;
+} */
+
+.createform input[type="submit"]:hover { 
+    transform: translateY(-2px);
+    color: #000000;
+    background-position: 100%;
+    background-color: #ffffff; /* Change background color on hover */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    animation: pulse 2s infinite;
 }
 
