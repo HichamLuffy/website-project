@@ -39,7 +39,6 @@ PyRect==0.2.0
 pyRFC3339==1.1
 pyrsistent==0.18.1
 PyScreeze==0.1.30
-python-apt==2.3.0+ubuntu2.1
 python-dotenv==0.19.2
 python-xlib==0.33
 python3-xlib==0.15
