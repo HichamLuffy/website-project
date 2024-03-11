@@ -224,7 +224,7 @@
 footer {
     display: flex;
     color: #fff;
-    padding: 60px;
+    padding: 20px;
     margin-top: auto;
     text-align: center;
     position: relative;
@@ -484,7 +484,15 @@ body {
 }
 
 .comments-section {
-    overflow-x: auto;
+    overflow-x: hidden; /* Hide the default scrollbar */
+    white-space: nowrap;
+    position: relative; /* Required for smooth scrolling */
+}
+
+.comments-container {
+    scroll-snap-type: x mandatory; /* Enable snapping */
+    overflow-x: hidden; /* Enable horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
     white-space: nowrap;
 }
 
@@ -494,4 +502,5 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    scroll-snap-align: start; /* Snap to start of each comment */
 }

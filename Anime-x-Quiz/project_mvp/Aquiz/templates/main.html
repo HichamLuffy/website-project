@@ -155,5 +155,30 @@ function generateStars(rating) {
     }
     return stars;
 }
+
+// Smooth horizontal scrolling
+let isScrolling = false;
+
+document.getElementById('comments-container').addEventListener('mousedown', (e) => {
+    isScrolling = true;
+    startX = e.pageX - document.getElementById('comments-container').offsetLeft;
+    scrollLeft = document.getElementById('comments-container').scrollLeft;
+});
+
+document.getElementById('comments-container').addEventListener('mouseleave', () => {
+    isScrolling = false;
+});
+
+document.getElementById('comments-container').addEventListener('mouseup', () => {
+    isScrolling = false;
+});
+
+document.getElementById('comments-container').addEventListener('mousemove', (e) => {
+    if (!isScrolling) return;
+    e.preventDefault();
+    const x = e.pageX - document.getElementById('comments-container').offsetLeft;
+    const walk = (x - startX) * 2; // Change the multiplier for faster/slower scrolling
+    document.getElementById('comments-container').scrollLeft = scrollLeft - walk;
+});
 </script>
 {% endblock %}

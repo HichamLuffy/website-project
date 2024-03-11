@@ -55,11 +55,13 @@ $(document).ready(function() {
     });
     
     $('#colorControlsButton').on('click', function() {
+        const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
         if ($('.gradient-controls-container').hasClass('show')) {
             $('.gradient-controls-container').slideUp('slow', function() {
                 $(this).removeClass('show');
             });
         } else {
+            scrollToTop();
             $('.gradient-controls-container').slideDown('slow').addClass('show');
         }
     });
