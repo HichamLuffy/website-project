@@ -1,0 +1,111 @@
+/* Enhanced general styling for the create quiz form */
+.createform {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff8e;
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.form-input, .form-select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-section {
+    flex-basis: 60%;
+}
+
+.form-image {
+    flex-basis: 35%;
+    background-image: url('YOUR_IMAGE_URL_HERE');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    height: 300px; /* Adjust based on your preference */
+}
+
+/* Additional styling for labels and the submit button */
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.question-label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.question-input,
+.option-input,
+.correct-option-select {
+    width: calc(100% - 24px);
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+.question-input:focus,
+.option-input:focus,
+.correct-option-select:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
+.options-container {
+    margin-bottom: 20px;
+}
+
+.correct-option-select {
+    display: block;
+    background-color: #f8f8f8;
+}
+
+.createform input[type="submit"] {
+    margin-top: 20px;
+}
+
+/* Hover and focus effects for inputs and selects */
+.question-input:hover, .option-input:hover, .correct-option-select:hover,
+.question-input:focus, .option-input:focus, .correct-option-select:focus {
+    border-color: #0056b3;
+}
+
+/* Styling adjustments for labels and file input */
+.createform label,
+.createform input[type="file"] {
+    display: block;
+    margin-top: 20px;
+}
+
+.createform input[type="file"] {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Submit button enhancements */
+.createform input[type="submit"] {
+    background-color: #888888;
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.createform input[type="submit"]:hover {
+    
+    background-color: #f0f0f0;
+}

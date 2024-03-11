@@ -189,17 +189,16 @@ def logout_page():
     return redirect(url_for('about'))
 
 
-def save_pfp(form_pfp):
+def save_pfp(form_pfp, resize_dimensions=(300, 300)):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_pfp.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
     print(picture_path)
 
-    resize_pic = (256, 256)
     form_pfp.save(picture_path)  # Save the file
     img = Image.open(picture_path)  # Open the saved file
-    img.thumbnail(resize_pic)
+    img.thumbnail(resize_dimensions)
     img.save(picture_path)
 
     return (picture_fn)
@@ -389,6 +388,26 @@ def update_last_seen():
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
+def quiz_pfp(form_pfp, resize_width=800):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_pfp.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/images/quizzes', picture_fn)
+    print(picture_path)
+
+    form_pfp.save(picture_path)  # Save the file
+    img = Image.open(picture_path)  # Open the saved file
+    
+    # Calculate new height maintaining aspect ratio
+    aspect_ratio = img.height / img.width
+    new_height = int(resize_width * aspect_ratio)
+    
+    img = img.resize((resize_width, new_height), Image.ANTIALIAS)
+    
+    img.save(picture_path)
+
+    return picture_fn
+
 
 @app.route('/Create_Quiz', methods=['GET', 'POST'])
 @login_required
@@ -396,19 +415,19 @@ def Create_Quiz():
     form = New_QuizForm()
     if form.validate_on_submit():
         # check if the post request has the file part
-        file = form.quizpic.data
-        if file:
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
+        if form.quizpic.data:
+            quizpfp = quiz_pfp(form.quizpic.data, resize_width=800)
+            print(quizpfp)
+        
         # Create and add the new quiz
         new_quiz = Quiz(
             title=form.title.data,
             category=form.category.data,
             level=form.level.data,
-            quizpic=filename,  # Assuming you handle file saving elsewhere
+            quizpic=quizpfp,  # Assuming you handle file saving elsewhere
             user_id=current_user.id
         )
+        print(quizpfp)
         db.session.add(new_quiz)
         try:
             db.session.commit() # Commit here to obtain an ID for the quiz

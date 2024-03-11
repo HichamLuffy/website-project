@@ -114,7 +114,7 @@ p , h2{
   display: flex; /* Add display flex to the anchor to enable flex properties */
   justify-content: center; /* Center items horizontally */
   align-items: center; /* Center items vertically */
-  width: 1036px; /* Adjust the width */
+  width: 800px; /* Adjust the width */
   height: 250px; /* Adjust the height */
   background-image: url('../images/anime3.jpeg');
   object-fit: cover;
