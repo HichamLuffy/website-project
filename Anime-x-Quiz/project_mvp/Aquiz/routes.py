@@ -238,10 +238,15 @@ def account():
     user = User.query.get_or_404(current_user.id)
     followers_count = user.followers.count()
     following_count = user.following.count()
+    quizzes_with_images = []
+    quizzes = Quiz.query.all()
+    for quiz in quizzes[:-1]:  # Exclude the last quiz
+        image_path = url_for('static', filename='images/quizzes/' + quiz.quizpic) if quiz.quizpic else None
+        quizzes_with_images.append((quiz, image_path))
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form, total_score=total_score, total_attempts=quiz_stats['total_attempts'],
                             average_score=quiz_stats['average_score'],
-                            most_recent_quiz=quiz_stats['most_recent_quiz'], followers_count=followers_count, following_count=following_count)
+                            most_recent_quiz=quiz_stats['most_recent_quiz'], quizzes_with_images=quizzes_with_images, followers_count=followers_count, following_count=following_count, quizzes=quizzes, image_path=image_path)
 
 
 @app.route('/quiz')
@@ -412,6 +417,10 @@ def quiz_pfp(form_pfp, resize_width=800):
 @app.route('/Create_Quiz', methods=['GET', 'POST'])
 @login_required
 def Create_Quiz():
+    if 'static/' not in current_user.profile.avatar:
+        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+    else:
+        image_file = '/' + current_user.profile.avatar
     form = New_QuizForm()
     if form.validate_on_submit():
         # check if the post request has the file part
@@ -458,7 +467,7 @@ def Create_Quiz():
         flash('Quiz created successfully!', 'success')
         return redirect(url_for('quiz'))  # Redirect as appropriate
 
-    return render_template('create_quiz.html', title='Create New Quiz', form=form)
+    return render_template('create_quiz.html', title='Create New Quiz', form=form, image_file=image_file)
 
 
 @app.route('/delete_quiz/<int:quiz_id>', methods=['POST'])

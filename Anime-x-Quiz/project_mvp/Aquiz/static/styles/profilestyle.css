@@ -374,3 +374,82 @@
     color: #007bff; /* Example color */
     /* Any additional styling to indicate clickability */
 }
+
+.user-quizzes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Adjust based on your design preference */
+    gap: 20px; /* Space between each quiz container */
+}
+
+.quiz-container {
+    width: calc(33.333% - 20px); /* Example for three quizzes per row, adjust the percentage as needed */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    overflow: hidden; /* Ensures the background image does not overflow the border-radius */
+}
+
+.userboxed-link {
+    padding: 20px; /* Adjust as needed */
+    background-size: cover;
+    background-position: center;
+    min-height: 150px; /* Adjust based on your needs */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease; /* Smooth transition for zoom effect */
+}
+
+.userboxed-link:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.userboxed-link a {
+    color: #F4AC45;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* input[type="submit"] {
+    padding: 5px 15px;
+    background-color: #640000; /* Accent color 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #F4AC45; /* Lighter shade for hover effect 
+} */
+
+.delete-quiz-btn {
+    width: 100%; /* Makes the button span the entire width of its container */
+    padding: 5px 15px; /* Adds some padding for better touch target size */
+    border: none;
+    border-radius: 5px;
+    background-color: #640000; /* Adjust based on your theme */
+    color: rgb(145, 0, 0);
+    cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, #ffe9ab 50%);
+    background-position: 25%;
+    background-size: 400%;
+    transition: transform 0.3s ease;
+    -webkit-transition: background 500ms ease-in-out, color 500ms ease-in-out;
+    transition: background 500ms ease-in-out, color 500ms ease-in-out;
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+}
+
+.delete-quiz-btn:hover {
+    background-position: 100%;
+    background-color: #ffffe1; /* Change background color on hover */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    animation: none;
+    transform: scale(1.05);
+    color: #000000; /* Lighter shade for hover effect */
+}

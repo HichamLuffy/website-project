@@ -10,6 +10,10 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
+.form-input, .form-select, .question-input, .option-input, .correct-option-select {
+    border-radius: 4px;
+}
+
 .form-input, .form-select {
     width: 100%;
     padding: 10px;
@@ -20,6 +24,14 @@
 
 .form-section {
     flex-basis: 60%;
+}
+
+.form-section > label {
+    font-size: 20px;
+    color: #494949; /* Using the accent color */
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block; /* Ensure it's on its own line */
 }
 
 .form-image {
@@ -40,12 +52,12 @@
 
 .question-label {
     font-size: 18px;
-    color: #333;
+    color: #640000; /* A color that stands out but is less intense than the title label */
     margin-bottom: 10px;
+    font-weight: normal; /* Less emphasis compared to the title */
 }
 
 .question-input,
-.option-input,
 .correct-option-select {
     width: calc(100% - 24px);
     padding: 12px;
@@ -57,10 +69,22 @@
 }
 
 .question-input:focus,
-.option-input:focus,
 .correct-option-select:focus {
     border-color: #0056b3;
     outline: none;
+}
+
+.option-input {
+    background-color: #fff; /* Light background to stand out from the form */
+    border: 2px solid #ddd; /* Subtle border */
+    color: #333; /* Standard text color for readability */
+    margin-bottom: 5px; /* Tighter grouping with its question */
+    padding: 8px; /* Adequate padding for tap targets on mobile */
+}
+
+.option-input:hover,
+.option-input:focus {
+    border-color: #251804; /* Accent color for focus and hover */
 }
 
 .options-container {
@@ -70,6 +94,11 @@
 .correct-option-select {
     display: block;
     background-color: #f8f8f8;
+}
+
+.createform {
+    border-radius: 10px; /* Matches site's theme */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Soft shadow for depth */
 }
 
 .createform input[type="submit"] {

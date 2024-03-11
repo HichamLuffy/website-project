@@ -8,9 +8,10 @@
 }
 
 .question-container h1 {
-    color: #f0f0f0;
-    font-size: 24px;
-    margin-bottom: 10px;
+    color: #F4AC45; /* Accent color similar to the button for cohesion */
+    font-size: 28px; /* Slightly larger for prominence */
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Optional: Adds depth */
 }
 
 .question-container p {

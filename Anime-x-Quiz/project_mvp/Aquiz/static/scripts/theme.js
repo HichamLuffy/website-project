@@ -14,6 +14,7 @@ $(document).ready(function() {
         $('.modal-content').css('background-color', color);
         $('.user-detail').css('background', color);
         $('.create-quiz-button a').css('background-color', color);
+        $('.delete-quiz-btn').css('background-color', color);
         // Save the background gradient to localStorage
         localStorage.setItem('backgroundGradient', gradient);
         // Save the theme color to localStorage
@@ -35,6 +36,7 @@ $(document).ready(function() {
             $('.user-detail').css('background', savedColor);
             $('.modal-content').css('background-color', savedColor);
             $('.create-quiz-button a').css('background-color', savedColor);
+            $('.delete-quiz-btn').css('background-color', savedColor);
         }
     }
 
