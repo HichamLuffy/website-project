@@ -240,10 +240,14 @@ def account():
     following_count = user.following.count()
     # quizzes = Quiz.query.all()
     quizzes = Quiz.query.filter_by(user_id=current_user.id).all()
+    print('hello i aam', current_user.id)
+    print('hello we are ', quizzes)
     quizzes_with_images = []
     image_path = []
     if quizzes:
-        for quiz in quizzes[:-1]:  # Exclude the last quiz
+        print('hello again ', quizzes)
+        for quiz in quizzes:  # Exclude the last quiz
+            print('i am ', quiz)
             image_path = url_for('static', filename='images/quizzes/' + quiz.quizpic) if quiz.quizpic else None
             quizzes_with_images.append((quiz, image_path))
     template_context = {
@@ -259,6 +263,7 @@ def account():
     }
     if quizzes_with_images:
         template_context['quizzes_with_images'] = quizzes_with_images
+        print('hehehe')
 
     if image_path:
         template_context['image_path'] = image_path
@@ -356,13 +361,15 @@ def quiz_results():
 @app.route('/leaderboard')
 def leaderboard():
     # Your view logic here
-    if 'static/' not in current_user.profile.avatar:
-        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
-    else:
-        image_file = '/' + current_user.profile.avatar
     total_score = get_total_score()
     leaderboard_data = get_leaderboard_data()
-    return render_template('quizleaderboard.html', title='Quiz', leaderboard_data=leaderboard_data, get_username=get_username, get_profile_picture=get_profile_picture, total_score=total_score, image_file=image_file)
+    if current_user.is_authenticated:
+        if 'static/' not in current_user.profile.avatar:
+            image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+        else:
+            image_file = '/' + current_user.profile.avatar
+        return render_template('quizleaderboard.html', title='Quiz', leaderboard_data=leaderboard_data, get_username=get_username, get_profile_picture=get_profile_picture, total_score=total_score, image_file=image_file)
+    return render_template('quizleaderboard.html', title='Quiz', leaderboard_data=leaderboard_data, get_username=get_username, get_profile_picture=get_profile_picture, total_score=total_score)
 
 
 @app.route('/user/<int:user_id>', methods=['GET', 'POST'])
@@ -381,11 +388,11 @@ def user_profile(user_id):
                     flash('Invalid user ID or you cannot follow yourself', 'warning')
             else:
                 flash('User ID not provided', 'danger')
-
-    if 'static/' not in current_user.profile.avatar:
-        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
-    else:
-        image_file = '/' + current_user.profile.avatar
+    if current_user.is_authenticated:
+        if 'static/' not in current_user.profile.avatar:
+            image_file = url_for('static', filename='images/' + current_user.profile.avatar)
+        else:
+            image_file = '/' + current_user.profile.avatar
     if 'static/' not in user.profile.avatar:
         user_image = url_for('static', filename='images/' + user.profile.avatar)
     else:
@@ -413,7 +420,6 @@ def user_profile(user_id):
     'user': user,
     'user_image': user_image,
     'total_score': total_score,
-    'image_file': image_file,
     'total_attempts': quiz_stats['total_attempts'],
     'average_score': quiz_stats['average_score'],
     'most_recent_quiz': quiz_stats['most_recent_quiz'],
@@ -422,6 +428,9 @@ def user_profile(user_id):
     'status': status
     }
 
+    if current_user.is_authenticated:
+        template_context['image_file'] = image_file
+        
     if quizzes_with_images:
         template_context['quizzes_with_images'] = quizzes_with_images
 

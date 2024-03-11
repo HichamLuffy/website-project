@@ -2,6 +2,7 @@
 {% block content %}
 <div class="question-container">
     <h1>{{ quiz.title }}</h1>
+    <h5>by {{ quiz.user.username }}</h5>
     <p>Number of questions: {{ num_questions }}</p>
     <p>Category: {{ quiz.category }}</p>
     <p>Level: {{ quiz.level }}</p>
