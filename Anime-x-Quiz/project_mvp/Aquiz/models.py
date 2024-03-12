@@ -53,7 +53,7 @@ class Score (db.Model):
     user_answer = db.Column(db.Text, nullable=False)
     is_correct = db.Column(db.Boolean, nullable=False)
     score = db.Column(db.Integer, nullable=False)
-    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=True)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     question = db.relationship('Question', backref='scores', lazy=True)
@@ -69,7 +69,7 @@ class Quiz (db.Model):
     category = db.Column(db.String(100), nullable=False)
     level = db.Column(db.String(100), nullable=False)
     quizpic = db.Column(db.String(255), nullable=False)
-    questions = db.relationship('Question', backref='quiz', lazy=True, cascade='all, delete-orphan')
+    questions = db.relationship('Question', backref='quiz_parent', lazy=True, cascade='all, delete-orphan')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -80,7 +80,8 @@ class Quiz (db.Model):
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question_text = db.Column(db.Text, nullable=False)
-    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id', ondelete='CASCADE'))
+    quiz = db.relationship('Quiz', backref=db.backref('childquestions', cascade='all, delete'))
     image_path = db.Column(db.String(255))  # Add field for image path/URL
     sound_path = db.Column(db.String(255))  # Add field for sound path/URL
     score = db.Column(db.Integer, default=10)

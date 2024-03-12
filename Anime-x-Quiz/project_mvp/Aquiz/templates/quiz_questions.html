@@ -47,6 +47,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+$(document).ready(function() {
     var currentQuestion = 0;
     var questions = $('.question');
     
@@ -59,7 +60,8 @@
             }
         });
         $('.prev').toggle(currentQuestion !== 0);
-        $('#submitBtn').toggle(currentQuestion === questions.length - 1);
+        $('.next').toggle(currentQuestion < questions.length - 1);
+        $('#submitBtn').toggle(currentQuestion === questions.length - 1 || questions.length === 1);
         // Disable Next button by default when showing a new question
         $('.next').prop('disabled', !isOptionSelected());
     }
@@ -90,7 +92,7 @@
             $('#submitBtn').prop('disabled', !isOptionSelected());
         }
     });
-
+    showQuestion(currentQuestion);
     // jQuery for handling radio button clicks and visual feedback
     $('.option-label').click(function() {
         // First, remove 'checked' class from all options in the current question
@@ -107,5 +109,6 @@
             alert('Please select an option before submitting.');
         }
     });
+});
 </script>
 {% endblock %}

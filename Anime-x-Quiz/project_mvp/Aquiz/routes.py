@@ -411,7 +411,7 @@ def user_profile(user_id):
     quizzes_with_images = []
     image_path = []
     if quizzes:
-        for quiz in quizzes[:-1]:  # Exclude the last quiz
+        for quiz in quizzes:  # Exclude the last quiz
             image_path = url_for('static', filename='images/quizzes/' + quiz.quizpic) if quiz.quizpic else None
             quizzes_with_images.append((quiz, image_path))
     
@@ -519,6 +519,9 @@ def Create_Quiz():
         
         flash('Quiz created successfully!', 'success')
         return redirect(url_for('quiz'))  # Redirect as appropriate
+    else:
+        print(form.errors)
+        flash('error something happened', 'danger')
 
     return render_template('create_quiz.html', title='Create New Quiz', form=form, image_file=image_file)
 
@@ -528,12 +531,18 @@ def Create_Quiz():
 def delete_quiz(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
     if quiz.user_id == current_user.id:
+        # Manually delete related questions and their options
+        questions = Question.query.filter_by(quiz_id=quiz.id).all()
+        for question in questions:
+            Option.query.filter_by(question_id=question.id).delete()
+            db.session.delete(question)
+        
         db.session.delete(quiz)
         db.session.commit()
         flash('Quiz deleted successfully.', 'success')
     else:
         flash('You do not have permission to delete this quiz.', 'danger')
-    return redirect(url_for('account'))  # Adjust this to wherever you want the user to be redirected after deletion
+    return redirect(url_for('account'))
 
 
 @app.route('/follow/<int:user_id>', methods=['POST'])

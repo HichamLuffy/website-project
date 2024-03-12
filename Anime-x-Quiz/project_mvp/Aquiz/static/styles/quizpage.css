@@ -91,11 +91,6 @@ p , h2{
   margin-bottom: 10px;
 }
 
-.boxed-link:hover {
-  text-decoration: underline;
-  flex-grow: 1;
-  flex-basis: 200;
-}
 
 .last-quiz {
   display: flex;
@@ -132,11 +127,13 @@ p , h2{
 .other-quizzes {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center; /* Adjust this to center if you want the quizzes to be centered when there are few */
+  gap: 20px; /* This replaces the margin-left and ensures even spacing around items */
 }
 
 .boxed-link {
-  width: 200px;
+  position: relative;
+  width: 300px;
   height: 180px;
   line-height: 150px;
   background-color: #ccc;
@@ -145,18 +142,43 @@ p , h2{
   border-radius: 30px;
   margin: 5px;
   text-decoration: none;
-  color: white;
-  background-image: url('../images/anime3.jpeg');
-  object-fit: cover;
+  color: rgb(128, 128, 128);
+  background-size: cover; /* This ensures that your background image covers the area, adjust as necessary */
+  background-position: center;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
 }
+
+.boxed-link:hover {
+  text-decoration: underline;
+  flex-grow: 0.5;
+  flex-basis: 200;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transform: scale(1.1); 
+}
+
 
 .boxed-link a {
   display: block;
-  width: 100%;
-  height: 100%;
   text-decoration: none;
+  font-family: 'Clash Display', serif;
   color: inherit;
+}
+
+.creator-name {
+  position: absolute;
+  bottom: 10px;
+  color: #640000;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-90%);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0; /* Start with opacity 0 */
+  transition: opacity 0.3s ease-in; /* Add transition for opacity */
 }
 
 #search-results {
@@ -164,6 +186,11 @@ p , h2{
   flex-wrap: wrap;
   justify-content: center; /* Center items in the container */
   gap: 10px; /* Optional: Adds space between items */
+}
+
+.boxed-link:hover .creator-name {
+  opacity: 1; /* Fade in on hover */
+  transition: opacity 1s ease-in-out;
 }
 
 .search-container {

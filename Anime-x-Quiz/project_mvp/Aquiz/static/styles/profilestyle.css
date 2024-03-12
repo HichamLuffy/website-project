@@ -383,7 +383,7 @@
 }
 
 .quiz-container {
-    width: calc(20% - 20px); /* Example for three quizzes per row, adjust the percentage as needed */
+    width: calc(50% - 10px); /* Example for three quizzes per row, adjust the percentage as needed */
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 4px;
@@ -394,19 +394,43 @@
     overflow: hidden; /* Ensures the background image does not overflow the border-radius */
 }
 
-.userboxed-link {
-    padding: 20px; /* Adjust as needed */
-    background-size: cover;
-    background-position: center;
-    min-height: 150px; /* Adjust based on your needs */
+    
+
+.user-quizzes {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease; /* Smooth transition for zoom effect */
+    flex-wrap: wrap;
+    justify-content: start; /* Adjust this to center if you want the quizzes to be centered when there are few */
+    gap: 20px; /* This replaces the margin-left and ensures even spacing around items */
 }
 
+.quiz-container {
+    border: 1px solid #ccc;
+    flex: 1;
+    min-width: calc(30% - 20px); /* Ensures that it takes up at least 30% of the container width, minus some margin, but can grow if there's space */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    overflow: hidden;
+}
+
+.userboxed-link {
+    padding: 20px;
+    background-size: cover; /* This ensures that your background image covers the area, adjust as necessary */
+    background-position: center;
+    width: 100%; /* This makes sure the link uses the full width of its parent */
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* This centers the text/link inside the .userboxed-link */
+    transition: transform 0.3s ease;
+}
+
+/* Add a hover effect to .userboxed-link for a zoom effect */
 .userboxed-link:hover {
-    transform: scale(1.05); /* Slightly enlarge on hover */
+    transform: scale(1.05); /* Slightly enlarges the link area */
 }
 
 .userboxed-link a {
