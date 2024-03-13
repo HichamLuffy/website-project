@@ -1,0 +1,19 @@
+.Resultscontainer {
+    margin: 20px;
+}
+.aquestion-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.aquestion-text {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+.correct-answer {
+    color: green;
+}
+.wrong-answer {
+    color: red;
+}
