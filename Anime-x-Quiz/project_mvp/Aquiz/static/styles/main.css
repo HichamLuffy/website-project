@@ -299,3 +299,78 @@
   font-size: 18px; /* Adjust font size as needed */
   margin-bottom: 10px;
 }
+
+.team-section {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.team-section h6 {
+  font-family: 'Clash Display', sans-serif;
+  color: white;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.team-section h2 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.team-section p {
+  color: white;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 1em;
+  margin-bottom: 40px;
+}
+
+.team-members {
+  display: flex;
+  justify-content: center;
+  gap: 120px; /* Adjust the gap as needed */
+}
+
+.team-member {
+  background-color: #71677c; /* Adjust card background color as needed */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners for the card */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Card shadow */
+  width: 450px; /* Adjust width as needed */
+}
+
+.team-member img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px; /* Rounded corners for the image */
+}
+
+.team-member h3 {
+  color: white;
+  font-family: 'Helvetica', sans-serif;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-top: 15px;
+}
+
+.team-member p {
+  font-size: 1em;
+  font-family: 'Helvetica', sans-serif;
+  color: #919191;
+  margin-bottom: 15px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adjust the gap between icons as needed */
+}
+
+.social-links a {
+  display: inline-block;
+}
+
+.social-links img {
+  width: 24px; /* Adjust icon size as needed */
+  height: auto;
+}
