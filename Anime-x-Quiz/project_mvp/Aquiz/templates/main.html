@@ -59,17 +59,16 @@
     <li></li>
   </ul>
 </section>
-  <div class="comments-section">
-    <div class="comments-container" id="comments-container">
-        <!-- Comments will be dynamically added here -->
-    </div>
-    <form id="comment-form" class="comment-form" method="POST">
-        <textarea id="comment-text" name="comment-text" placeholder="Add your comment"></textarea>
-        <input type="number" id="comment-rating" name="comment-rating" min="1" max="5" placeholder="Rating (1-5)">
-        <button type="submit">Submit</button>
-    </form>
+<div class="comments-section">
+  <button id="left-arrow" class="arrow">&lt;</button> <!-- Left arrow -->
+  <div class="comments-container" id="comments-container">
+      <!-- Comments will be dynamically added here -->
   </div>
+  <button id="right-arrow" class="arrow">&gt;</button> <!-- Right arrow -->
+  <div class="dots-container" id="dots-container"></div> <!-- Container for dots -->
 </div>
+
+
 <script>
 function fetchAndAppendComments() {
   fetch('/comments')
@@ -80,11 +79,14 @@ function fetchAndAppendComments() {
           comments.forEach(comment => {
               const commentBox = document.createElement('div');
               commentBox.classList.add('comment-box');
+              // Update the innerHTML structure here
               commentBox.innerHTML = `
-                  <img src="${comment.profile_pic}" alt="${comment.username}" class="profile-pic">
-                  <span class="username">${comment.username}</span>
-                  <div class="comment-text">${comment.text}</div>
                   <div class="rating">${generateStars(comment.rating)}</div>
+                  <div class="comment-text">${comment.text}</div>
+                  <div class="user-info">
+                      <img src="${comment.profile_pic}" alt="${comment.username}" class="profile-pic">
+                      <span class="username">${comment.username}</span>
+                  </div>
               `;
               commentsContainer.appendChild(commentBox);
           });
@@ -92,7 +94,6 @@ function fetchAndAppendComments() {
       .catch(error => {
           console.error('Error fetching comments:', error);
       });
-
 }
 // Fetch comments when the page initially loads
 
@@ -144,17 +145,17 @@ document.getElementById('comment-form').addEventListener('submit', function(even
 
 // Function to generate star icons based on rating
 function generateStars(rating) {
-    const starCount = Math.round(rating);
-    let stars = '';
+    let starsHtml = '';
     for (let i = 0; i < 5; i++) {
-        if (i < starCount) {
-            stars += '<i class="fa fa-star"></i>';
+        if (i < rating) {
+            starsHtml += '<span class="star full">★</span>'; // Full star
         } else {
-            stars += '<i class="far fa-star"></i>';
+            starsHtml += '<span class="star empty">☆</span>'; // Empty star
         }
     }
-    return stars;
+    return starsHtml;
 }
+
 
 // Smooth horizontal scrolling
 let isScrolling = false;
@@ -180,5 +181,40 @@ document.getElementById('comments-container').addEventListener('mousemove', (e) 
     const walk = (x - startX) * 2; // Change the multiplier for faster/slower scrolling
     document.getElementById('comments-container').scrollLeft = scrollLeft - walk;
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('comments-container');
+    const leftArrow = document.getElementById('left-arrow');
+    const rightArrow = document.getElementById('right-arrow');
+    
+    // Fetch and append comments initially
+    fetchAndAppendComments();
+
+    // Assuming fetchAndAppendComments also initializes dots based on comments
+    // For simplicity, here's a placeholder function to update active dot
+    function updateActiveDot(index) {
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[index].classList.add('active');
+    }
+
+    leftArrow.addEventListener('click', () => {
+        // Scroll to the previous comment
+        container.scrollBy({ left: -container.offsetWidth, behavior: 'smooth' });
+        // Update active dot here based on scroll position or index
+    });
+
+    rightArrow.addEventListener('click', () => {
+        // Scroll to the next comment
+        container.scrollBy({ left: container.offsetWidth, behavior: 'smooth' });
+        // Update active dot here based on scroll position or index
+    });
+
+    // Optional: Listen to scroll event to update dots based on current view
+});
+
+// Ensure fetchAndAppendComments() and generateStars() are implemented as discussed
+
+
 </script>
 {% endblock %}

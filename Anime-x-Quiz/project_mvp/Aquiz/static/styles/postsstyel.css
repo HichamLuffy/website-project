@@ -491,16 +491,103 @@ body {
 
 .comments-container {
     scroll-snap-type: x mandatory; /* Enable snapping */
-    overflow-x: hidden; /* Enable horizontal scrolling */
+    overflow-x: auto; /* Enable horizontal scrolling */
     -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
     white-space: nowrap;
+    display: flex; /* Ensure the comments are laid out horizontally */
+    padding: 10px 0; /* Add some vertical padding for breathing room */
 }
 
 .comment-box {
-    display: inline-block;
+    display: inline-flex; /* Change to inline-flex to allow internal flex layouts */
+    flex-direction: column; /* Stack elements vertically inside each comment box */
     margin-right: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     scroll-snap-align: start; /* Snap to start of each comment */
+    background-color: #f9f9f9; /* Optional: adds background color */
+    width: 250px; /* Set a fixed width for each comment box */
+}
+
+.rating, .comment-text, .user-info {
+    margin-bottom: 10px; /* Adds some space between the elements inside the comment box */
+}
+
+.user-info {
+    display: flex;
+    align-items: center; /* Aligns items vertically in the center */
+    gap: 10px; /* Adds some space between the profile pic and username */
+}
+
+.profile-pic {
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    border-radius: 50%; /* Makes the image round */
+}
+
+/* Ensure the last comment box doesn't have a margin to the right for aesthetic purposes */
+.comment-box:last-child {
+    margin-right: 0;
+}
+
+.star {
+    color: gold; /* Color for both full and empty stars */
+}
+
+.comments-section {
+    position: relative;
+    width: 80%; /* Adjust based on your layout */
+    margin: auto;
+    overflow: hidden; /* Hide overflow */
+}
+
+.comments-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+.comment-box {
+    scroll-snap-align: start;
+    flex: 0 0 auto; /* Adjust size as needed */
+    /* Your existing styles */
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    background-color: #f9f9f9;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+    transform: translateY(-50%);
+}
+
+#left-arrow {
+    left: 0;
+}
+
+#right-arrow {
+    right: 0;
+}
+
+.dots-container {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #333; /* Active dot color */
 }
