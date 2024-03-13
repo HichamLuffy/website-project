@@ -64,6 +64,11 @@
   <div class="comments-container" id="comments-container">
       <!-- Comments will be dynamically added here -->
   </div>
+    <form id="comment-form" class="comment-form" method="POST">
+        <textarea id="comment-text" name="comment-text" placeholder="Add your comment"></textarea>
+        <input type="number" id="comment-rating" name="comment-rating" min="1" max="5" placeholder="Rating (1-5)">
+        <button type="submit">Submit</button>
+    </form>
   <button id="right-arrow" class="arrow">&gt;</button> <!-- Right arrow -->
   <div class="dots-container" id="dots-container"></div> <!-- Container for dots -->
 </div>
