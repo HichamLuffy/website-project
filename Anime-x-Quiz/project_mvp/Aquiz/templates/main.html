@@ -59,6 +59,19 @@
     <li></li>
   </ul>
 </section>
+<div class="updates-sectionoverlay">
+    <div class="updates-section">
+        <div class="updates-content">
+            <h2 class="updates-title">INCOMING UPDATES AND MORE FEATURES AND FUN</h2>
+            <ul class="updates-list">
+                <li>Now you can follow your friends and see their status.</li>
+                <li>Now you can like, comment on, add to favorites, and share quizzes with friends.</li>
+                <li>New Quiz Categories: guess character by clothes, guess character by hair</li>
+                <li>Mobile App: Introducing the Anime x Quiz mobile app! Access quizzes and connect with the community on the go. Download now!</li>
+            </ul>
+        </div>
+    </div>
+</div>
 <div class="comments-section">
   <button id="left-arrow" class="arrow">&lt;</button> <!-- Left arrow -->
   <div class="comments-container" id="comments-container">
@@ -86,12 +99,12 @@ function fetchAndAppendComments() {
               commentBox.classList.add('comment-box');
               // Update the innerHTML structure here
               commentBox.innerHTML = `
-                  <div class="rating">${generateStars(comment.rating)}</div>
-                  <div class="comment-text">${comment.text}</div>
                   <div class="user-info">
                       <img src="${comment.profile_pic}" alt="${comment.username}" class="profile-pic">
                       <span class="username">${comment.username}</span>
                   </div>
+                  <div class="comment-text">${comment.text}</div>
+                  <div class="rating">${generateStars(comment.rating)}</div>
               `;
               commentsContainer.appendChild(commentBox);
           });

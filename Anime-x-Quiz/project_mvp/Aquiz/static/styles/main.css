@@ -253,3 +253,49 @@
     border-radius: 50%;
   }
 }
+
+
+.updates-section {
+  background: url('../images/updatesbackground.jpeg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  padding: 50px; /* Adjust padding as needed */
+}
+
+.updates-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7); /* Dark overlay with 70% opacity */
+  z-index: 1;
+}
+
+
+.updates-content {
+  position: relative;
+  max-width: 600px; /* Adjust width as needed */
+  text-align: left;
+  z-index: 2; /* Ensure the text appears above the dark overlay */
+}
+
+.updates-title {
+  font-family:  'Helvetica', serif;
+  font-weight: bold;
+  font-size: 24px; /* Adjust font size as needed */
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Black shadow for text */
+}
+
+.updates-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.updates-list li {
+  font-size: 18px; /* Adjust font size as needed */
+  margin-bottom: 10px;
+}

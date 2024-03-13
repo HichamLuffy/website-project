@@ -499,14 +499,15 @@ body {
 }
 
 .comment-box {
+    font-family:  'Helvetica', serif;
     display: inline-flex; /* Change to inline-flex to allow internal flex layouts */
     flex-direction: column; /* Stack elements vertically inside each comment box */
     margin-right: 10px;
+    color: white;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 40px;
     scroll-snap-align: start; /* Snap to start of each comment */
-    background-color: #f9f9f9; /* Optional: adds background color */
+    background-color: #322e36; /* Optional: adds background color */
     width: 250px; /* Set a fixed width for each comment box */
 }
 
@@ -514,7 +515,21 @@ body {
     margin-bottom: 10px; /* Adds some space between the elements inside the comment box */
 }
 
+.rating, .comment-text {
+    display: flex;
+    flex: wrap;
+    justify-content: center;
+}
+
+
+.rating {
+    border-radius: 40px;
+    border: 1px solid #6d6d6ddc;
+}
+
 .user-info {
+    color: white;
+    font-weight: bold;
     display: flex;
     align-items: center; /* Aligns items vertically in the center */
     gap: 10px; /* Adds some space between the profile pic and username */
@@ -532,7 +547,7 @@ body {
 }
 
 .star {
-    color: gold; /* Color for both full and empty stars */
+    color: rgb(0, 0, 0); /* Color for both full and empty stars */
 }
 
 .comments-section {
