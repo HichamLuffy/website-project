@@ -418,20 +418,34 @@
     justify-content: center;
     margin-top: 50px; /* Adjust margin as needed */
 }
-
 .video-signup-section {
-  margin-bottom: 90px;
-  font-family:  'Helvetica', serif;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 40px;
   background-color: #000;
   color: #fff;
+  position: relative; /* Add position property */
+}
+
+.video-container {
+  width: 40%;
+  background-color: #cfcfcf; /* Placeholder for the video's background */
+  position: relative; /* Ensure the video container has a stacking context */
+  z-index: 1; /* Set a higher z-index value */
+}
+
+.video-container iframe {
+  width: 100%;
+  height: auto;
+  position: relative; /* Ensure the iframe has a stacking context */
+  z-index: 1; /* Set a higher z-index value */
 }
 
 .video-text {
-  max-width: 60%;
+  max-width: 50%;
+  position: relative; /* Ensure the text container has a stacking context */
+  z-index: 2; /* Set a higher z-index value */
 }
 
 .signup-button {
@@ -443,22 +457,14 @@
   text-decoration: none;
   font-weight: bold;
   transition: all 0.3s ease;
+  position: relative; /* Ensure the button has a stacking context */
+  z-index: 2; /* Set a higher z-index value */
 }
 
 .signup-button:hover {
   background-color: #cacaca;
   color: #383838;
   transition: all 0.3s ease;
-}
-
-.video-container {
-  width: 40%;
-  background-color: #444444; /* Placeholder for the video's background */
-}
-
-.video-container iframe {
-  width: 100%;
-  height: auto;
 }
 
 /* Responsive styles for tablets */

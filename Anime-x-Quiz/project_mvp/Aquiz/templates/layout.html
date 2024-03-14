@@ -64,12 +64,12 @@
             </div>
         {% endif %}
     {% endwith %}
-    <img src="{{ url_for('static', filename='images/luffyrain.png') }}" alt="background" class="background-img">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='scripts/scrollanimation.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/editprofile.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/theme.js') }}"></script>
+    <img src="{{ url_for('static', filename='images/luffyrain.png') }}" alt="background" class="background-img">
 </body>
 {% if title == 'Home' %}
 <footer class="{{ title }}">
