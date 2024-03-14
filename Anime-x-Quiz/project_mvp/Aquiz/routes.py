@@ -59,9 +59,17 @@ def get_quiz_statistics(user_id):
 
 def get_profile_picture(user_id):
     user = User.query.get(user_id)
-    if user and user.profile:
-        return url_for('static', filename=f'images/{user.profile.avatar}')
-    return 'default_avatar.jpg'
+    if user and user.profile and user.profile.avatar:
+        # Check if the avatar attribute already contains the 'static/' part
+        if user.profile.avatar.startswith('static/'):
+            # Strip 'static/' and then create the correct URL
+            return url_for('static', filename=user.profile.avatar[len('static/'):])
+        else:
+            # If 'static/' is not part of the avatar attribute, create the URL directly
+            return url_for('static', filename='images/' + user.profile.avatar)
+    else:
+        # Return the URL for the default avatar
+        return url_for('static', filename='images/default_avatar.jpg')
 
 
 def get_total_score():
@@ -80,21 +88,20 @@ def get_total_score():
 
 
 def get_leaderboard_data():
-    leaderboard_data = {}
-    # Query database to retrieve scores ordered by score in descending order
-    scores = Score.query.order_by(Score.score.desc()).all()
+    # Query database to retrieve users with their total scores, ordered by score in descending order
+    users_scores = db.session.query(
+        User.id,
+        User.username,
+        db.func.sum(Score.score).label('total_score')
+    ).join(Score, User.id == Score.user_id
+    ).group_by(User.id, User.username
+    ).order_by(db.desc('total_score')
+    ).all()
 
-    # Populate the leaderboard data with unique users and their total scores
-    for score in scores:
-        if score.user_id not in leaderboard_data:
-            user = User.query.get(score.user_id)
-            leaderboard_data[score.user_id] = (user.username, score.score)
-        else:
-            # Add the score to the existing user entry
-            username, current_score = leaderboard_data[score.user_id]
-            leaderboard_data[score.user_id] = (username, current_score + score.score)
+    # Create a list of tuples (user_id, username, total_score)
+    leaderboard_list = [(user_id, username, total_score) for user_id, username, total_score in users_scores]
 
-    return leaderboard_data
+    return leaderboard_list
 
 
 def get_username(user_id):

@@ -479,3 +479,83 @@ input[type="submit"]:hover {
     transform: scale(1.05);
     color: #000000; /* Lighter shade for hover effect */
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-page {
+        padding: 10px;
+    }
+
+    .profile-details, .profile-score {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-details img {
+        max-width: 100px;
+    }
+
+    .user-quizzes, .quiz-container {
+        width: 100%;
+    }
+
+    .profile-actions ul li a img {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .profile-page, .user-quizzes, .quiz-container {
+        width: calc(100% - 20px);
+    }
+
+    .profile-details img {
+        max-width: 80px;
+    }
+}
+
+/* Modal Styles */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+}
+
+/* Enhancements for buttons and links */
+.btnlogout, .delete-quiz-btn {
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.btnlogout:hover, .delete-quiz-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Additional responsive adjustments */
+@media (max-width: 768px) {
+    .btnupdate, .profile-actions li a img {
+        margin-top: 10px; /* Adjust spacing for smaller screens */
+        width: auto; /* Adjust width for icons and buttons */
+    }
+}

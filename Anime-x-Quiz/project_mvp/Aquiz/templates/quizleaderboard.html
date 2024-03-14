@@ -1,43 +1,45 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container2">
-  <div class="content-wrapper">
-    <div class="leaderboard-column">
-      <h2>Leaderboard</h2>
-      <div class="first-place">
-        {% for user_id, (username, score) in leaderboard_data.items() %}
-          {% if loop.first %}
-            <div class="first-place-user">
-              <p class="rank">1</p>
-              <img src="{{ get_profile_picture(user_id) }}" alt="Profile Picture" class="profile-pic">
-              <p class="username">{{ username }}</p>
-            </div>
-          {% endif %}
-        {% endfor %}
+<div class="leaderboard-container">
+  <div class="top-three">
+    <!-- Manually place top 3 based on sorted data -->
+    <!-- Second place -->
+    <div class="user-entry top-user-2">
+      <img src="{{ get_profile_picture(leaderboard_data[1][0]) }}" alt="{{ leaderboard_data[1][1] }}" class="profile-pic">
+      <div class="username">{{ leaderboard_data[1][1] }}</div>
+      <div class="user-info">
+        <div class="score">{{ leaderboard_data[1][2] }}</div>
       </div>
-      <table class="leaderboard-table">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Username</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% set rank = namespace(value=1) %}
-          {% for user_id, (username, score) in leaderboard_data.items() %}
-            {% if rank.value < 6 %}
-            <tr>
-              <td>{{ rank.value }}</td>
-              {% set rank.value = rank.value + 1 %}
-              <td><a href="{{ url_for('user_profile', user_id=user_id) }}">{{ username }}</a></td>
-              <td>{{ score }}</td>
-            </tr>
-            {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
     </div>
+    <!-- First place - highest score -->
+    <div class="user-entry top-user-1">
+      <img src="{{ get_profile_picture(leaderboard_data[0][0]) }}" alt="{{ leaderboard_data[0][1] }}" class="profile-pic">
+      <div class="username">{{ leaderboard_data[0][1] }}</div>
+      <div class="user-info">
+        <div class="score">{{ leaderboard_data[0][2] }}</div>
+      </div>
+    </div>
+    <!-- Third place -->
+    <div class="user-entry top-user-3">
+      <img src="{{ get_profile_picture(leaderboard_data[2][0]) }}" alt="{{ leaderboard_data[2][1] }}" class="profile-pic">
+      <div class="username">{{ leaderboard_data[2][1] }}</div>
+      <div class="user-info">
+        <div class="score">{{ leaderboard_data[2][2] }}</div>
+      </div>
+    </div>
+  </div>
+  <!-- Remaining users -->
+  <div class="remaining-users">
+    {% for user_id, username, score in leaderboard_data[3:] %}
+      <div class="user-entry">
+        <img src="{{ get_profile_picture(user_id) }}" alt="{{ username }}" class="profile-pic">
+        <div class="usersuser-info">
+          <div class="usersusername">{{ username }}</div>
+          <span class="score-separator"></span>
+          <div class="usersscore">{{ score }}</div>
+        </div>
+      </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

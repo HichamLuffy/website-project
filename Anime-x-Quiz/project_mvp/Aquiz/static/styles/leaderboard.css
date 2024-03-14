@@ -1,50 +1,260 @@
-/* Styles for the leaderboard column */
-.container2 .leaderboard-column {
-    flex: 1; /* Make the leaderboard column take up 50% of the container2 width */
-    text-align: center; /* Center the content */
+/* Styles for the leaderboard */
+.leaderboard-container {
+  background: rgba( 255, 255, 255, 0.1 );
+  box-shadow: 0 8px 32px 0 rgba(27, 27, 27, 0.37);
+  backdrop-filter: blur( 10px );
+  -webkit-backdrop-filter: blur( 10px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  padding: 20px;
+  color: white;
+  width: 60%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 10%);
+  margin-top: 60px;
+}
+
+.user-info .username {
+  display: block; /* Ensure that username is on its own line */
+  margin-bottom: 5px; /* Space between username and score */
+}
+
+.top-three {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Align the items to the bottom */
+  height: 200px; /* Set a fixed height for the top-three container */
+  position: relative; /* Needed for absolute positioning of children */
+}
+
+.user-entry {
+  text-align: center;
+  margin: 0 20px; /* Add space between the entries */
+}
+
+/* Positioning for the top three users */
+.top-user-1, .top-user-2, .top-user-3 {
+  position: absolute;
+  display: flex; /* Use flexbox for centering */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.user-entry .user-info, .user-entry .username {
+  text-align: center; /* Center-align the text */
+}
+
+.top-user-1 {
+  box-shadow: 0 8px 32px 0 rgba(27, 27, 27, 0.37);
+  backdrop-filter: blur( 10px );
+  -webkit-backdrop-filter: blur( 10px );
+  border-radius: 10px;
+  bottom: 5; /* Align the first user to the bottom */
+  transform: translateX(-50%); /* Center horizontally */
+  left: 50%;
+  padding: 15px;
+  margin-top: 40px;
+  z-index: 3; /* Ensure it's above other users */
+}
+
+.top-user-2 {
+  bottom: 20px; /* Slightly higher than the first place user */
+  left: 10%; /* Position to the left */
+  z-index: 2;
+}
+
+.top-user-3 {
+  bottom: 20px; /* Slightly higher than the first place user */
+  right: 10%; /* Position to the right */
+  z-index: 2;
+}
+
+/* Styling for the profile pictures */
+.user-entry .profile-pic {
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+}
+
+.top-user-1 .profile-pic {
+  width: 150px; /* Larger size for first place */
+  height: 150px;
+  border-color: orange; /* Gold border for first place */
+}
+
+.top-user-2 .profile-pic, .top-user-3 .profile-pic {
+  width: 80px; /* Standard size for second and third places */
+  height: 80px;
+}
+
+.top-user-2 .profile-pic {
+  border-color: #0fe3ff; /* Silver border for second place */
+}
+
+.top-user-3 .profile-pic {
+  border-color: green; /* Bronze border for third place */
+}
+
+/* Styling for the usernames and scores */
+.user-info .username, .user-info .score {
+  display: block; /* Ensure that username and score are on separate lines */
+}
+
+.user-info .score {
+  display: block; /* Ensure that score is on its own line */
+  font-size: 1.2em;
+}
+
+/* Specific score colors for each of the top three users */
+.top-user-1 .user-info .score {
+  color: orange; /* Orange color for first place score */
+}
+
+.top-user-2 .user-info .score {
+  color: #0fe3ff; /* Blue color for second place score */
+}
+
+.top-user-3 .user-info .score {
+  color: green; /* Green color for third place score */
+}
+
+
+.remaining-users {
+  background: #23272a;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.remaining-users .user-entry {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.remaining-users .user-entry:last-child {
+  margin-bottom: 0;
+}
+
+.remaining-users .profile-pic {
+  margin-right: 10px;
+}
+
+/* Adjust the size of the profile picture for remaining users */
+.remaining-users .user-entry .profile-pic {
+  width: 50px;
+  height: 50px;
+}
+
+
+/* Styles for the remaining users */
+.remaining-users {
+  background: #23272a; /* Dark background */
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px; /* Add space between top three and remaining users */
+}
+
+.remaining-users .user-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between username and score */
+  padding: 10px;
+  margin-bottom: 5px;
+  background: #2c2f33; /* Slightly lighter background for each entry */
+  border-radius: 5px; /* Rounded corners for each entry */
+}
+
+.remaining-users .user-entry:last-child {
+  margin-bottom: 0; /* Remove bottom margin for the last entry */
+}
+
+.remaining-users .profile-pic {
+  width: 40px; /* Smaller profile picture size */
+  height: 40px;
+  border-radius: 50%; /* Circular profile pictures */
+  margin-right: 15px; /* Space between picture and username */
+}
+
+.usersuser-info {
+  display: flex;
+  flex-grow: 1; /* Allow the user info to fill the space */
+  align-items: center;
+}
+
+.usersusername {
+  font-weight: bold;
+  flex-grow: 1; /* Allow the username to fill the space */
+  text-align: left; /* Align username to the left */
+}
+
+.usersscore {
+  font-size: 1.2em;
+  text-align: right; /* Align score to the right */
+}
+
+.score-separator {
+  display: inline-block;
+  width: 10px; /* Adjust as needed for desired spacing */
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .top-three {
+    flex-direction: column;
+    align-items: center;
+    height: auto; /* Allow the container to grow as needed */
   }
-  
-  .first-place {
-    margin-bottom: 20px; /* Add some space between the first place user and the table */
+
+  .top-user-1, .top-user-2, .top-user-3 {
+    position: static; /* Disable absolute positioning */
+    transform: none;
+    left: auto;
+    bottom: auto;
+    margin-top: 20px; /* Add some space between the users */
   }
-  
-  .first-place-user {
-    display: inline-block; /* Ensure elements are displayed inline */
-    text-align: center; /* Center the content */
+
+  .user-entry .profile-pic {
+    width: 100px; /* Smaller profile pics on smaller screens */
+    height: 100px;
   }
-  
-  .first-place-user .profile-pic {
-    object-fit: cover;
-    border: 3px solid yellow; /* Add a yellow border */
-    border-radius: 50%; /* Make the profile picture round */
-    width: 100px; /* Adjust the width of the profile picture */
-    height: 100px; /* Adjust the height of the profile picture */
-    margin-bottom: 10px; /* Add some space between the profile picture and the username */
+
+  .top-user-1 .profile-pic {
+    width: 120px; /* Slightly larger for the first place */
+    height: 120px;
   }
-  
-  .first-place-user .username {
-    font-weight: bold; /* Make the username bold */
+
+  .user-info .score {
+    font-size: 1em; /* Smaller font size for scores on smaller screens */
   }
-  
-  /* Style the leaderboard table */
-  .container2 .leaderboard-table {
-    width: 70%;
-    border-collapse: collapse;
-    margin: 0 auto; /* Center the table horizontally */
+
+  /* Adjust leaderboard container for smaller screens */
+  .leaderboard-container {
+    width: 90%; /* Increase width to take more space */
+    margin-top: 30px; /* Adjust top margin */
+    padding: 15px; /* Reduce padding */
   }
-  
-  /* Style the table header */
-  .container2 .leaderboard-table th {
-    background-color: #313131;
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
+
+  /* Adjust remaining users' layout for smaller screens */
+  .remaining-users .user-entry {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
   }
-  
-  /* Style the table rows */
-  .container2 .leaderboard-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
+
+  .remaining-users .profile-pic {
+    width: 40px; /* Adjust profile picture size if necessary */
+    height: 40px;
+    margin-right: 0; /* Remove right margin as it's now on top */
+    margin-bottom: 5px; /* Add space below the profile picture */
   }
-  
+
+  .usersuser-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .usersusername, .usersscore {
+    text-align: center; /* Center-align text for usernames and scores */
+  }
+}
