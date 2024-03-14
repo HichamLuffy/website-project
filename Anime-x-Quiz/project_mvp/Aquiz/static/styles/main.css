@@ -457,3 +457,44 @@
     font-size: smaller; /* Adjust font size for readability on mobile phones */
   }
 }
+
+.faq-section {
+  
+  color: white;
+  padding: 40px;
+  font-family: 'Arial', sans-serif;
+}
+
+.faq-title {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.faq-subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+  opacity: 0.7;
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.faq-item {
+  background-color: #333;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.faq-item h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.faq-item p {
+  font-size: 16px;
+  line-height: 1.6;
+}
