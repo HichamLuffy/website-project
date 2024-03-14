@@ -139,12 +139,14 @@ function fetchAndAppendComments() {
               commentBox.classList.add('comment-box');
               // Update the innerHTML structure here
               commentBox.innerHTML = `
+                  
+                  <div class="rating">${generateStars(comment.rating)}</div>
+                  <div class="comment-text">${comment.text}</div>
                   <div class="user-info">
                       <img src="${comment.profile_pic}" alt="${comment.username}" class="profile-pic">
                       <span class="username">${comment.username}</span>
                   </div>
-                  <div class="comment-text">${comment.text}</div>
-                  <div class="rating">${generateStars(comment.rating)}</div>
+  
               `;
               commentsContainer.appendChild(commentBox);
           });
