@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/question.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/createquiz.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/quiz-results.css') }}">
     </head>
 <body>
     <div class="container">
@@ -61,6 +62,7 @@
         {% endif %}
     {% endwith %}
     <img src="{{ url_for('static', filename='images/luffyrain.png') }}" alt="background" class="background-img">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='scripts/editprofile.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/theme.js') }}"></script>

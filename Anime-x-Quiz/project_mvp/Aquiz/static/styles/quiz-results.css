@@ -1,19 +1,22 @@
-.Resultscontainer {
-    margin: 20px;
+.quiz-results-container {
+    text-align: center;
+    color: aliceblue;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-.aquestion-container {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+
+.score-animation, .total-score {
+    font-size: 24px;
+    margin: 20px 0;
 }
-.aquestion-text {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+
+.details h2 {
+    margin-top: 30px;
 }
-.correct-answer {
-    color: green;
-}
-.wrong-answer {
-    color: red;
+
+.detail-item {
+    text-align: left;
+    margin-bottom: 15px;
 }

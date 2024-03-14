@@ -1,22 +1,44 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Quiz Results</h1>
-  <p>Your Score: {{ quiz_score }}</p>
-  <h1>Quiz Results</h1>
-    <p>Total Score: {{ total_score }}</p>
+<div class="quiz-results-container">
+    <h1>Quiz Results</h1>
+    <div class="score-animation" id="animatedScore">Your Score: 0</div>
+    <div class="total-score">Total Score: <span id="totalScore">{{ total_score }}</span></div>
 
-    <div>
+    <div class="details">
         <h2>Details:</h2>
-        <ul>
+        <ul id="detailsList">
             {% for detail in details %}
-                <li>
-                    <strong>Question:</strong> {{ detail.question_text }}<br>
-                    <strong>Your Answer:</strong> {{ detail.selected_option_text }}<br>
-                    <strong>Correct:</strong> {{ 'Yes' if detail.is_correct else 'No' }}<br>
-                    <strong>Points Awarded:</strong> {{ detail.score_awarded }}
-                </li>
+            <li class="detail-item">
+                <strong>Question:</strong> {{ detail.question_text }}<br>
+                <strong>Your Answer:</strong> {{ detail.selected_option_text }}<br>
+                <strong>Correct:</strong> {{ 'Yes' if detail.is_correct else 'No' }}<br>
+                <strong>Points Awarded:</strong> {{ detail.score_awarded }}
+            </li>
             {% endfor %}
         </ul>
     </div>
-<a href="{{ url_for('about') }}">Back to Home</a>
+    <a href="{{ url_for('about') }}">Back to Home</a>
+</div>
+
+<script>
+$(document).ready(function() {
+    // Animate score
+    let totalScore = parseInt($('#totalScore').text(), 10);
+    $({ Counter: 0 }).animate({
+        Counter: $('#animatedScore').text()
+    }, {
+        duration: 1000,
+        easing: 'swing',
+        step: function() {
+            $('#animatedScore').text('Your Score: ' + Math.ceil(this.Counter));
+        },
+        complete: function() {
+            $('#animatedScore').text('Your Score: ' + totalScore);
+        }
+    });
+
+    // Optional: Add more animations or effects as needed
+});
+</script>
 {% endblock %}
