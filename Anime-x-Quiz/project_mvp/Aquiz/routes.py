@@ -358,9 +358,12 @@ def quiz_results(quiz_id):
     else:
         image_file = '/' + current_user.profile.avatar
 
-    # Fetch quiz and related scores for the current user
-    quiz = Quiz.query.get_or_404(quiz_id)
-    scores = Score.query.filter_by(quiz_id=quiz_id, user_id=current_user.id).all()
+    # Fetch the timestamp of the latest attempt for the current user and quiz
+    latest_attempt_time = db.session.query(db.func.max(Score.created_at)).filter_by(quiz_id=quiz_id, user_id=current_user.id).scalar()
+
+    # Assuming you want to fetch scores only for this latest attempt,
+    # we filter scores not just by quiz_id and user_id but also by this latest timestamp
+    scores = Score.query.filter_by(quiz_id=quiz_id, user_id=current_user.id).filter(Score.created_at == latest_attempt_time).all()
 
     # Calculate total score and prepare details for each question
     total_score = sum(score.score for score in scores)
