@@ -336,7 +336,7 @@
   padding: 20px;
   border-radius: 10px; /* Rounded corners for the card */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Card shadow */
-  width: 450px; /* Adjust width as needed */
+  width: 360px; /* Adjust width as needed */
 }
 
 .team-member img {
