@@ -654,6 +654,7 @@ body {
     background-color: #333; /* Active dot color */
 }
 
+
 .testimonials-section {
     color: white;
     background-color: black;
@@ -702,4 +703,124 @@ body {
 
 .dot.active {
     background-color: #fff;
+}
+
+
+/* Responsive styles for tablets */
+@media (max-width: 768px) {
+    .head ul {
+        padding: 0;
+    }
+
+    .head ul li {
+        margin: 5px; /* Reduce margin for smaller screens */
+        font-size: smaller; /* Adjust font size as needed */
+    }
+
+    .head ul li a {
+        padding: 5px; /* Adjust padding as needed */
+    }
+
+    .content h1 {
+        font-size: clamp(36px, 6vw, 48px); /* Responsive font size */
+    }
+
+    .content p,
+    .newsletter p,
+    .privacy-policy {
+        font-size: smaller; /* Adjust font size for smaller screens */
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-logo,
+    .newsletter,
+    .social-media {
+        width: 100%; /* Full width for smaller screens */
+        text-align: center;
+    }
+
+    .email-input,
+    .subscribe-btn {
+        width: 90%; /* Adjust input and button width */
+        margin-top: 10px; /* Add space above */
+    }
+}
+
+/* Responsive styles for mobile phones */
+@media (max-width: 480px) {
+    .head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logopage {
+        margin-left: 20px; /* Adjust logo margin */
+        width: 100px; /* Adjust logo size */
+    }
+
+    .head ul {
+        text-align: left;
+        width: auto;
+    }
+
+    .head ul li {
+        display: block; /* Stack list items vertically */
+        margin: 5px 0; /* Adjust margin for list items */
+    }
+
+    .head ul li a {
+        display: block; /* Ensure the links take up full width of the li */
+    }
+
+    
+
+    .content,
+    .content2,
+    .main-section {
+        padding: 10px; /* Adjust padding for content areas */
+    }
+
+    .content-text,
+    .text-container,
+    .image-container {
+        width: auto; /* Allow these containers to take the full width of their parent */
+        padding: 0 20px; /* Add padding on the sides */
+    }
+
+    .background-img {
+        display: none; /* Optionally hide the background image on very small screens */
+    }
+
+    /* Adjust the swiper for smaller screens */
+    .swiper-slide {
+        width: 90%; /* Adjust slide width to fit the screen */
+        flex-shrink: 0; /* Prevent shrinking */
+    }
+
+    /* Adjust comment section for smaller screens */
+    .comments-section,
+    .comments-container {
+        width: auto; /* Allow these containers to take the full width of their parent */
+        padding: 0 20px; /* Add padding on the sides */
+    }
+}
+
+/* General styles to improve readability and touch targets on small screens */
+
+input[type="email"],
+.bn3637,
+.bn37 {
+    padding: 10px; /* Increase padding for better touch targets */
+}
+
+/* Ensure text is legible and easy to read on all devices */
+body,
+p,
+a,
+button {
+    font-size: 16px; /* Base font size for readability */
 }

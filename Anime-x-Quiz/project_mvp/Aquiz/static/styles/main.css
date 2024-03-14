@@ -374,3 +374,86 @@
   width: 24px; /* Adjust icon size as needed */
   height: auto;
 }
+
+
+/* Responsive styles for tablets */
+@media (max-width: 768px) {
+  .content2 {
+    flex-direction: column-reverse; /* Stack image and text vertically on smaller screens */
+    align-items: center; /* Center-align items */
+    text-align: center; /* Center-align text */
+  }
+
+  .content2 .text-container,
+  .content2 .image-container {
+    width: 100%; /* Full width containers */
+    margin: 0 auto; /* Center-align */
+  }
+
+  .image-container img {
+    margin: 0 auto; /* Center image */
+    width: auto; /* Adjust width to maintain aspect ratio */
+    max-width: 90%; /* Limit width to fit the screen */
+  }
+
+  .gradient-overlay {
+    width: 90%; /* Match the image width */
+    margin-left: 5%; /* Adjust based on new width */
+  }
+
+  .main-section {
+    flex-direction: column; /* Stack vertically */
+    margin-left: 0; /* Remove left margin */
+  }
+
+  .cards {
+    flex-direction: column; /* Stack cards vertically */
+    margin-left: 0; /* Remove left margin */
+    width: auto; /* Allow cards to fill the available space */
+  }
+
+  .information {
+    margin-left: 0; /* Remove left margin */
+    padding: 20px; /* Adjust padding for smaller screens */
+    text-align: center; /* Center text for mobile */
+  }
+
+  .swiper {
+    width: auto; /* Allow swiper to adjust to screen size */
+    height: auto; /* Adjust height accordingly */
+  }
+
+  .team-members {
+    flex-direction: column; /* Stack team members vertically */
+    gap: 20px; /* Reduce gap for smaller screens */
+  }
+
+  .team-member {
+    width: auto; /* Allow team member cards to adjust to screen size */
+  }
+}
+
+/* Responsive styles for mobile phones */
+@media (max-width: 480px) {
+  .content2 h5,
+  .content2 p {
+    margin-left: 5%; /* Adjust left margin for smaller screens */
+    margin-right: 5%; /* Add right margin for padding effect */
+    font-size: smaller; /* Adjust font size for mobile phones */
+  }
+
+  .updates-section::before {
+    background: rgba(0, 0, 0, 0.85); /* Increase opacity for better readability on smaller screens */
+  }
+
+  .updates-content {
+    max-width: auto; /* Allow content to fill the available space */
+    padding: 20px; /* Adjust padding for smaller screens */
+  }
+
+  .team-section p,
+  .team-member p,
+  .updates-list li {
+    font-size: smaller; /* Adjust font size for readability on mobile phones */
+  }
+}
