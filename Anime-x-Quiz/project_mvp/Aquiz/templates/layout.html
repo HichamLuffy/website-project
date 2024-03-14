@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Anime x Quiz - {{ title }}</title>
         <link rel="icon" href="{{ url_for('static', filename='images/logoo.png') }}">
@@ -15,6 +16,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/createquiz.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/quiz-results.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/scrollanimation.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
     </head>
 <body>
@@ -65,6 +67,7 @@
     <img src="{{ url_for('static', filename='images/luffyrain.png') }}" alt="background" class="background-img">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='scripts/scrollanimation.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/editprofile.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/theme.js') }}"></script>
 </body>

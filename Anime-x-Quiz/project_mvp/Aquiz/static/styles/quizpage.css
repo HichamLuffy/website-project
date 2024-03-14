@@ -92,35 +92,35 @@ p , h2{
 }
 
 
+/* Last Added Quiz Styling */
 .last-quiz {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.last-quiz a:hover{
-  flex-grow: 1;
-  flex-basis: 200;
-}
-
-.last-quiz {
-  flex-wrap: wrap;
-  display: flex; /* Add display flex to the anchor to enable flex properties */
-  justify-content: center; /* Center items horizontally */
-  align-items: center; /* Center items vertically */
-  width: 800px; /* Adjust the width */
-  height: 250px; /* Adjust the height */
-  background-image: url('../images/anime3.jpeg');
-  object-fit: cover;
+  position: relative; /* Position relative for absolute child positioning */
+  width: 800px;
+  height: 250px;
   background-size: cover;
   background-position: center;
-  background-color: #ccc;
-  border: 1px solid #999;
   margin: 0 auto;
+  border-radius: 30px;
+  overflow: hidden; /* Hide overflow to respect border radius */
+}
+
+.last-quiz a {
+  position: absolute; /* Absolute position to overlay on the image */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
   text-decoration: none;
-  border-radius: 30px;
+  font-size: 28px; /* Increase font size for visibility */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay for readability */
+  opacity: 0; /* Hide by default */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.last-quiz:hover a {
+  opacity: 1; /* Show the title on hover */
 }
 
 
@@ -130,6 +130,33 @@ p , h2{
   justify-content: center; /* Adjust this to center if you want the quizzes to be centered when there are few */
   gap: 20px; /* This replaces the margin-left and ensures even spacing around items */
 }
+
+.boxed-link a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: 150px;
+    border: 1px solid #999;
+    border-top-left-radius: 10px;
+    border-radius: 30px;
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-size: cover; /* This ensures that your background image covers the area, adjust as necessary */
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Hide by default */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.boxed-link:hover a {
+  opacity: 1;
+  animation: pulse 2s infinite;
+}
+
 
 .boxed-link {
   position: relative;
@@ -142,7 +169,7 @@ p , h2{
   border-radius: 30px;
   margin: 5px;
   text-decoration: none;
-  color: rgb(128, 128, 128);
+  color: rgb(255, 255, 255);
   background-size: cover; /* This ensures that your background image covers the area, adjust as necessary */
   background-position: center;
   display: flex;
