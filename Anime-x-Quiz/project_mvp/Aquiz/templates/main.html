@@ -112,21 +112,19 @@
     </div>
 </div>
 
-<div class="testimonials-section">
-    <h2>Customer Testimonials</h2>
-    <p>Read what our users have to say</p>
-    <div class="testimonials-container" id="testimonials-container">
-        <!-- Testimonials will be dynamically added here -->
-    </div>
+<div class="comments-section">
     <button id="left-arrow" class="arrow">&lt;</button> <!-- Left arrow -->
+    <div class="comments-container" id="comments-container">
+        <!-- Comments will be dynamically added here -->
+    </div>
+      <form id="comment-form" class="comment-form" method="POST">
+          <textarea id="comment-text" name="comment-text" placeholder="Add your comment"></textarea>
+          <input type="number" id="comment-rating" name="comment-rating" min="1" max="5" placeholder="Rating (1-5)">
+          <button type="submit">Submit</button>
+      </form>
     <button id="right-arrow" class="arrow">&gt;</button> <!-- Right arrow -->
     <div class="dots-container" id="dots-container"></div> <!-- Container for dots -->
-</div>
-<form id="comment-form" class="comment-form" method="POST">
-    <textarea id="comment-text" name="comment-text" placeholder="Add your comment"></textarea>
-    <input type="number" id="comment-rating" name="comment-rating" min="1" max="5" placeholder="Rating (1-5)">
-    <button type="submit">Submit</button>
-</form>
+  </div>
 
 <!-- FAQ Section -->
 <div class="faq-section">
