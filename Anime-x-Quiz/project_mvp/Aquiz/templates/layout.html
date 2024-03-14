@@ -44,6 +44,11 @@
                 <input type="range" min="140" max="230" value="90" id="degRange">
                 <input type="color" id="colorPicker">
                 <input type="range" min="0" max="50" value="71" id="percentageRange">
+                <select id="imageSelect">
+                    <option value="anime1">Anime 1</option>
+                    <option value="anime2">Anime 2</option>
+                    <option value="anime3">Anime 3</option>
+                </select>
             </nav>
         </div>
         <div class="blockcntn">
@@ -69,7 +74,7 @@
     <script src="{{ url_for('static', filename='scripts/scrollanimation.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/editprofile.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/theme.js') }}"></script>
-    <img src="{{ url_for('static', filename='images/luffyrain.png') }}" alt="background" class="background-img">
+    <img src="{{ url_for('static', filename='images/gojo33.png') }}" alt="background" class="background-img">
 </body>
 {% if title == 'Home' %}
 <footer class="{{ title }}">
