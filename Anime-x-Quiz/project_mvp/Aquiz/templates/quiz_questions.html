@@ -8,6 +8,8 @@
     <p>Level: {{ quiz.level }}</p>
     <hr>
     <form method="POST" action="{{ url_for('quiz_questions', quiz_id=quiz.id) }}">
+        <div>Timer: <span id="timer">0</span> seconds</div>
+        <progress id="time-progress" value="20" max="20"></progress>
         {% for question in questions %}
         <div class="question {% if loop.first %}active{% endif %}">
             <div class="question-box">
@@ -110,5 +112,37 @@ $(document).ready(function() {
         }
     });
 });
+
+let startTime;
+let userScore = 0; // Initialize user score
+
+function startTimer() {
+    startTime = new Date();
+    // Update UI every second for the timer
+    setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+    const now = new Date();
+    const elapsedTime = (now - startTime) / 1000; // Convert to seconds
+    document.getElementById('timer').textContent = elapsedTime.toFixed(0);
+    // Adjust progress bar based on elapsed time
+    const progressBar = document.getElementById('time-progress');
+    progressBar.value = elapsedTime > 20 ? 0 : 20 - elapsedTime;
+}
+
+function submitAnswer(questionId) {
+    const endTime = new Date();
+    const responseTime = (endTime - startTime) / 1000; // Calculate response time in seconds
+    // Here you would call a function to handle the answer submission and calculate points
+    calculatePoints(questionId, responseTime);
+}
+
+function calculatePoints(questionId, responseTime) {
+    // This function would interact with your backend to calculate points based on response time
+    // For demonstration, it's shown here but you'll likely handle this server-side
+}
+
+window.onload = startTimer;
 </script>
 {% endblock %}

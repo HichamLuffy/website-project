@@ -317,52 +317,68 @@ def quiz_questions(quiz_id):
     num_questions = len(questions)
     if request.method == 'POST':
         user_score = 0  # Initialize user's score
-        for question in questions:
+        response_times = request.form.getlist('response_time')
+        for idx, question in enumerate(questions):
             selected_option_id_str = request.form.get(f'question{question.id}')
-            if selected_option_id_str is not None:
+            response_time = float(response_times[idx]) if idx < len(response_times) else 0  # Safe retrieval and conversion
+            if selected_option_id_str:
                 selected_option_id = int(selected_option_id_str)
-                print(f"Question {question.id} selected option ID: {selected_option_id}")
                 selected_option = Option.query.get(selected_option_id)
+                question_score = 0  # Initialize score for this question
+                
+                # Calculate score based on correctness and response time
                 if selected_option and selected_option.is_correct:
-                    user_score += 1  # Increment user's score for each correct answer
+                    base_score = 10  # Correct answer score
+                    speed_bonus = max(0, 5 - (5 * max(0, response_time - 10) / 10))  # Calculate speed bonus
+                    question_score = base_score + speed_bonus
+                    user_score += question_score
 
-            # Save the user's answer and whether it's correct in the database
-            score_entry = Score(
-                user_answer=selected_option.text,
-                is_correct=selected_option.is_correct,
-                score=user_score,  # Update the user's score in the score entry
-                question_id=question.id,
-                quiz_id=quiz.id,
-                user_id=current_user.id  # Assuming you have the current user available through Flask-Login
-            )
-            db.session.add(score_entry)
+                # Save the user's answer and whether it's correct in the database along with score
+                score_entry = Score(
+                    user_answer=selected_option.text if selected_option else '',
+                    is_correct=selected_option.is_correct if selected_option else False,
+                    score=question_score,
+                    question_id=question.id,
+                    quiz_id=quiz.id,
+                    user_id=current_user.id
+                )
+                db.session.add(score_entry)
         
-        # Commit changes to the database
         db.session.commit()
-
         flash('Answers submitted successfully', 'success')
-        return redirect(url_for('quiz_results'))  # Redirect to a results page
+        return redirect(url_for('quiz_results', quiz_id=quiz_id))
     return render_template('quiz_questions.html', title='Quiz Questions', quiz=quiz, questions=questions, total_score=total_score, num_questions=num_questions, image_file=image_file)
 
 
-@app.route('/quiz/results')
+@app.route('/quiz/results/<int:quiz_id>')
 @login_required
-def quiz_results():
+def quiz_results(quiz_id):
     if 'static/' not in current_user.profile.avatar:
         image_file = url_for('static', filename='images/' + current_user.profile.avatar)
     else:
         image_file = '/' + current_user.profile.avatar
-    total_score = get_total_score()
-    # Retrieve the latest score for the current user
-    latest_score = Score.query.filter_by(user_id=current_user.id).order_by(desc(Score.id)).first()
 
-    if latest_score:
-        # Extract the score
-        quiz_score = latest_score.score * 2
-    else:
-        quiz_score = 0
+    # Fetch quiz and related scores for the current user
+    quiz = Quiz.query.get_or_404(quiz_id)
+    scores = Score.query.filter_by(quiz_id=quiz_id, user_id=current_user.id).all()
 
-    return render_template('quiz_results.html', title='Quiz Results', quiz_score=quiz_score, total_score=total_score, image_file=image_file)
+    # Calculate total score and prepare details for each question
+    total_score = sum(score.score for score in scores)
+    details = []
+    for score in scores:
+        question = Question.query.get(score.question_id)
+        # Assuming user_answer stores option ID correctly as a string that can be converted to integer
+        option_id = int(score.user_answer) if score.user_answer.isdigit() else None
+        option = Option.query.get(option_id) if option_id else None
+        detail = {
+            'question_text': question.question_text,
+            'selected_option_text': option.text if option else "N/A",
+            'is_correct': score.is_correct,
+            'score_awarded': score.score
+        }
+        details.append(detail)
+
+    return render_template('quiz_results.html', title='Quiz Results', total_score=total_score, details=details, image_file=image_file)
 
 
 @app.route('/leaderboard')

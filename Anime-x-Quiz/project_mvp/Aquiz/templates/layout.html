@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime x Quiz - {{ title }}</title>
-    <link rel="icon" href="../static/images/logoo.png">
-    <!-- <link rel="stylesheet" href="../static/styles/headerstyle.css"> -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
-    />
-    <link rel="stylesheet" href="../static/styles/postsstyel.css">
-    <link rel="stylesheet" href="../static/styles/profilestyle.css">
-    <link rel="stylesheet" href="../static/styles/alertmsg.css">
-    <link rel="stylesheet" href="../static/styles/quizpage.css">
-    <link rel="stylesheet" href="../static/styles/leaderboard.css">
-    <link rel="stylesheet" href="../static/styles/question.css">
-    <link rel="stylesheet" href="../static/styles/main.css">
-    <link rel="stylesheet" href="../static/styles/createquiz.css">
-
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Anime x Quiz - {{ title }}</title>
+        <link rel="icon" href="{{ url_for('static', filename='images/logoo.png') }}">
+        <!-- Use url_for to correctly reference static files -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/postsstyel.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/profilestyle.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/alertmsg.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/quizpage.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/leaderboard.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/question.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/createquiz.css') }}">
+    </head>
 <body>
     <div class="container">
         <nav class="head">
-            <img src="../static/images/logo.png" alt="Your Logo" class="logopage" type="button">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Your Logo" class="logopage" type="button">
             <ul>
                 <li><a href="{{ url_for('about') }}">Home</a></li>
                 <li>|</li>
@@ -65,10 +60,10 @@
             </div>
         {% endif %}
     {% endwith %}
-    <img src="../static/images/luffyrain.png" alt="background" class="background-img">
+    <img src="{{ url_for('static', filename='images/luffyrain.png') }}" alt="background" class="background-img">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../static/scripts/editprofile.js"></script>
-    <script src="../static/scripts/theme.js"></script>
+    <script src="{{ url_for('static', filename='scripts/editprofile.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/theme.js') }}"></script>
 </body>
 {% if title == 'Home' %}
 <footer class="{{ title }}">

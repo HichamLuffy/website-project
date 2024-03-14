@@ -1,25 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Quiz Results</h1>
-<div>
   <p>Your Score: {{ quiz_score }}</p>
-  <ul>
-    {% for score_entry in user_scores %}
-      <li>
-        Question: {{ score_entry.question.question_text }}
-        {% if score_entry.is_correct %}
-          <span style="color: green;">(Correct)</span>
-        {% else %}
-          <span style="color: red;">(Wrong)</span>
-          <br>
-          Your Answer: {{ score_entry.user_answer }}
-          <br>
-          Correct Answer: {{ score_entry.question.options|selectattr('is_correct', 'equalto', True)|first }}
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
-</div>
-<hr>
+  <h1>Quiz Results</h1>
+    <p>Total Score: {{ total_score }}</p>
+
+    <div>
+        <h2>Details:</h2>
+        <ul>
+            {% for detail in details %}
+                <li>
+                    <strong>Question:</strong> {{ detail.question_text }}<br>
+                    <strong>Your Answer:</strong> {{ detail.selected_option_text }}<br>
+                    <strong>Correct:</strong> {{ 'Yes' if detail.is_correct else 'No' }}<br>
+                    <strong>Points Awarded:</strong> {{ detail.score_awarded }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 <a href="{{ url_for('about') }}">Back to Home</a>
 {% endblock %}
