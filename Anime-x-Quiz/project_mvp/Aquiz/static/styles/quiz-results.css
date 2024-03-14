@@ -1,22 +1,50 @@
 .quiz-results-container {
     text-align: center;
-    color: aliceblue;
+    color: #808080; /* Changed for better readability */
     max-width: 600px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background: rgba( 255, 255, 255, 0.1 );
+    box-shadow: 0 8px 32px 0 rgba(27, 27, 27, 0.37);
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .score-animation, .total-score {
-    font-size: 24px;
+    font-size: 28px; /* Slightly larger */
     margin: 20px 0;
+    font-family: 'Arial', sans-serif; /* Example font */
+    color: #2c3e50; /* Darker color for contrast */
 }
 
-.details h2 {
+.details {
     margin-top: 30px;
 }
 
+.details h2 {
+    margin-bottom: 20px; /* More space above details list */
+}
+
 .detail-item {
+    display: none; /* Start hidden for fadeIn effect */
     text-align: left;
     margin-bottom: 15px;
+    padding-left: 10px; /* Indent text slightly */
+    font-family: 'Arial', sans-serif; /* Consistent font */
+}
+
+.backhome a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #3498db; /* Button-like appearance */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
+}
+
+.backhome a:hover {
+    background-color: #2980b9; /* Darker on hover */
 }
