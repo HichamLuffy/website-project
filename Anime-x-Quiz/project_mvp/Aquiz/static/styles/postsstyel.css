@@ -592,69 +592,114 @@ body {
 .comment-box:last-child {
     margin-right: 0;
 }
-
-.star {
-    color: rgb(0, 0, 0); /* Color for both full and empty stars */
-}
-
 .comments-section {
     position: relative;
-    width: 80%; /* Adjust based on your layout */
-    margin: auto;
-    overflow: hidden; /* Hide overflow */
+    width: 80%;
+    margin: 20px auto;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif; /* Example font */
 }
 
 .comments-container {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    padding: 20px 0;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.comments-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }
 
 .comment-box {
     scroll-snap-align: start;
-    flex: 0 0 auto; /* Adjust size as needed */
-    /* Your existing styles */
+    flex: 0 0 auto;
+    width: 300px; /* Adjust based on your preference */
+    margin: 0 10px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.comment-text {
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+.rating, .user-info {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 5px;
+}
+
+.profile-pic {
+    width: 50px; /* Adjust based on your preference */
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.star {
+    color: #ffdd00; /* Gold color for stars */
+    margin-right: 2px;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#comment-text, #comment-rating {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.comment-form button {
+    width: 80%;
+    padding: 10px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .arrow {
-    position: absolute;
-    top: 50%;
-    background-color: #f9f9f9;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 10;
-    transform: translateY(-50%);
+    background-color: transparent; /* Changed for a cleaner look */
 }
 
-#left-arrow {
-    left: 0;
-}
-
-#right-arrow {
-    right: 0;
-}
-
-.dots-container {
-    text-align: center;
-    padding: 10px 0;
+/* Additional styles for arrows if needed */
+.arrow:hover {
+    background-color: #ddd; /* Light grey on hover */
 }
 
 .dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-color: #ccc;
-    border-radius: 50%;
-    margin: 0 5px;
-    cursor: pointer;
+    width: 12px; /* Slightly larger for better visibility */
 }
 
-.dot.active {
-    background-color: #333; /* Active dot color */
+/* Adjustments for responsiveness */
+@media (max-width: 768px) {
+    .comments-section {
+        width: 95%;
+    }
+
+    .comment-box {
+        width: 260px; /* Smaller boxes on smaller screens */
+    }
 }
-
-
 
 
 /* Responsive styles for tablets */
