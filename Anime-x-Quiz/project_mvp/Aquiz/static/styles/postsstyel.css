@@ -653,3 +653,53 @@ body {
 .dot.active {
     background-color: #333; /* Active dot color */
 }
+
+.testimonials-section {
+    color: white;
+    background-color: black;
+    text-align: center;
+    padding: 20px;
+}
+
+.testimonials-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+.testimonial-box {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 10px;
+    white-space: normal;
+}
+
+.arrow {
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 24px; /* Adjust size as needed */
+}
+
+.dots-container {
+    text-align: center;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #777;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #fff;
+}
