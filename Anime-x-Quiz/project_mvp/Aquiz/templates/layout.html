@@ -65,17 +65,33 @@
             </div>
         {% endif %}
     {% endwith %}
-    <img src="../static/images/luffymarin.png" alt="background" class="background-img">
+    <img src="../static/images/luffyrain.png" alt="background" class="background-img">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../static/scripts/editprofile.js"></script>
     <script src="../static/scripts/theme.js"></script>
 </body>
 {% if title == 'Home' %}
-    <footer class="{{ title }}">
-        <div class="footer">
-            <p>&copy; 2024 Anime x Quiz.</p>
+<footer class="{{ title }}">
+    <div class="footer-bottom">
+        <div class="footer-content">
+            <img src="../static/images/logo.png" alt="Anime Quiz Logo" class="footer-logo">
+            <div class="newsletter">
+                <p>Stay up to date on features and releases by joining our newsletter.</p>
+                <input type="email" placeholder="Your email address" class="email-input">
+                <button type="submit" class="subscribe-btn">Subscribe</button>
+                <p class="privacy-policy">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
+            </div>
+            <div class="social-media">
+                <p>Follow us</p>
+                <a href="#" class="social-link">Facebook</a>
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">LinkedIn</a>
+                <a href="#" class="social-link">Youtube</a>
+            </div>
+            <p>&copy; 2024 Anime x Quiz. Enjoy.</p>
+            <button id="colorControlsButton" class="btn theme-btn" type="button">Theme</button>
         </div>
-        <button id="colorControlsButton" class="btn" type="button">Theme</button>
-    </footer>
+    </div>
+</footer>
 {% endif %}
 </html>
