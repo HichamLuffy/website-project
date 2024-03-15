@@ -16,7 +16,7 @@
     font-size: 28px; /* Slightly larger */
     margin: 20px 0;
     font-family: 'Arial', sans-serif; /* Example font */
-    color: #2c3e50; /* Darker color for contrast */
+    color: #f1f1f1; /* Darker color for contrast */
 }
 
 .details {
@@ -39,12 +39,13 @@
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #3498db; /* Button-like appearance */
-    color: #fff;
+    background-color: #d4d4d4; /* Button-like appearance */
+    color: #5e0000;
     border-radius: 5px;
     text-decoration: none; /* Remove underline */
 }
 
 .backhome a:hover {
-    background-color: #2980b9; /* Darker on hover */
+    background-color: #000000; /* Darker on hover */
+    color: #eeff00;
 }
