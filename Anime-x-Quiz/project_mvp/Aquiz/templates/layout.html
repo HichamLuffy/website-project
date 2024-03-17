@@ -21,6 +21,10 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/scrollanimation.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/alert.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/alert.css') }}">
+
     </head>
 <body>
     <div class="container">
@@ -59,6 +63,7 @@
         </div>
     </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
+<<<<<<< HEAD
         {% if messages %}
             <div class="center">
                 {% for category, message in messages %}
@@ -89,25 +94,61 @@
             </div>
         {% endif %}
     {% endwith %}
+=======
+    {% if messages %}
+        <div class="center">
+            {% for category, message in messages %}
+                <div class="flash-message alert alert-{{ category }} color" role="alert">
+                    {% if category == 'success' %}
+                    <div class="check">
+                        <i class="far fa-check-circle color"></i> &nbsp; &nbsp;
+                        <span>{{ message }}</span>
+                    </div>
+                    {% elif category == 'info' %}
+                    <div class="info">
+                        <i class="fa fa-info-circle spin"></i> &nbsp; &nbsp;
+                        <span>{{ message }}</span>
+                    </div>
+                    {% elif category == 'warning' %}
+                    <div class="warning">
+                        <i class="fa fa-exclamation-triangle rotate"></i> &nbsp; &nbsp;
+                        <span>{{ message }}</span>
+                    </div>
+                    {% elif category == 'danger' %}
+                    <div class="danger">
+                        <i class="far fa-times-circle shine"></i> &nbsp; &nbsp;
+                        <span>{{ message }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+>>>>>>> refs/remotes/origin/main
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='scripts/scrollanimation.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/editprofile.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/theme.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/notification.js') }}"></script>
+<<<<<<< HEAD
     <img src="{{ url_for('static', filename='images/anime2.jpeg') }}" alt="background" class="background-img">
+=======
+    <img src="{{ url_for('static', filename='images/gojo33.png') }}" alt="background" class="background-img">
+>>>>>>> refs/remotes/origin/main
 </body>
 {% if title == 'Home' %}
 <footer class="{{ title }}">
     <div class="footer-bottom">
         <div class="footer-content">
-            <img src="../static/images/logo.png" alt="Anime Quiz Logo" class="footer-logo">
+            <img src="../static/images/logo.png" alt="Anime Quiz Logo" class="footer-logo" style="width: 150px;"> <!-- Increase the image size -->
+            <p>Stay up to date on features and releases by joining our newsletter.</p> <!-- Move the sentence under the image -->
             <div class="newsletter">
-                <p>Stay up to date on features and releases by joining our newsletter.</p>
-                <input type="email" placeholder="Your email address" class="email-input">
-                <button type="submit" class="subscribe-btn">Subscribe</button>
+                <input type="email" placeholder="Your email address" class="email-input" style="font-size: 16px;"> <!-- Increase the input size -->
                 <p class="privacy-policy">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
             </div>
+            <hr> <!-- Add a line between the previous content and the "Follow us" section -->
             <div class="social-media">
                 <p>Follow us</p>
                 <a href="#" class="social-link">Facebook</a>
@@ -120,5 +161,6 @@
         </div>
     </div>
 </footer>
+
 {% endif %}
 </html>

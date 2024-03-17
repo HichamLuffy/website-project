@@ -238,9 +238,26 @@ footer {
 }
 
 .footer-logo {
-    width: 100px; /* Adjust as needed */
+    width: 150px; /* Increase the logo size */
     margin-bottom: 20px; /* Space between logo and newsletter */
 }
+
+.newsletter {
+    margin-bottom: 20px; /* Space between newsletter and social media */
+}
+
+.email-input {
+    font-size: 18px; /* Increase the input size */
+}
+
+.privacy-policy {
+    font-size: 14px; /* Adjust the font size of the privacy policy text */
+}
+
+hr {
+    margin: 20px 0; /* Add space above and below the horizontal line */
+}
+
 
 .newsletter,
 .social-media {
