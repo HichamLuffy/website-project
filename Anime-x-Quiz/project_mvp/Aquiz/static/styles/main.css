@@ -488,6 +488,7 @@
     display: flex;
     justify-content: space-around;
     z-index: 55;
+    flex-wrap: wrap;
 }
 
 
