@@ -14,7 +14,7 @@ from Aquiz.forms import RegisterForm, LoginForm, updateprofileForm, New_QuizForm
 import pymysql.cursors
 from Aquiz.models import User, Profile, Score, Quiz, Question, Option, Follower, Comment
 from flask_login import login_user, current_user, logout_user, login_required
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from datetime import datetime
 from sqlalchemy import desc
 from collections import defaultdict
@@ -513,7 +513,7 @@ def Create_Quiz():
             category=form.category.data,
             level=form.level.data,
             quizpic=quizpfp,  # Assuming you handle file saving elsewhere
-            user_id=current_user.id
+            user_id=current_user.id,
         )
         print(quizpfp)
         db.session.add(new_quiz)
@@ -527,8 +527,41 @@ def Create_Quiz():
         num_questions = int(form.num_questions.data)
         for i in range(1, num_questions + 1):
             question_text = request.form.get(f'question{i}', None)
+            question_image = request.files.get(f'question{i}_image')  # Get the uploaded image
+            question_sound = request.files.get(f'question{i}_sound')  # Get the uploaded sound
+            print('im here question_image', question_image)
+            print('im here question_sound', question_sound)
+            # Save the uploaded image if it exists and is valid
+            if question_image:
+                print('im here question_image')
+                try:
+                    image_path = allowed_file(question_image.filename, ['png', 'jpg', 'jpeg'])
+                    question_image.save(image_path)
+                except ValueError as e:
+                    flash(str(e), 'danger')
+                    return redirect(url_for('Create_Quiz'))  # Redirect to the form
+            else:
+                image_path = None  # No image uploaded or invalid format
+            print('im the image path:', question_image)
+            # Save the uploaded sound if it exists and is valid
+            if question_sound:
+                print('im here question_sound')
+                try:
+                    sound_path = allowed_file(question_sound.filename, ['mp3'])
+                    question_sound.save(sound_path)
+                except ValueError as e:
+                    flash(str(e), 'danger')
+                    return redirect(url_for('Create_Quiz'))  # Redirect to the form
+            else:
+                sound_path = None
+            print('im the sound path:', question_sound)
             if question_text:  # Only proceed if question_text is not None
-                new_question = Question(question_text=question_text, quiz_id=new_quiz.id)
+                new_question = Question(
+                question_text=question_text,
+                quiz_id=new_quiz.id,
+                image_path=image_path,
+                sound_path=sound_path
+                )
                 db.session.add(new_question)
                 db.session.flush()
                 for j in range(1, 5):  # Assuming 4 options per question
@@ -542,15 +575,55 @@ def Create_Quiz():
             except Exception as e:
                 print(f"Error committing to database: {e}")
                 db.session.rollback() 
-        
+        print('im the new_question:', new_question)
         flash('Quiz created successfully!', 'success')
         return redirect(url_for('quiz'))  # Redirect as appropriate
     else:
-        print(form.errors)
-        flash('error something happened', 'danger')
+        print('im error', form.errors)
+        flash('Make sure to fill everything right', 'info')
 
     return render_template('create_quiz.html', title='Create New Quiz', form=form, image_file=image_file)
 
+
+def allowed_file(form_pf, allowed_extensions):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_pf.filename)
+    if f_ext[1:].lower() not in allowed_extensions:
+        flash('File extension not allowed in Question', 'danger')
+        raise ValueError("File extension not allowed")
+        
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/images/imgquestions', picture_fn)
+    print(picture_path)
+
+    form_pf.save(picture_path)  # Save the file
+    img = Image.open(picture_path)  # Open the saved file
+    resize_width = 500
+    # Calculate new height maintaining aspect ratio
+    aspect_ratio = img.height / img.width
+    new_height = int(resize_width * aspect_ratio)
+    
+    img = img.resize((resize_width, new_height))
+    
+    img.save(picture_path)
+
+    return picture_fn
+
+def allowed_audio_file(form_pf, allowed_extensions):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_pf.filename)
+
+    # Check if the file extension is allowed
+    if f_ext[1:].lower() not in allowed_extensions:
+        raise ValueError("File extension not allowed")
+
+    audio_fn = random_hex + f_ext
+    audio_path = os.path.join(app.root_path, 'static/audio', audio_fn)
+    print(audio_path)
+
+    form_pf.save(audio_path)  # Save the file
+
+    return audio_fn
 
 @app.route('/delete_quiz/<int:quiz_id>', methods=['POST'])
 @login_required

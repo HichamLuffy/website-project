@@ -8,8 +8,10 @@
         <link rel="icon" href="{{ url_for('static', filename='images/logoo.png') }}">
         <!-- Use url_for to correctly reference static files -->
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/postsstyel.css') }}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/profilestyle.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/alertmsg.css') }}">
+        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/alertmsg.css') }}"> -->
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/quizpage.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/leaderboard.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/question.css') }}">
@@ -17,6 +19,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/createquiz.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/quiz-results.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/scrollanimation.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/alert.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
     </head>
 <body>
@@ -57,15 +60,32 @@
     </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="flash-messages">
-            {% for category, message in messages %}
-                <div class="flash-message alert alert-{{ category }}" role="alert">
-                {{ message }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            {% endfor %}
+            <div class="center">
+                {% for category, message in messages %}
+                    <div class="flash-message alert alert-{{ category }} color" role="alert">
+                        {% if category == 'success' %}
+                        <div class="check">
+                            <i class="far fa-check-circle color"></i> &nbsp; &nbsp;
+                            <span>{{ message }}</span>
+                        </div>
+                        {% elif category == 'info' %}
+                        <div class="info">
+                            <i class="fa fa-info-circle spin"></i> &nbsp; &nbsp;
+                            <span>{{ message }}</span>
+                        </div>
+                        {% elif category == 'warning' %}
+                        <div class="warning">
+                            <i class="fa fa-exclamation-triangle rotate"></i> &nbsp; &nbsp;
+                            <span>{{ message }}</span>
+                        </div>
+                        {% elif category == 'danger' %}
+                        <div class="danger">
+                            <i class="far fa-times-circle shine"></i> &nbsp; &nbsp;
+                            <span>{{ message }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
         {% endif %}
     {% endwith %}
@@ -74,6 +94,7 @@
     <script src="{{ url_for('static', filename='scripts/scrollanimation.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/editprofile.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/theme.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/notification.js') }}"></script>
     <img src="{{ url_for('static', filename='images/anime2.jpeg') }}" alt="background" class="background-img">
 </body>
 {% if title == 'Home' %}

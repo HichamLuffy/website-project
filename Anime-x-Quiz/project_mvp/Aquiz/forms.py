@@ -8,6 +8,7 @@ from flask_wtf.file import FileField, FileAllowed
 from Aquiz.models import User, Quiz
 from better_profanity import profanity
 from flask_login import current_user
+from flask import flash
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 
@@ -83,7 +84,7 @@ class updateprofileForm(FlaskForm):
 
 class New_QuizForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), validate_no_profanity, Length(min=5, max=40)], render_kw={"class": "form-input"})
-    category = SelectField('Category', choices=[('category0', ''), ('category1', 'Questions'), ('category2', 'Sound'), ('category3', 'Images')], validators=[DataRequired()], render_kw={"class": "form-select"})
+    category = SelectField('Category', choices=[('category0', ''), ('Questions', 'Questions'), ('Sound', 'Sound'), ('Images', 'Images')], validators=[DataRequired()], render_kw={"class": "form-select"})
     level = SelectField('Level', choices=[('easy', 'Easy'), ('medium', 'Medium'), ('hard', 'Hard')], validators=[DataRequired()], render_kw={"class": "form-select"})
     quizpic = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])], render_kw={"class": "form-file"})
     num_questions = IntegerField('Number of Questions', validators=[DataRequired(), NumberRange(min=1, max=10)], render_kw={"class": "form-input"})
@@ -92,6 +93,7 @@ class New_QuizForm(FlaskForm):
     def validate_title(self, title):
         quiz = Quiz.query.filter_by(title=title.data).first()
         if quiz:
+            flash('This Quiz Already Exists. Please choose a different one.', 'danger')
             raise ValidationError('This Quiz Already Exists. Please choose a different one.')
 
     def validate_questions(self, questions):

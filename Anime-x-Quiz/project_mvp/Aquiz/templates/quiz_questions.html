@@ -14,12 +14,12 @@
         <div class="question {% if loop.first %}active{% endif %}">
             <div class="question-box">
                 <h3>{{ question.question_text }}</h3>
-                {% if quiz.category == 'image' and question.image_path %}
+                {% if quiz.category == 'Images' and question.image_path %}
                 <div class="image-box">
                     <img src="{{ question.image_path }}" alt="Question Image">
                 </div>
                 {% endif %}
-                {% if quiz.category == 'sound' and question.sound_path %}
+                {% if quiz.category == 'Sound' and question.sound_path %}
                 <audio controls>
                     <source src="{{ question.sound_path }}" type="audio/mpeg">
                     Your browser does not support the audio element.

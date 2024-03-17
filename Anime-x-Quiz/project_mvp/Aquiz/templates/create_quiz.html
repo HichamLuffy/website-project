@@ -4,7 +4,7 @@
     {{ form.hidden_tag() }}
     <div class="form-section" placeholder="Search quizzes...">
         {{ form.title.label }} {{ form.title() }}
-        {{ form.category.label }} {{ form.category() }}
+        {{ form.category.label }} {{ form.category(id='category') }}
         {{ form.level.label }} {{ form.level() }}
         {{ form.quizpic.label }} {{ form.quizpic() }}
         {{ form.num_questions.label }} {{ form.num_questions() }}
@@ -16,6 +16,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');
     const numQuestionsInput = document.getElementById('num_questions');
+    const categorySelect = document.getElementById('category');
     const questionsContainer = document.getElementById('questions-container');
 
     numQuestionsInput.addEventListener('change', function() {
@@ -25,9 +26,24 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 0; i < numQuestions; i++) {
             const questionDiv = document.createElement('div');
             questionDiv.className = 'question-group';
+            let questionTypeHTML = '';
+            console.log("Selected category:", categorySelect.value); // Debugging
+            if (categorySelect.value === 'Images') {
+                questionTypeHTML = `
+                    <label for="question${i + 1}_image">Upload Image:</label>
+                    <input type="file" id="question${i + 1}_image" name="question${i + 1}_image" accept="image/png, image/jpeg">
+                `;
+            } else if (categorySelect.value === 'Sound') {
+                questionTypeHTML = `
+                    <label for="question${i + 1}_sound">Upload Sound:</label>
+                    <input type="file" id="question${i + 1}_sound" name="question${i + 1}_sound" accept="audio/mpeg">
+                `;
+            }
+            console.log("Question type HTML:", questionTypeHTML); // Debugging
             questionDiv.innerHTML = `
             <div class="question-label">Question ${i + 1}</div>
                 <input type="text" class="question-input" name="question${i + 1}" required>
+                ${questionTypeHTML}
                 <div class="options-container">
                     <input type="text" class="option-input" name="option${i + 1}_1" placeholder="Option 1" required>
                     <input type="text" class="option-input" name="option${i + 1}_2" placeholder="Option 2" required>
