@@ -547,7 +547,7 @@ def Create_Quiz():
         return redirect(url_for('quiz'))  # Redirect as appropriate
     else:
         print(form.errors)
-        flash('error something happened', 'danger')
+        flash('Make sure to fill everything right', 'info')
 
     return render_template('create_quiz.html', title='Create New Quiz', form=form, image_file=image_file)
 

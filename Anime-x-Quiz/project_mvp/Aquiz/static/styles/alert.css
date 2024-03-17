@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Mochiy+Pop+P+One&family=Montserrat&family=Oswald:wght@300&family=Varela+Round&family=ZCOOL+KuaiLe&display=swap');
+
+.flash-messages {
+    margin-bottom: 3px;
+    position: fixed;
+    top: 20px;
+    right: 10px;
+    z-index: 9999;
+}
+.center {
+    position: absolute;
+    margin-bottom: 3px;
+    position: fixed;
+    top: 60px;
+    right: 30px;
+    z-index: 9999;
+}
+
+.check {
+    border-radius: 5px;
+    max-width: 320px;
+    height: 30px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #2B3246;
+    cursor:pointer;
+    box-shadow:  3px 3px 6px #262c3e,
+        -3px -3px 6px #30384e;
+    color: #0ad406;
+    margin: 20px;
+    overflow: hidden; /* Hide overflowing text */
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+}
+.check:hover{
+    background-color: rgba(147, 209, 117, 0.50);
+    transition:0.5s;
+}
+
+.color {
+    animation: color 2s linear infinite;
+}
+
+
+.info {
+    border-radius: 5px;
+    max-width: 320px;
+    height: 30px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #2B3246;
+    cursor:pointer;
+    box-shadow:  3px 3px 6px #262c3e,
+        -3px -3px 6px #30384e;
+    color: rgb(82, 125, 243);
+    margin: 20px;
+    overflow: hidden; /* Hide overflowing text */
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+}
+
+.spin {
+    animation: spin 2s linear infinite;
+}
+
+.info:hover
+{
+    background-color: rgba(82, 125, 243, 0.50);
+    transition:0.5s;
+}
+
+.warning {
+    border-radius: 5px;
+    max-width: 320px;
+    height: 30px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #2B3246;
+    cursor:pointer;
+    box-shadow:  3px 3px 6px #262c3e,
+        -3px -3px 6px #30384e;
+    color: rgb(247, 149, 72);
+    margin: 20px;
+    overflow: hidden; /* Hide overflowing text */
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+}
+
+.warning:hover{
+    background-color: rgba(247, 149, 73, 0.50);
+    transition:0.5s;
+}
+
+
+.rotate {
+    animation: rotate 2s linear infinite;
+}
+.danger {
+    border-radius: 5px;
+    max-width: 320px;
+    height: 30px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #2B3246;
+    cursor:pointer;
+    box-shadow:  3px 3px 6px #262c3e,
+        -3px -3px 6px #30384e;
+    color: rgb(255, 10, 1);
+    margin: 20px;
+    overflow: hidden; /* Hide overflowing text */
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+}
+
+.danger:hover
+{
+    background-color: rgba(255, 10, 1, 0.33);
+    transition:0.5s;
+}
+
+
+.shine {
+    animation: shine 2s linear infinite;
+}
+@keyframes spin {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+
+@keyframes color {
+50% {
+    color: #2B3246;
+}
+100% {
+    color: #0ad406;
+}
+}
+
+@keyframes rotate {
+0% {
+    transform: rotate(0deg);
+}
+20% {
+    transform: rotate(90deg);
+}
+40% {
+    transform: rotate(0deg);
+}
+80% {
+    transform: rotate(-90deg);
+}
+}
+
+@keyframes shine {
+0% {
+    color: #2B3246;
+}
+50% {
+    text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 40px red,
+    0 0 60px red,
+    0 0 80px red;
+}
+}
