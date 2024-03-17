@@ -145,6 +145,7 @@
 </section>
 
 <!-- FAQ Section -->
+
 <section  class="faq-section scrollefeect">
         <h2 class="faq-title">FAQs</h2>
         <p class="faq-subtitle">Find answers to commonly asked questions about using our site, the scoring system, and earning badges.</p>
@@ -177,6 +178,63 @@
         </div>
     </div>
 </section>
+<!--  social media  -->
+<section  class="socialmedia">
+    <div class="socialmediacontainer ">
+        <div class="socialmediacard scrollesocialmedia">
+            <div class="face face1">
+                <div class="socialmediacontent">
+                    <div class="socialmediaicon">
+                        <i class="fa fa-youtube-square" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="socialmediacontent">
+                    <h3>
+                        <a href="https://www.linkedin.com/in/adamdipinto/" target="_blank">_adamdipinto</a>
+                    </h3>
+                    <p>This is where we show the INCOMING UPDATES AND MORE FEATURES </p>
+                </div>
+            </div>
+        </div>
+        <div class="socialmediacard scrollesocialmedia">
+            <div class="face face1">
+                <div class="socialmediacontent">
+                    <div class="socialmediaicon">
+                        <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="socialmediacontent">
+                    <h3>
+                        <a href="https://twitter.com/AdamDipinto" target="_blank">@AdamDipinto</a>
+                    </h3>
+                    <p>This is where we read your opinions and networking with you.</p>
+                </div>
+            </div>
+        </div>
+        <div class="socialmediacard scrollesocialmedia">
+            <div class="face face1">
+                <div class="socialmediacontent">
+                    <div class="socialmediaicon">
+                        <i class="fa fa-github-square" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="socialmediacontent">
+                    <h3>
+                        <a href="https://github.com/HichamLuffy/website-project" target="_blank">atom888</a>
+                    </h3>
+                    <p>This is where we share code and work on projects.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <!-- Video and Sign Up Section -->
 <div class="video-signup-section scrollefeect">
@@ -220,10 +278,12 @@ const hiddenElements = document.querySelectorAll('.scrollefeect');
 const hiddenscrollefeectteam = document.querySelectorAll('.scrollefeectteam');
 const hiddenscrollefeecttext = document.querySelectorAll('.scrollefeecttext');
 const hiddenscrollefeectteam1 = document.querySelectorAll('.scrollefeectteam1');
+const hiddenscrollesocialmedia = document.querySelectorAll('.scrollesocialmedia');
 hiddenElements.forEach((el) => observer.observe(el));
 hiddenscrollefeecttext.forEach((el) => observer.observe(el));
 hiddenscrollefeectteam.forEach((el) => observer.observe(el));
 hiddenscrollefeectteam1.forEach((el) => observer.observe(el));
+hiddenscrollesocialmedia.forEach((el) => observer.observe(el));
 
 function fetchAndAppendComments() {
   fetch('/comments')

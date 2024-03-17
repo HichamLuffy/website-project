@@ -2,6 +2,7 @@
 
 
 .scrollefeect{
+    z-index: 50;
     opacity: 0;
     transform: translateY(20px);
     overflow-y: auto;
@@ -9,18 +10,41 @@
 
 }
 
+.scrollesocialmedia{
+    opacity: 0;
+    z-index: 50;
+    filter: blur(3px);
+    transform: translateX(-60%);
+    transition: all 0.6s ease-out;
+}
+
+.socialmediacard:nth-child(1) {
+    transition-delay: 100ms;
+  }
+  
+.socialmediacard:nth-child(2) {
+    transition-delay: 300ms;
+  }
+  
+.socialmediacard:nth-child(3) {
+    transition-delay: 500ms;
+  }
+
 .scrollefeecttext{
     opacity: 0;
+    z-index: 50;
     filter: blur(5px);
     transform: translateX(-100%);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .scrollefeect::-webkit-scrollbar {
+    z-index: 50;
     width: 0; /* Hide the scrollbar */
 }
 
 .scrollefeectteam{
+    z-index: 50;
     opacity: 0;
     filter: blur(5px);
     transform: translateX(-90%);
@@ -28,6 +52,7 @@
 }
 
 .scrollefeectteam1{
+    z-index: 50;
     opacity: 0;
     filter: blur(5px);
     transform: translateX(-70%);
@@ -36,6 +61,7 @@
 
 
 .showscroll{
+    z-index: 50;
     opacity: 1;
     filter: blur(0);
     transform: translate(0);
@@ -45,9 +71,11 @@
 
 
 .team-member:nth-child(1){
+    z-index: 50;
     transition-delay: 100ms;
 }
 
 .team-member:nth-child(2){
+    z-index: 50;
     transition-delay: 200ms;
 }

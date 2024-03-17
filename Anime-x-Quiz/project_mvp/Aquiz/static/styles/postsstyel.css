@@ -371,6 +371,7 @@ hr {
 /* Post styles */
 section {
     padding: 20px 0;
+    z-index: 22;
 }
 /* .head {
     display: flex;
