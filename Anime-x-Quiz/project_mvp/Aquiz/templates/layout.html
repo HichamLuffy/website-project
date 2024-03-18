@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
         <title>Anime x Quiz - {{ title }}</title>
         <link rel="icon" href="{{ url_for('static', filename='images/logoo.png') }}">
         <!-- Use url_for to correctly reference static files -->
@@ -24,6 +25,8 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/alert.css') }}">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
 
     </head>
 <body>
@@ -143,24 +146,22 @@
     <div class="footer-bottom">
         <div class="footer-content">
             <img src="../static/images/logo.png" alt="Anime Quiz Logo" class="footer-logo" style="width: 150px;"> <!-- Increase the image size -->
-            <p>Stay up to date on features and releases by joining our newsletter.</p> <!-- Move the sentence under the image -->
-            <div class="newsletter">
-                <input type="email" placeholder="Your email address" class="email-input" style="font-size: 16px;"> <!-- Increase the input size -->
-                <p class="privacy-policy">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
-            </div>
             <hr> <!-- Add a line between the previous content and the "Follow us" section -->
-            <div class="social-media">
-                <p>Follow us</p>
-                <a href="#" class="social-link">Facebook</a>
-                <a href="#" class="social-link">Instagram</a>
-                <a href="#" class="social-link">LinkedIn</a>
-                <a href="#" class="social-link">Youtube</a>
+            <p>Follow us</p>
+            <div class="social-mediaa">
+                
+                <a href="#" class="social-link"><img src="../static/images/logos/facebook_logo.png" alt="Facebook" class="social-icon"></a>
+                <a href="#" class="social-link"><img src="../static/images/logos/instagram_logo.png" alt="Instagram" class="social-icon"></a>
+                <a href="#" class="social-link"><img src="../static/images/logos/linkedin_logo.png" alt="LinkedIn" class="social-icon"></a>
+                <a href="#" class="social-link"><img src="../static/images/logos/youtube_logo.png" alt="YouTube" class="social-icon"></a>
             </div>
-            <p>&copy; 2024 Anime x Quiz. Enjoy.</p>
+            
             <button id="colorControlsButton" class="btn theme-btn" type="button">Theme</button>
         </div>
     </div>
+    <p>&copy; 2024 Anime x Quiz. Enjoy.</p>
 </footer>
+
 
 {% endif %}
 </html>

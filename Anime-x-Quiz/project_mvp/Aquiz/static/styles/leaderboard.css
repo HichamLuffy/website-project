@@ -29,6 +29,9 @@
 }
 
 .user-entry {
+  list-style: none;
+  text-decoration: none;
+  color: white;
   text-align: center;
   margin: 0 20px; /* Add space between the entries */
 }
@@ -98,6 +101,16 @@
 /* Styling for the usernames and scores */
 .user-info .username, .user-info .score {
   display: block; /* Ensure that username and score are on separate lines */
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.username a {
+  font-family: Arial, Helvetica, sans-serif;
+  list-style: none;
+  text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .user-info .score {
@@ -184,6 +197,20 @@
 
 .usersusername {
   font-weight: bold;
+  list-style: none;
+  text-decoration: none;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  flex-grow: 1; /* Allow the username to fill the space */
+  text-align: left; /* Align username to the left */
+}
+
+.usersusername a {
+  font-weight: bold;
+  list-style: none;
+  text-decoration: none;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
   flex-grow: 1; /* Allow the username to fill the space */
   text-align: left; /* Align username to the left */
 }

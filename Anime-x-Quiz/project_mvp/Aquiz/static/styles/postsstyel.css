@@ -225,16 +225,20 @@ footer {
     background-color: #000000;
     color: #fff; /* Ensure text is fully opaque white */
     padding: 20px;
-    font-family: Arial, sans-serif;
+    font-family:  'inter', serif;
     border-top: 1px solid #ffffff; /* Use hexadecimal color for semi-transparent border */
 }
 
+.footer p{
+    font-family:  'inter', serif;
+}
 .footer-content {
     z-index: 99999;
     display: flex;
     /* flex-direction: column; */
-    justify-content: space-between;
-    align-items: flex-start; /* Align items to the left for a column flex-direction */
+    padding: 50px;
+    justify-content: space-around;
+    align-items: center; /* Align items to the left for a column flex-direction */
 }
 
 .footer-logo {
@@ -242,24 +246,14 @@ footer {
     margin-bottom: 20px; /* Space between logo and newsletter */
 }
 
-.newsletter {
-    margin-bottom: 20px; /* Space between newsletter and social media */
-}
-
-.email-input {
-    font-size: 18px; /* Increase the input size */
-}
-
-.privacy-policy {
-    font-size: 14px; /* Adjust the font size of the privacy policy text */
+.social-media {
+    margin-left: 20px; /* Add space between the vertical line and social media */
 }
 
 hr {
     margin: 20px 0; /* Add space above and below the horizontal line */
 }
 
-
-.newsletter,
 .social-media {
     text-align: left;
     margin-bottom: 20px; /* Space between newsletter and social media links */
@@ -280,10 +274,7 @@ hr {
     cursor: pointer;
 }
 
-.privacy-policy {
-    font-size: 0.8em;
-    color: #fff; /* Ensure text is fully opaque white */
-}
+
 
 
 .social-media p,
@@ -371,6 +362,7 @@ hr {
 /* Post styles */
 section {
     padding: 20px 0;
+    z-index: 22;
 }
 /* .head {
     display: flex;
@@ -716,6 +708,18 @@ body {
     width: 12px; /* Slightly larger for better visibility */
 }
 
+/* footer style */
+
+.social-mediaa {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.social-icon {
+    width: 20px; /* Adjust the size of the icons */
+    height: 20px; /* Adjust the size of the icons */
+}
+
 /* Adjustments for responsiveness */
 @media (max-width: 768px) {
     .comments-section {
@@ -754,6 +758,7 @@ body {
     }
 
     .footer-content {
+        display: block;
         flex-direction: column;
         align-items: center;
     }
