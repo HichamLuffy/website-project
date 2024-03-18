@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
         <title>Anime x Quiz - {{ title }}</title>
         <link rel="icon" href="{{ url_for('static', filename='images/logoo.png') }}">
         <!-- Use url_for to correctly reference static files -->
@@ -21,6 +22,8 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/alert.css') }}">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
 
     </head>
 <body>
@@ -102,13 +105,15 @@
 <footer class="{{ title }}">
     <div class="footer-bottom">
         <div class="footer-content">
-            <img src="../static/images/logo.png" alt="Anime Quiz Logo" class="footer-logo"> <!-- Anime Quiz Logo -->
-            <div class="social-media">
-                <p>Follow us</p>
-                <a href="#" class="social-link"><img src="../static/images/fb.png" alt="Facebook" style="width: 20px;"> Facebook</a> <!-- Facebook logo image -->
-                <a href="#" class="social-link"><img src="../static/images/ig.png" alt="Instagram" style="width: 20px;"> Instagram</a> <!-- Instagram logo image -->
-                <a href="#" class="social-link"><img src="../static/images/linkedin.png" alt="LinkedIn" style="width: 20px;"> LinkedIn</a> <!-- LinkedIn logo image -->
-                <a href="#" class="social-link"><img src="../static/images/youtube.png" alt="YouTube" style="width: 20px;"> YouTube</a> <!-- YouTube logo image -->
+            <img src="../static/images/logo.png" alt="Anime Quiz Logo" class="footer-logo" style="width: 150px;"> <!-- Increase the image size -->
+            <hr> <!-- Add a line between the previous content and the "Follow us" section -->
+            <p>Follow us</p>
+            <div class="social-mediaa">
+                
+                <a href="#" class="social-link"><img src="../static/images/logos/facebook_logo.png" alt="Facebook" class="social-icon"></a>
+                <a href="#" class="social-link"><img src="../static/images/logos/instagram_logo.png" alt="Instagram" class="social-icon"></a>
+                <a href="#" class="social-link"><img src="../static/images/logos/linkedin_logo.png" alt="LinkedIn" class="social-icon"></a>
+                <a href="#" class="social-link"><img src="../static/images/logos/youtube_logo.png" alt="YouTube" class="social-icon"></a>
             </div>
             
             <button id="colorControlsButton" class="btn theme-btn" type="button">Theme</button>

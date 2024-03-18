@@ -20,6 +20,7 @@ from sqlalchemy import desc
 from collections import defaultdict
 
 
+
 bp = Blueprint('main', __name__)
 
 
