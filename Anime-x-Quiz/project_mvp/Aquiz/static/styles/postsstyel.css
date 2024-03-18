@@ -224,7 +224,6 @@ footer {
     z-index: 99999;
     background-color: #000000;
     color: #fff; /* Ensure text is fully opaque white */
-    padding: 20px;
     font-family:  'inter', serif;
     border-top: 1px solid #ffffff; /* Use hexadecimal color for semi-transparent border */
 }
@@ -242,8 +241,8 @@ footer {
 }
 
 .footer-logo {
-    width: 150px; /* Increase the logo size */
-    margin-bottom: 20px; /* Space between logo and newsletter */
+    width: 60px; /* Increase the logo size */
+    margin-bottom: 1px; /* Space between logo and newsletter */
 }
 
 .social-media {

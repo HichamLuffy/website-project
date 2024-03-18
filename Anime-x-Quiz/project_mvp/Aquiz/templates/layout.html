@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/leaderboard.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/question.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/createquiz.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/quiz-results.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/scrollanimation.css') }}">
@@ -66,38 +67,6 @@
         </div>
     </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
-<<<<<<< HEAD
-        {% if messages %}
-            <div class="center">
-                {% for category, message in messages %}
-                    <div class="flash-message alert alert-{{ category }} color" role="alert">
-                        {% if category == 'success' %}
-                        <div class="check">
-                            <i class="far fa-check-circle color"></i> &nbsp; &nbsp;
-                            <span>{{ message }}</span>
-                        </div>
-                        {% elif category == 'info' %}
-                        <div class="info">
-                            <i class="fa fa-info-circle spin"></i> &nbsp; &nbsp;
-                            <span>{{ message }}</span>
-                        </div>
-                        {% elif category == 'warning' %}
-                        <div class="warning">
-                            <i class="fa fa-exclamation-triangle rotate"></i> &nbsp; &nbsp;
-                            <span>{{ message }}</span>
-                        </div>
-                        {% elif category == 'danger' %}
-                        <div class="danger">
-                            <i class="far fa-times-circle shine"></i> &nbsp; &nbsp;
-                            <span>{{ message }}</span>
-                        </div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-=======
     {% if messages %}
         <div class="center">
             {% for category, message in messages %}
@@ -128,40 +97,110 @@
         </div>
     {% endif %}
 {% endwith %}
->>>>>>> refs/remotes/origin/main
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='scripts/scrollanimation.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/editprofile.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/theme.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/notification.js') }}"></script>
-<<<<<<< HEAD
     <img src="{{ url_for('static', filename='images/anime2.jpeg') }}" alt="background" class="background-img">
-=======
-    <img src="{{ url_for('static', filename='images/gojo33.png') }}" alt="background" class="background-img">
->>>>>>> refs/remotes/origin/main
 </body>
 {% if title == 'Home' %}
-<footer class="{{ title }}">
-    <div class="footer-bottom">
-        <div class="footer-content">
-            <img src="../static/images/logo.png" alt="Anime Quiz Logo" class="footer-logo" style="width: 150px;"> <!-- Increase the image size -->
-            <hr> <!-- Add a line between the previous content and the "Follow us" section -->
-            <p>Follow us</p>
-            <div class="social-mediaa">
-                
-                <a href="#" class="social-link"><img src="../static/images/logos/facebook_logo.png" alt="Facebook" class="social-icon"></a>
-                <a href="#" class="social-link"><img src="../static/images/logos/instagram_logo.png" alt="Instagram" class="social-icon"></a>
-                <a href="#" class="social-link"><img src="../static/images/logos/linkedin_logo.png" alt="LinkedIn" class="social-icon"></a>
-                <a href="#" class="social-link"><img src="../static/images/logos/youtube_logo.png" alt="YouTube" class="social-icon"></a>
-            </div>
-            
+<footer class="footer">
+    
+<div class="footercontainer">
+    <img src="../static/images/logo.png" alt="Anime Quiz Logo" class="footer-logo" style="width: 150px;">
+    <div class="footer__columns">
+        <div class="footer__col">
+            <h3 class="footer__col-title">
+            <i data-feather="shopping-bag"></i> <span>MENU</span></h3>
+            <nav class="footer__nav">
+            <ul class="footer__nav-list">
+                <li class="footer__nav-item">
+                <a href="{{ url_for('about') }}" class="footer__nav-link">
+                    LANDING PAGE
+                </a>
+                </li>
+                <li class="footer__nav-item">
+                <a href="{{ url_for('quiz') }}" class="footer__nav-link">
+                    Quizzes
+                </a>
+                </li>
+                <li class="footer__nav-item">
+                <a href="/Create_Quiz" class="footer__nav-link">
+                    Create Quizzes
+                </a>
+                </li>
+                <li class="footer__nav-item">
+                <a href="{{ url_for('leaderboard') }}" class="footer__nav-link">
+                    Leaderboard
+                </a>
+                </li>
+                <li class="footer__nav-item">
+                <a href="{{ url_for('account') }}" class="footer__nav-link">
+                    Edit Your Profile
+                </a>
+                </li>
+            </ul>
+            </nav>
+        </div>
+        <div class="footer__col">
+            <h3 class="footer__col-title">
+            <i data-feather="share-2"></i> <span>Follow us</span></h3>
+            <nav class="footer__nav">
+            <ul class="footer__nav-list">
+                <li class="footer__nav-item">
+                <a href="" class="footer__nav-link">
+                    <i data-feather="youtube"></i><span>Youtube</span>
+                </a>
+                </li>
+                <li class="footer__nav-item">
+                <a href="" class="footer__nav-link">
+                    <i data-feather="facebook"></i><span>Facebook</span>
+                    
+                </a>
+                </li>
+                <li class="footer__nav-item">
+                <a href="" class="footer__nav-link">
+                    <i data-feather="instagram"></i><span>Instagram</span>
+                    
+                </a>
+                </li>
+            </ul>
+            </nav>
+        </div>
+        <div class="footer__col">
+            <h3 class="footer__col-title">
+            <i data-feather="send"></i> <span>Contact</span></h3>
+            <nav class="footer__nav">
+            <ul class="footer__nav-list">
+                <li class="footer__nav-item">
+                <a href="mailto:contact.imalexvssteve2020@gmail.com" class="footer__nav-link">
+                    imalexvssteve2020@gmail.com
+                </a>
+                <li class="footer__nav-item">
+                    <a href="mailto:loubna.alfidi@gmail.com" class="footer__nav-link">
+                        loubna.alfidi@gmail.com
+                    </a>
+                </li>
+            </ul>
+            </nav>
+        </div>
+        </div>
+        <div class="footer__copyrights">
+            <p>&copy; 2024 Anime x Quiz. Enjoy.</p>
             <button id="colorControlsButton" class="btn theme-btn" type="button">Theme</button>
         </div>
     </div>
-    <p>&copy; 2024 Anime x Quiz. Enjoy.</p>
 </footer>
-
-
+{% else %}
+    <footer class="footercontainer">
+        <div class="footer__columns">
+            <div class="footer__copyrights">
+                <p>&copy; 2024 Anime x Quiz. Enjoy.</p>
+                <button id="colorControlsButton" class="btn theme-btn" type="button">Theme</button>
+            </div>
+        </div>
+    </footer>
 {% endif %}
 </html>

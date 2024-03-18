@@ -9,9 +9,9 @@
   padding: 20px;
   color: white;
   width: 60%;
-  position: absolute;
+  position: relative;
   left: 50%;
-  transform: translate(-50%, 10%);
+  transform: translate(-50%, -5%);
   margin-top: 60px;
 }
 

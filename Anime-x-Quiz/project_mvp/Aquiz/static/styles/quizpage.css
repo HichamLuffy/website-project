@@ -82,7 +82,8 @@ p , h2{
 }
 
 .quizzes-column {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+  padding-bottom: 120px;
   text-align: center;
   margin-top: 20px;
 }
