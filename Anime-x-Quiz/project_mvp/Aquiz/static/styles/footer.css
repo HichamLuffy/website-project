@@ -10,8 +10,7 @@
 
 .footer {
   position: relative;
-  margin-top: 300px;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   color: #fff;
   background: #000000;
   margin-top: auto;
@@ -23,8 +22,8 @@
 }
 
 .footer__col-title {
-  font-size: 1.6rem;
-  margin-bottom: 2rem;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -48,15 +47,15 @@
 .footer__nav-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .footer__copyrights {
   display: flex;
   justify-content: center;
-  padding-top: 1rem;
-  margin-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.2);
 }
 
 .footer__copyrights p a {
