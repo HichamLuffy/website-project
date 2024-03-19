@@ -1,4 +1,0 @@
-[build]
-  command = "pip install -r requirements.txt && python3 run.py"
-  publish = "Anime-x-Quiz/project_mvp/Aquiz/"
-  functions = "Anime-x-Quiz/project_mvp/Aquiz/"
