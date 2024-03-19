@@ -18,6 +18,5 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'Login_page'
-# login_manager.login_message_category = 'info'
 
 from Aquiz import routes

@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Clash Display';
+    src: url('../fonts/ClashDisplay-Bold.otf') format('woff2'), /* Path to .woff2 file */
+         url('../fonts/ClashDisplay-Regular.otf') format('woff'); /* Path to .woff file */
+    /* Add additional font formats if available */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/Helvetica.ttf') format('woff2'),
+         url('../fonts/Helvetica-Bold.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'inter';
+    src: url('../fonts/InterVariable.ttf') format('woff2'),
+         url('../fonts/InterVariable.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Another_America';
+    src: url('../fonts/Another_America.ttf') format('woff2'), /* Path to .woff2 file */
+         url('../fonts/Another_America.ttf') format('woff'); /* Path to .woff file */
+    /* Add additional font formats if available */
+    font-weight: normal;
+    font-style: normal;
+}

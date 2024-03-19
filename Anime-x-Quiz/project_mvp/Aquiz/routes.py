@@ -85,8 +85,7 @@ def get_total_score():
         return total_score
     else:
         # Return 0 or handle the case when the user is not authenticated
-        return 0  # You can adjust this based on your requirements
-
+        return 0
 
 def get_leaderboard_data():
     # Query database to retrieve users with their total scores, ordered by score in descending order
@@ -124,22 +123,6 @@ def about():
         return render_template('main.html', title='Home', total_score=total_score, image_file=image_file)
     return render_template('main.html', title='Home')
 
-# @app.route('/main/posts')
-# def posts_page():
-#     with connection.cursor() as cursor:
-#         cursor.execute('SELECT * FROM posts')
-#         posts = cursor.fetchall()
-#     return render_template('posts.html', posts=posts, title='posts')
-
-
-@app.route('/Quiz')
-def quiz_page():
-    if 'static/' not in current_user.profile.avatar:
-        image_file = url_for('static', filename='images/' + current_user.profile.avatar)
-    else:
-        image_file = '/' + current_user.profile.avatar
-    total_score = get_total_score()
-    return render_template('quiz.html', title='Quiz', total_score=total_score, image_file=image_file)
 
 
 @app.route('/main/profile')
@@ -246,7 +229,6 @@ def account():
     user = User.query.get_or_404(current_user.id)
     followers_count = user.followers.count()
     following_count = user.following.count()
-    # quizzes = Quiz.query.all()
     quizzes = Quiz.query.filter_by(user_id=current_user.id).all()
     print('hello i aam', current_user.id)
     print('hello we are ', quizzes)
@@ -316,6 +298,7 @@ def quiz_questions(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
     questions = quiz.questions
     num_questions = len(questions)
+    print('Quiz category is: ', quiz.category)
     if request.method == 'POST':
         user_score = 0  # Initialize user's score
         response_times = request.form.getlist('response_time')

@@ -7,12 +7,11 @@
         
         <title>Anime x Quiz - {{ title }}</title>
         <link rel="icon" href="{{ url_for('static', filename='images/logoo.png') }}">
-        <!-- Use url_for to correctly reference static files -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/postsstyel.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/font.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/layoutstyel.css') }}">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/profilestyle.css') }}">
-        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/alertmsg.css') }}"> -->
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/quizpage.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/leaderboard.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/question.css') }}">
@@ -44,7 +43,6 @@
            
             {% if current_user.is_authenticated %}
             <button class="btn"><a href="{{ url_for('account') }}"><img src="{{ image_file }}" alt="Profile Picture">{{ current_user.username }}</a></button>
-            <!-- <button class="btn"><a href="{{ url_for('logout_page') }}">lOGOUT</a></button> -->
             {% else %}
                 <button class="btn"><a href="{{ url_for('Login_page') }}">Login</a></button>
                 <button class="btn"> <a href="{{ url_for('register_page') }}">Sign-Up</a></button>

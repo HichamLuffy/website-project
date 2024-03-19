@@ -1,6 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap");
 
 
+footer {
+  z-index: 99999;
+  background-color: #000000;
+  color: #fff; /* Ensure text is fully opaque white */
+  font-family:  'inter', serif;
+  border-top: 1px solid #ffffff; /* Use hexadecimal color for semi-transparent border */
+}
 
 .footercontainercontainer {
   width: 100%;

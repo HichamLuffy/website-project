@@ -14,12 +14,10 @@
     width: 100%; /* Adjusted to ensure responsiveness */
     min-height: 100vh;
     background: rgb(2,0,36);
-    /* background: radial-gradient(at top, rgba(158, 50, 0, 0.76) 0%, rgba(0, 0, 0, 0.589) 60%, rgb(0, 0, 0) 100%); */
     background: linear-gradient(150deg, rgba(2,0,36,1) 0%, rgba(26, 114, 239, 0.819) 0%, rgba(0,0,0,1) 71%);
     background-size: cover;
     z-index: -26;
     background-position: center;
-    /* padding: 0.5px 2%; */
 }
 
 .gradient-controls-container {
@@ -124,44 +122,6 @@
     padding: 0;
 }
 
-@font-face {
-    font-family: 'Clash Display';
-    src: url('../fonts/ClashDisplay-Bold.otf') format('woff2'), /* Path to .woff2 file */
-         url('../fonts/ClashDisplay-Regular.otf') format('woff'); /* Path to .woff file */
-    /* Add additional font formats if available */
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Helvetica';
-    src: url('../fonts/Helvetica.ttf') format('woff2'),
-         url('../fonts/Helvetica-Bold.ttf') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'inter';
-    src: url('../fonts/InterVariable.ttf') format('woff2'),
-         url('../fonts/InterVariable.ttf') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* Apply Poppins font to the body */
-/* body {
-    font-family: 'Poppins', sans-serif;
-    background-image: url('../images/peakpx.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: #ccc;
-    min-height: 100vh; /* Ensure body extends to at least viewport height 
-    display: flex;
-    flex-direction: column;
-} 
-*/
 
 
 /* Header styles */
@@ -182,6 +142,14 @@
     margin-right: -50px;
 }
 
+.user-button img {
+    width: 100px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+    border-radius: 50%;
+    object-fit: cover; /* Resize the image to cover the container */
+    margin-bottom: 10px;
+}
+
 .head img {
     z-index: 3;
 }
@@ -192,7 +160,6 @@
     width: 100%;
     padding: 0.5px 0px;
     text-align: center; /* Center the list items */
-    /* margin-left: 10px; */
 }
 
 .head ul li {
@@ -216,34 +183,10 @@
 .head ul li a:hover {
     color: #ffffff;
     transform: scale(1.1); /* Scale up to 1.1 times on hover */
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  Add a subtle shadow on hover */
 }
 
-/* Footer styles */
-footer {
-    z-index: 99999;
-    background-color: #000000;
-    color: #fff; /* Ensure text is fully opaque white */
-    font-family:  'inter', serif;
-    border-top: 1px solid #ffffff; /* Use hexadecimal color for semi-transparent border */
-}
 
-.footer p{
-    font-family:  'inter', serif;
-}
-.footer-content {
-    z-index: 99999;
-    display: flex;
-    /* flex-direction: column; */
-    padding: 50px;
-    justify-content: space-around;
-    align-items: center; /* Align items to the left for a column flex-direction */
-}
 
-.footer-logo {
-    width: 60px; /* Increase the logo size */
-    margin-bottom: 1px; /* Space between logo and newsletter */
-}
 
 .social-media {
     margin-left: 20px; /* Add space between the vertical line and social media */
@@ -283,12 +226,6 @@ hr {
     color: #fff; /* Ensure text is fully opaque white */
 }
 
-.footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px; /* Space between content and bottom */
-}
 
 .theme-btn {
     padding: 5px 10px;
@@ -363,10 +300,6 @@ section {
     padding: 20px 0;
     z-index: 22;
 }
-/* .head {
-    display: flex;
-    align-items: center;
-} */
 
 .logopage {
     margin-left: 40px; /* Adjust the left margin of the logo image */
@@ -406,19 +339,7 @@ section {
 .content-text {
     margin-left: 5%; /* Move the text container to the right */
 }
-/* img{
 
-    height: 90px;
-    width: auto;
-    margin-right: 10px;
-    margin-top: -10px;
-    margin-left: -10px; } */
-
-/* .backgroundimage {
-    position: fixed;
-    z-index: 1; /* Ensure the image stays behind the content 
-    mix-blend-mode: overlay;
-} */
 .background-img {
     pointer-events: none;
     position: fixed;
@@ -595,7 +516,6 @@ body {
     border-radius: 50%; /* Makes the image round */
 }
 
-/* Ensure the last comment box doesn't have a margin to the right for aesthetic purposes */
 .comment-box:last-child {
     margin-right: 0;
 }
@@ -707,7 +627,6 @@ body {
     width: 12px; /* Slightly larger for better visibility */
 }
 
-/* footer style */
 
 .social-mediaa {
     display: flex;
@@ -754,19 +673,6 @@ body {
     .newsletter p,
     .privacy-policy {
         font-size: smaller; /* Adjust font size for smaller screens */
-    }
-
-    .footer-content {
-        display: block;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .footer-logo,
-    .newsletter,
-    .social-media {
-        width: 100%; /* Full width for smaller screens */
-        text-align: center;
     }
 
     .email-input,

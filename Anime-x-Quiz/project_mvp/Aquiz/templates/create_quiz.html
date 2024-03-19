@@ -2,6 +2,7 @@
 {% block content %}
 <form method="POST" enctype="multipart/form-data" class="createform">
     {{ form.hidden_tag() }}
+    <!-- create quiz form -->
     <div class="form-section" placeholder="Search quizzes...">
         {{ form.title.label }} {{ form.title() }}
         {{ form.category.label }} {{ form.category(id='category') }}
